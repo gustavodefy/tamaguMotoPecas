@@ -1,0 +1,64 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17/03/2016, 10:05:05
+    Author     : Thayro
+*/
+
+div{
+    background-color: red;
+    font-family: "Arial";
+    color: white;
+}
+table{
+    margin-left: 0px;
+}
+
+.teste{
+    background-color: black;
+    box-shadow: 0px 0px 50px black;
+    box-sizing: border-box;
+}
+.produto{
+    font-family: "Arial Black";
+    color: #1e62d0;
+}
+.preco{
+    
+    font-family: "Arial";
+    color: #89c403;
+}
+.comprar {
+	font-size:12px;
+	font-family:Georgia;
+	font-weight:normal;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	border-radius:7px;
+	border:1px solid #74b807;
+	padding:6px 18px;
+	text-decoration:none;
+	background:-moz-linear-gradient( center top, #89c403 5%, #77a809 100% );
+	background:-ms-linear-gradient( top, #89c403 5%, #77a809 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#89c403', endColorstr='#77a809');
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #89c403), color-stop(100%, #77a809) );
+	background-color:#89c403;
+	color:#ffffff;
+	display:inline-block;
+	text-shadow:1px 1px 0px #528009;
+ 	-webkit-box-shadow:inset 1px 2px 0px 0px #a4e271;
+ 	-moz-box-shadow:inset 1px 2px 0px 0px #a4e271;
+ 	box-shadow:inset 1px 2px 0px 0px #a4e271;
+}.comprar:hover {
+	background:-moz-linear-gradient( center top, #77a809 5%, #89c403 100% );
+	background:-ms-linear-gradient( top, #77a809 5%, #89c403 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77a809', endColorstr='#89c403');
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #77a809), color-stop(100%, #89c403) );
+	background-color:#77a809;
+}.comprar:active {
+	position:relative;
+	top:1px;
+}

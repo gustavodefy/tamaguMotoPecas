@@ -1,0 +1,20 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16/03/2016, 22:06:28
+    Author     : Thayro
+*/
+
+p.sobre{
+    font-family: "Arial black";
+    font-size: 15px;
+    color: tomato;
+}
+h1{
+    font-family: "Arial black";
+    font-size: 20px;
+    color: tomato;
+}
