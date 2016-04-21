@@ -1,13 +1,13 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor. 42
+ * and open the template in the editor.
  */
 package br.com.tmgmotopeca.dao;
 
 import br.com.tmgmotopeca.biblioteca.Conexao;
 import br.com.tmgmotopeca.biblioteca.Range;
-import br.com.tmgmotopeca.modelo.Cliente;
+import br.com.tmgmotopeca.modelo.Fornecedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,23 +18,21 @@ import java.util.List;
  *
  * @author ResVUT42
  */
-public class DaoCliente implements Dao {
+public class DaoFornecedor implements Dao {
 
     private Connection connection;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
-    private Cliente obj;
+    private Fornecedor obj;
     private int newId;
 
-    public DaoCliente() {
+    public DaoFornecedor() {
         this.connection = Conexao.conectar();
     }
 
     private void setDadosQuery(int comId) throws Exception {
-
         int nx = 0;
-
         try {
             nx++;
             ps.setString(nx, obj.getNome());
@@ -72,13 +70,10 @@ public class DaoCliente implements Dao {
             nx++;
             ps.setString(nx, obj.getContato());
 
-            nx++;
-            ps.setDouble(nx, obj.getLimiteCredito());
-
+            //o id deve ser sempre o ultimo
             if (comId == 1) {
-                //o id deve ser sempre o ultimo
                 nx++;
-                ps.setInt(nx, obj.getIdCliente());
+                ps.setInt(nx, obj.getIdFornecedor());
             }
 
         } catch (Exception e) {
@@ -87,9 +82,8 @@ public class DaoCliente implements Dao {
     }
 
     private void getDadosQuery() throws Exception {
-
         try {
-            obj.setIdCliente(rs.getInt("idCliente"));
+            obj.setIdFornecedor(rs.getInt("idFornecedor"));
             obj.setNome(rs.getString("nome"));
             obj.setCpf_cnpj(rs.getString("cpf_cnpj"));
             obj.setLogradouro(rs.getString("logradouro"));
@@ -102,22 +96,19 @@ public class DaoCliente implements Dao {
             obj.setTelefone(rs.getString("telefone"));
             obj.setEmail(rs.getString("email"));
             obj.setContato(rs.getString("contato"));
-            obj.setLimiteCredito(rs.getDouble("limiteCredito"));
-
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
     @Override
-    public int inserir(Object obj) throws Exception {
+    public int inserir(Object entidade) throws Exception {
 
-        this.obj = (Cliente) obj;
+        this.obj = (Fornecedor) obj;
         this.newId = 0;
-
         try {
 
-            sql = "insert into cliente (";
+            sql = "insert into fornecedor (";
             sql += "nome,";
             sql += "cpf_cnpj,";
             sql += "logradouro,";
@@ -129,9 +120,8 @@ public class DaoCliente implements Dao {
             sql += "estado,";
             sql += "telefone,";
             sql += "email,";
-            sql += "contato,";
-            sql += "limiteCredito";
-            sql += ") values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            sql += "contato";
+            sql += ") values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
             ps = connection.prepareStatement(sql);
             setDadosQuery(0);
@@ -155,15 +145,16 @@ public class DaoCliente implements Dao {
 
         ps.close();
         return newId;
+
     }
 
     @Override
-    public void alterar(Object obj) throws Exception {
-
-        this.obj = (Cliente) obj;
+    public void alterar(Object entidade) throws Exception {
+        
+        this.obj = (Fornecedor) obj;
 
         try {
-            sql = "update cliente set ";
+            sql = "update fornecedor set ";
             sql += "nome=?,";
             sql += "cpf_cnpj=?,";
             sql += "logradouro=?,";
@@ -175,9 +166,8 @@ public class DaoCliente implements Dao {
             sql += "estado=?,";
             sql += "telefone=?,";
             sql += "email=?,";
-            sql += "contato=?,";
-            sql += "limiteCredito=?";
-            sql += " where idCliente=?";
+            sql += "contato=?";
+            sql += " where idfornecedor=?";
 
             ps = connection.prepareStatement(sql);
             setDadosQuery(1);
@@ -190,15 +180,15 @@ public class DaoCliente implements Dao {
     }
 
     @Override
-    public void deletar(Object obj) throws Exception {
+    public void deletar(Object entidade) throws Exception {
 
-        this.obj = (Cliente) obj;
+        this.obj = (Fornecedor) obj;
 
         try {
 
-            sql = "delete from cliente where idCliente = ?";
+            sql = "delete from fornecedor where idFornecedor = ?";
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, this.obj.getIdCliente());
+            ps.setInt(1, this.obj.getIdFornecedor());
             ps.execute();
             ps.close();
 
@@ -209,19 +199,19 @@ public class DaoCliente implements Dao {
 
     @Override
     public List getLista(ArrayList<Range> arrayRange) throws Exception {
-                
-        List<Cliente> lista = new ArrayList();
+        
+        List<Fornecedor> lista = new ArrayList();
 
         try {
 
             String condicao = Range.RangeToString(arrayRange);
 
-            sql = "select * from cliente " + condicao;
+            sql = "select * from fornecedor " + condicao;
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                obj = new Cliente();
+                obj = new Fornecedor();
                 getDadosQuery();
                 lista.add(obj);
             }
@@ -229,6 +219,6 @@ public class DaoCliente implements Dao {
             
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-        }        
+        }   
     }
 }
