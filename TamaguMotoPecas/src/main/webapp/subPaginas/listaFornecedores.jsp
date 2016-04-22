@@ -30,7 +30,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 <c:forEach var="linFornecedor" items="${tabFornecedor}">
                     <tr>
                         <td><a class="btoAlterar" href="./ServletFornecedor?action=editar&idFornecedor=<c:out value="${linFornecedor.idFornecedor}"/>"><c:out value="${linFornecedor.idFornecedor}"/></a></td>
@@ -43,6 +42,6 @@
                 </c:forEach>
             </tbody>
         </table>
-        <p><a class="btoIncluir" href="./ServletFornecedor?action=inserir">Inserir</a></p>
+        <p><a class="btoIncluir" href="./ServletFornecedor?action=inserir">Incluir</a></p>
     </body>
 </html>

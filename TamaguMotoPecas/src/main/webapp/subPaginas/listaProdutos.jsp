@@ -14,9 +14,10 @@
         <title>Lista de Produtos</title>
         
         <link rel="stylesheet" href="./css/lista.css" type= "text/css">
+        <link rel="stylesheet" href="./css/botoes.css" type= "text/css">        
     </head>
     <body>
-        <h1 align="center">Lista Produtos</h1>
+        <h1 align="center">Lista de Produtos</h1>
         <table border=1>
             <thead>
                 <tr>
@@ -25,24 +26,20 @@
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Preço de Venda</th>
-                    <th colspan=2>Ação</th>
                 </tr>
             </thead>
             <tbody>
-
                 <c:forEach var="linProduto" items="${tabProduto}">
                     <tr>
-                        <td><c:out value="${linProduto.idProduto}" /></td>
+                        <td><a class="btoAlterar" href="./ServletProduto?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
                         <td><c:out value="${linProduto.descricao}" /></td>
                         <td><c:out value="${linProduto.marca}" /></td>
                         <td><c:out value="${linProduto.modelo}" /></td>
                         <td><c:out value="${linProduto.precoVenda}" /></td>
-                        <td><a class="alterar" href="./ProdutoServlet?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>">Alterar</a></td>
-                        <td><a class="deletar" href="./ProdutoServlet?action=deletar&idProduto=<c:out value="${linProduto.idProduto}"/>">Deletar</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-        <p><a class="cadastro" href="./ProdutoServlet?action=inserir">Novo Cadastro</a></p>
+        <p><a class="btoIncluir" href="./ServletProduto?action=inserir">Incluir</a></p>
     </body>
 </html>

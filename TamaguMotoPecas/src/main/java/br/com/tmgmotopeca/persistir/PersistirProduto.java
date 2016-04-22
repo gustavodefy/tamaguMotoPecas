@@ -34,8 +34,8 @@ public class PersistirProduto implements Persistir{
     }
 
     @Override
-    public void setEntidade(Object obj) throws Exception {
-        this.produto = (Produto) obj;
+    public void setEntidade(Object entidade) throws Exception {
+        this.produto = (Produto) entidade;
     }
 
     @Override

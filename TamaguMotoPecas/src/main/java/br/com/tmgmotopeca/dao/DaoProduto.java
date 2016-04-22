@@ -81,7 +81,7 @@ public class DaoProduto implements Dao {
     @Override
     public int inserir(Object entidade) throws Exception {
 
-        this.obj = (Produto) obj;
+        this.obj = (Produto) entidade;
         this.newId = 0;
 
         try {
@@ -122,7 +122,7 @@ public class DaoProduto implements Dao {
     @Override
     public void alterar(Object entidade) throws Exception {
         
-        this.obj = (Produto) obj;
+        this.obj = (Produto) entidade;
 
         try {
             sql = "update produto set ";
@@ -146,7 +146,8 @@ public class DaoProduto implements Dao {
 
     @Override
     public void deletar(Object entidade) throws Exception {
-        this.obj = (Produto) obj;
+        
+        this.obj = (Produto) entidade;
 
         try {
 

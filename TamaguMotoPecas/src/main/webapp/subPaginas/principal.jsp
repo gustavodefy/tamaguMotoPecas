@@ -25,7 +25,7 @@
                 <ul>
                     <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
                     <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedores</a></li>
-                    <li><a href="./ProdutoServlet?action=listar" target="InlineFrame1">Produtos</a></li>
+                    <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
                 </ul>
             </li>
             <li><a href="subPaginas/contato.jsp" target="InlineFrame1">Contato</a></li>

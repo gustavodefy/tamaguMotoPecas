@@ -19,7 +19,7 @@ public interface Persistir {
     public Object getEntidade() throws Exception;
     
     //Seta uma Entidade para ser manipulada
-    public void setEntidade(Object obj) throws Exception;
+    public void setEntidade(Object entidade) throws Exception;
     
     //Grava a Entidade que está atribuida retorna o id (Incluir ou Alterar)
     public int gravar() throws Exception;

@@ -14,11 +14,12 @@
         <title>Cadastro de Produtos</title>
         
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
+        <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
         
     </head>
     <body>
         <h1 align="center">Cadastro de Produtos</h1>
-        <form action="ProdutoServlet?action=gravar" method="post">
+        <form action="ServletProduto" method="post">
             <fieldset class="grupo">
                 <fieldset class="grupo">
                     <div class="campo">
@@ -54,7 +55,17 @@
                         <input type="text" id="precoVenda" name="precoVenda" style="width: 10em" value="<c:out value="${linProduto.precoVenda}" />" />
                     </div>
                 </fieldset>
-                <p align="center"><input type="submit" value="Gravar" id="gravar" /></p>
+                    
+                <p align="center">                    
+                    <input class="btoGravar"   type="submit" value="Gravar"   id="gravar"   name="gravar"   onclick="validarAcao('gravar');" />
+                    <c:if test="${excluir=='true'}">
+                        <input class="btoExcluir"  type="submit" value="Excluir"  id="excluir"  name="excluir"  onclick="validarAcao('excluir');" />
+                    </c:if>
+                    <input class="btoCancelar" type="submit" value="Cancelar" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
+                </p>
+                
+                <label>Mensagem:</label>
+                <input id="mensagem" name="mensagem" value="${mensagem}" readonly="readonly" >
             </fieldset>
         </form>
     </body>

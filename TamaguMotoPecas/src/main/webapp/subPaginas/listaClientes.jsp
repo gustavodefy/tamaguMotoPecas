@@ -30,7 +30,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 <c:forEach var="linCliente" items="${tabCliente}">
                     <tr>
                         <td><a class="btoAlterar" href="./ServletCliente?action=editar&idCliente=<c:out value="${linCliente.idCliente}"/>"><c:out value="${linCliente.idCliente}"/></a></td>
