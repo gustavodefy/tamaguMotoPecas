@@ -14,11 +14,12 @@
         <title>Lista de Clientes</title>
         
         <link rel="stylesheet" href="./css/lista.css" type="text/css">
+        <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
         
     </head>
     <body>
-        <h1 align="center">Listas Clientes</h1>
-        <table border=1>
+        <h1 align="center">Listas de Clientes</h1>
+        <table border=1 >
             <thead>
                 <tr>
                     <th>Código</th>
@@ -32,7 +33,7 @@
 
                 <c:forEach var="linCliente" items="${tabCliente}">
                     <tr>
-                        <td><a class="alterar" href="./ServletCliente?action=editar&idCliente=<c:out value="${linCliente.idCliente}"/>"><c:out value="${linCliente.idCliente}"/></a></td>
+                        <td><a class="btoAlterar" href="./ServletCliente?action=editar&idCliente=<c:out value="${linCliente.idCliente}"/>"><c:out value="${linCliente.idCliente}"/></a></td>
                         <td><c:out value="${linCliente.nome}" /></td>
                         <td><c:out value="${linCliente.contato}" /></td>
                         <td><c:out value="${linCliente.telefone}" /></td>
@@ -41,6 +42,6 @@
                 </c:forEach>
             </tbody>
         </table>
-        <p><a class="cadastro" href="./ServletCliente?action=inserir">Incluir</a></p>
+        <p><a class="btoIncluir" href="./ServletCliente?action=inserir">Incluir</a></p>
     </body>
 </html>

@@ -8,3 +8,15 @@
 function validarFornecedor(){
     validarCpfCnpj();    
 }
+
+function validarAcao(acao){
+    
+    if(acao=="gravar"){
+        document.getElementById("action").value = "gravar";
+    }else if(acao=="excluir"){
+        document.getElementById("action").value = "excluir";
+    }else if(acao=="cancelar"){
+        document.getElementById("action").value = "cancelar";
+    }
+    
+}

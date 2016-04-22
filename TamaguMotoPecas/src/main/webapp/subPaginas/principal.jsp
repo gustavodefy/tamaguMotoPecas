@@ -24,7 +24,7 @@
             <li><a href="#">Cadastro</a>
                 <ul>
                     <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
-                    <li><a href="./FornecedorServlet?action=listar" target="InlineFrame1">Fornecedor</a></li>
+                    <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedores</a></li>
                     <li><a href="./ProdutoServlet?action=listar" target="InlineFrame1">Produtos</a></li>
                 </ul>
             </li>

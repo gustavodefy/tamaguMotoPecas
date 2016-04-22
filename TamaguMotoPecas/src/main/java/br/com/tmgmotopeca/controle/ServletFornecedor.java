@@ -5,9 +5,9 @@
  */
 package br.com.tmgmotopeca.controle;
 
-import br.com.tmgmotopeca.modelo.Cliente;
+import br.com.tmgmotopeca.modelo.Fornecedor;
 import br.com.tmgmotopeca.persistir.Persistir;
-import br.com.tmgmotopeca.persistir.PersistirCliente;
+import br.com.tmgmotopeca.persistir.PersistirFornecedor;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,18 +20,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ResVUT42
  */
-@WebServlet(name = "ServletCliente", urlPatterns = {"/ServletCliente"})
-public class ServletCliente extends HttpServlet {
+@WebServlet(name = "ServletFornecedor", urlPatterns = {"/ServletFornecedor"})
+public class ServletFornecedor extends HttpServlet {
 
-    private Cliente cliente;
-    private Persistir persistirCliente;
+    private Fornecedor fornecedor;
+    private Persistir persistirFornecedor;
 
     private String destino = "";
-    private static String UNICO = "./subPaginas/cadastroClientes.jsp";
-    private static String LISTA = "./subPaginas/listaClientes.jsp";
+    private static String UNICO = "./subPaginas/cadastroFornecedores.jsp";
+    private static String LISTA = "./subPaginas/listaFornecedores.jsp";
 
-    private String tabela = "tabCliente";
-    private String linha = "linCliente";
+    private String tabela = "tabFornecedor";
+    private String linha = "linFornecedor";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,29 +44,29 @@ public class ServletCliente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-        cliente = new Cliente();
-        persistirCliente = new PersistirCliente(cliente);
-            
+
+        fornecedor = new Fornecedor();
+        persistirFornecedor = new PersistirFornecedor(fornecedor);
+
         try {
             String action;
-            
-            boolean bGravar   = request.getParameter("gravar")   != null;
-            boolean bExcluir  = request.getParameter("excluir")  != null;
+
+            boolean bGravar = request.getParameter("gravar") != null;
+            boolean bExcluir = request.getParameter("excluir") != null;
             boolean bCancelar = request.getParameter("cancelar") != null;
-            
-            if(bGravar){
+
+            if (bGravar) {
                 action = "gravar";
-            }else if (bExcluir){
+            } else if (bExcluir) {
                 action = "excluir";
-            }else if (bCancelar){
+            } else if (bCancelar) {
                 action = "cancelar";
-            }else{
+            } else {
                 action = request.getParameter("action");
             }
-                        
+
             if (action.equals("listar")) {
-                
+
                 //Busca e lista os dados da entidade
                 setLista(request);
 
@@ -74,19 +74,19 @@ public class ServletCliente extends HttpServlet {
 
                 //Direciona para incluir um novo registro
                 request.setAttribute("excluir", "false");
-                destino = UNICO;                
+                destino = UNICO;
 
             } else if (action.equals("editar")) {
 
-                //Busca o codigo do cliente na tela
-                int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+                //Busca o codigo do fornecedor na tela
+                int idFornecedor = Integer.parseInt(request.getParameter("idFornecedor"));
 
                 //Busca o registro selecionado no banco
-                persistirCliente.buscar(idCliente);
-                cliente = (Cliente) persistirCliente.getEntidade();
+                persistirFornecedor.buscar(idFornecedor);
+                fornecedor = (Fornecedor) persistirFornecedor.getEntidade();
 
                 //Seta atributo na tela
-                request.setAttribute(linha, cliente);
+                request.setAttribute(linha, fornecedor);
 
                 //Direciona para alterar o registro
                 request.setAttribute("excluir", "true");
@@ -95,11 +95,11 @@ public class ServletCliente extends HttpServlet {
             } else if (action.equals("excluir")) {
 
                 //busca os dados na tela
-                getDadosTela(request);                
-                
+                getDadosTela(request);
+
                 //exclui o registro do banco
-                persistirCliente.excluir();
-                
+                persistirFornecedor.excluir();
+
                 //Lista os registros da entidade
                 setLista(request);
 
@@ -107,15 +107,15 @@ public class ServletCliente extends HttpServlet {
 
                 //busca os dados da tela
                 getDadosTela(request);
-                
+
                 //gravar os dados no banco
-                persistirCliente.gravar();
-                
+                persistirFornecedor.gravar();
+
                 //Lista os registros da entidade
                 setLista(request);
-                            
+
             } else {
-                 //Lista os registros da entidade
+                //Lista os registros da entidade
                 setLista(request);
             }
 
@@ -130,12 +130,13 @@ public class ServletCliente extends HttpServlet {
 
         RequestDispatcher view = request.getRequestDispatcher(destino);
         view.forward(request, response);
+
     }
 
     private void setLista(HttpServletRequest request) throws Exception {
         try {
-            //Busca todos os registros de cliente
-            request.setAttribute(tabela, persistirCliente.buscarLista(null));
+            //Busca todos os registros de fornecedor
+            request.setAttribute(tabela, persistirFornecedor.buscarLista(null));
             //Direciona para pagina de lista
             destino = LISTA;
         } catch (Exception e) {
@@ -144,31 +145,28 @@ public class ServletCliente extends HttpServlet {
     }
 
     private void getDadosTela(HttpServletRequest request) throws Exception {
-
         try {
 
-            //Busca os dados da tela, e atualiza classe Cliente
-            cliente = new Cliente();
+            fornecedor = new Fornecedor();
 
-            String idCliente = request.getParameter("idCliente");
-            if (idCliente != null && !idCliente.isEmpty()) {
-                cliente.setIdCliente(Integer.parseInt(idCliente));
+            String idFornecedor = request.getParameter("idFornecedor");
+            if (idFornecedor != null && !idFornecedor.isEmpty()) {
+                fornecedor.setIdFornecedor(Integer.parseInt(idFornecedor));
             }
-            cliente.setNome(request.getParameter("nome"));
-            cliente.setCpf_cnpj(request.getParameter("cpf_cnpj"));
-            cliente.setLogradouro(request.getParameter("logradouro"));
-            cliente.setNumero(request.getParameter("numero"));
-            cliente.setComplemento(request.getParameter("complemento"));
-            cliente.setCep(request.getParameter("cep"));
-            cliente.setBairro(request.getParameter("bairro"));
-            cliente.setCidade(request.getParameter("cidade"));
-            cliente.setEstado(request.getParameter("estado"));
-            cliente.setTelefone(request.getParameter("telefone"));
-            cliente.setEmail(request.getParameter("email"));
-            cliente.setContato(request.getParameter("contato"));
-            cliente.setLimiteCredito(Double.parseDouble(request.getParameter("limitecredito")));
+            fornecedor.setNome(request.getParameter("nome"));
+            fornecedor.setCpf_cnpj(request.getParameter("cpf_cnpj"));
+            fornecedor.setLogradouro(request.getParameter("logradouro"));
+            fornecedor.setNumero(request.getParameter("numero"));
+            fornecedor.setComplemento(request.getParameter("complemento"));
+            fornecedor.setCep(request.getParameter("cep"));
+            fornecedor.setBairro(request.getParameter("bairro"));
+            fornecedor.setCidade(request.getParameter("cidade"));
+            fornecedor.setEstado(request.getParameter("estado"));
+            fornecedor.setTelefone(request.getParameter("telefone"));
+            fornecedor.setEmail(request.getParameter("email"));
+            fornecedor.setContato(request.getParameter("contato"));
 
-            persistirCliente.setEntidade(cliente);
+            persistirFornecedor.setEntidade(fornecedor);
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());

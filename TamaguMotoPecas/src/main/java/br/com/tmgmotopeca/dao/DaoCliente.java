@@ -110,9 +110,9 @@ public class DaoCliente implements Dao {
     }
 
     @Override
-    public int inserir(Object obj) throws Exception {
+    public int inserir(Object entidade) throws Exception {
 
-        this.obj = (Cliente) obj;
+        this.obj = (Cliente) entidade;
         this.newId = 0;
 
         try {
@@ -158,9 +158,9 @@ public class DaoCliente implements Dao {
     }
 
     @Override
-    public void alterar(Object obj) throws Exception {
+    public void alterar(Object entidade) throws Exception {
 
-        this.obj = (Cliente) obj;
+        this.obj = (Cliente) entidade;
 
         try {
             sql = "update cliente set ";
@@ -190,9 +190,9 @@ public class DaoCliente implements Dao {
     }
 
     @Override
-    public void deletar(Object obj) throws Exception {
+    public void deletar(Object entidade) throws Exception {
 
-        this.obj = (Cliente) obj;
+        this.obj = (Cliente) entidade;
 
         try {
 

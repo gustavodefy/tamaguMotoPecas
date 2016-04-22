@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-window.onload = function() {
+window.onDomReady(function() {
   new dgCidadesEstados({
     estado: document.getElementById('estado'),
     cidade: document.getElementById('cidade')
   });
-};
+});

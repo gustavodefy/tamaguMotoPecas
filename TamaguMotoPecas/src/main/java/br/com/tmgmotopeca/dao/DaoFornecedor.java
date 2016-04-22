@@ -104,7 +104,7 @@ public class DaoFornecedor implements Dao {
     @Override
     public int inserir(Object entidade) throws Exception {
 
-        this.obj = (Fornecedor) obj;
+        this.obj = (Fornecedor) entidade;
         this.newId = 0;
         try {
 
@@ -151,7 +151,7 @@ public class DaoFornecedor implements Dao {
     @Override
     public void alterar(Object entidade) throws Exception {
         
-        this.obj = (Fornecedor) obj;
+        this.obj = (Fornecedor) entidade;
 
         try {
             sql = "update fornecedor set ";
@@ -182,7 +182,7 @@ public class DaoFornecedor implements Dao {
     @Override
     public void deletar(Object entidade) throws Exception {
 
-        this.obj = (Fornecedor) obj;
+        this.obj = (Fornecedor) entidade;
 
         try {
 

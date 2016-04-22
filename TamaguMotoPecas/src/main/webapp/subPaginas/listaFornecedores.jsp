@@ -10,13 +10,14 @@
 <html>
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <title>Lista de Fornecedores</title>
-        
+
         <link rel="stylesheet" href="./css/lista.css" type= "text/css">
+        <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
     </head>
     <body>
-        <h1 align="center">Lista Fornecedores</h1>
+        <h1 align="center">Lista de Fornecedores</h1>
         <table border=1>
             <thead>
                 <tr>
@@ -26,25 +27,22 @@
                     <th>Telefone</th>
                     <th>Contato</th>
                     <th>Email</th>
-                    <th colspan=2>Ação</th>
                 </tr>
             </thead>
             <tbody>
 
-            <c:forEach var="linFornecedor" items="${tabFornecedor}">
-                <tr>
-                <td><c:out value="${linFornecedor.idFornecedor}" /></td>
-                <td><c:out value="${linFornecedor.nome}" /></td>
-                <td><c:out value="${linFornecedor.cpf_cnpj}" /></td>
-                <td><c:out value="${linFornecedor.telefone}" /></td>
-                <td><c:out value="${linFornecedor.contato}" /></td>
-                <td><c:out value="${linFornecedor.email}" /></td>
-                <td><a class="alterar" href="./FornecedorServlet?action=editar&idFornecedor=<c:out value="${linFornecedor.idFornecedor}"/>">Alterar</a></td>
-                <td><a class="deletar" href="./FornecedorServlet?action=deletar&idFornecedor=<c:out value="${linFornecedor.idFornecedor}"/>">Deletar</a></td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-        <p><a class="cadastro" href="./FornecedorServlet?action=inserir">Novo Cadastro</a></p>
-</body>
+                <c:forEach var="linFornecedor" items="${tabFornecedor}">
+                    <tr>
+                        <td><a class="btoAlterar" href="./ServletFornecedor?action=editar&idFornecedor=<c:out value="${linFornecedor.idFornecedor}"/>"><c:out value="${linFornecedor.idFornecedor}"/></a></td>
+                        <td><c:out value="${linFornecedor.nome}" /></td>
+                        <td><c:out value="${linFornecedor.cpf_cnpj}" /></td>
+                        <td><c:out value="${linFornecedor.telefone}" /></td>
+                        <td><c:out value="${linFornecedor.contato}" /></td>
+                        <td><c:out value="${linFornecedor.email}" /></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <p><a class="btoIncluir" href="./ServletFornecedor?action=inserir">Inserir</a></p>
+    </body>
 </html>
