@@ -63,13 +63,63 @@ DEFAULT CHARACTER SET = utf8;
 
 
 CREATE TABLE IF NOT EXISTS `tamagu`.`usuario`(
-  `idusuario`      INT(11) NOT NULL AUTO_INCREMENT,
+  `idusuario`      VARCHAR(25) NOT NULL,
   `senha`          VARCHAR(15) NOT NULL,
   `perfil`         VARCHAR(01) NOT NULL,
   `idcliente`      INT(11) NOT NULL,
   `status`         VARCHAR(1) NOT NULL,
-  PRIMARY KEY
-)
+  PRIMARY KEY (`idusuario`),
+  FOREIGN KEY(`idcliente`) REFERENCES cliente (idcliente))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+CREATE TABLE IF NOT EXISTS tamagu.PCHeader(
+  idpedido         INT(11) NOT NULL AUTO_INCREMENT,
+  idfornecedor     INT(11) NOT NULL,
+  dtLcto           DATE NOT NULL,
+  totalPedido      DOUBLE(15,2),
+  status           VARCHAR(15),
+  PRIMARY KEY (idpedido),
+  FOREIGN KEY(idfornecedor) REFERENCES fornecedor (idfornecedor))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+CREATE TABLE IF NOT EXISTS tamagu.PCItem(
+    idPedido       INT(11) NOT NULL,
+    idProduto      INT(11) NOT NULL,
+    quantidade     DOUBLE(15,2),
+    vlrUnitario    DOUBLE(15,2),
+    vlrTotal       DOUBLE(15,2),
+    PRIMARY KEY (idPedido,idProduto),
+    FOREIGN KEY (idProduto) REFERENCES produto(idProduto))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+CREATE TABLE IF NOT EXISTS tamagu.PVHeader(
+  idpedido         INT(11) NOT NULL AUTO_INCREMENT,
+  idcliente        INT(11) NOT NULL,
+  dtLcto           DATE NOT NULL,
+  totalPedido      DOUBLE(15,2),
+  status           VARCHAR(15),
+  PRIMARY KEY (idpedido),
+  FOREIGN KEY(idcliente) REFERENCES cliente (idcliente))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+CREATE TABLE IF NOT EXISTS tamagu.PVItem(
+    idPedido       INT(11) NOT NULL,
+    idProduto      INT(11) NOT NULL,
+    quantidade     DOUBLE(15,2),
+    vlrUnitario    DOUBLE(15,2),
+    vlrTotal       DOUBLE(15,2),
+    PRIMARY KEY (idPedido,idProduto),
+    FOREIGN KEY (idProduto) REFERENCES produto(idProduto))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
