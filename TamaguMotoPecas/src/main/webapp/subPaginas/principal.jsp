@@ -1,7 +1,7 @@
 <%-- 
     Document   : principal
     Created on : 14/03/2016, 20:48:04
-    Author     : Thayro
+    Author     : Thayro.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
