@@ -209,7 +209,7 @@ public class DaoCliente implements Dao {
 
     @Override
     public List getLista(ArrayList<Range> arrayRange) throws Exception {
-                
+
         List<Cliente> lista = new ArrayList();
 
         try {
@@ -226,9 +226,31 @@ public class DaoCliente implements Dao {
                 lista.add(obj);
             }
             return lista;
-            
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-        }        
+        }
     }
+
+    @Override
+    public Object buscaUnica(Integer id) throws Exception {
+        try {
+
+            sql = "select * from cliente where idCliente = ?";
+
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                obj = new Cliente();
+                getDadosQuery();
+            }
+            return obj;
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }

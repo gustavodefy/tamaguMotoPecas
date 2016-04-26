@@ -26,5 +26,8 @@ public interface Dao {
 
      //Retorna lista da seleção, se o range vier null, busca tudo
      public List getLista(ArrayList<Range> arrayRange) throws Exception;
+     
+     //
+     public Object buscaUnica(Integer id) throws Exception;
               
 }
