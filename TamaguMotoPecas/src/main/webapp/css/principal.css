@@ -9,8 +9,8 @@ and open the template in the editor.
 */
 
 *{
-    margin: 0px;
-    padding: 0px;
+    margin: auto;
+    padding: auto;
 }
 
 body {
@@ -25,7 +25,7 @@ footer.rodape{
 }
 .menu{
     list-style-type: none;
-    margin: 10px 0 0 250px;
+    margin: auto 100px auto auto;
     border: 1px solid white;
     float: left;
 }
@@ -83,6 +83,7 @@ footer.rodape{
 }
 
 div iframe{
+
     background-color: white;
     border-style: solid;
     box-shadow: 0px 0px 100px black;

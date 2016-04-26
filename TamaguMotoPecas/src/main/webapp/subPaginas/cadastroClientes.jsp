@@ -98,7 +98,19 @@
                         <input type="text" id="limitecredito" name="limitecredito" style="width: 10em" value="<c:out value="${linCliente.limiteCredito}" />" />
                     </div>
                 </fieldset>
-                    
+                <fieldset class="grupo">                   
+                    <div class="campo">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" name="senha" style="width: 10em" value="<c:out value="${linCliente.limiteCredito}" />" />
+                    </div>
+
+                    <div class="campo">
+                        <label for="confirmasenha">Confirma Senha</label>
+                        <input type="password" id="confirmasenha" name="confirmasenha" style="width: 10em" value="<c:out value="${linCliente.limiteCredito}" />" />
+                    </div>
+
+                </fieldset>
+
                 <p align="center">                    
                     <input class="btoGravar"   type="submit" value="Gravar"   id="gravar"   name="gravar"   onclick="validarAcao('gravar');" />
                     <c:if test="${excluir=='true'}">
@@ -106,10 +118,6 @@
                     </c:if>
                     <input class="btoCancelar" type="submit" value="Cancelar" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
                 </p>
-                
-                <label>Mensagem:</label>
-                <input id="mensagem" name="mensagem" value="${mensagem}" readonly="readonly">
-                
             </fieldset>
         </form>
     </body>
