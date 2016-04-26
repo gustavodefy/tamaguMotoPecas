@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS `tamagu`.`cliente` (
   `email`           VARCHAR(45) NULL DEFAULT NULL,
   `contato`         VARCHAR(45) NULL DEFAULT NULL,
   `limiteCredito`   DOUBLE(15,2),
+  `senha`           VARCHAR(15) NOT NULL,
+  `perfil`          VARCHAR(01) NOT NULL,
   PRIMARY KEY (`idcliente`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
