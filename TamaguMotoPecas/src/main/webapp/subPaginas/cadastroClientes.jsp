@@ -110,6 +110,16 @@
                     </div>
 
                 </fieldset>
+                                    <fieldset class="grupo">                   
+                    <div class="campo">
+                        <label for="senha">Tipo de Acesso</label>
+                        <select name="acesso">
+                            <option value="acesso">${linCliente.estado}</option> 
+                            <option value="Cliente">Cliente</option> 
+                            <option value="Funcionario">Funcionario</option>
+                        </select>
+                    </div>
+                </fieldset>
 
                 <p align="center">                    
                     <input class="btoGravar"   type="submit" value="Gravar"   id="gravar"   name="gravar"   onclick="validarAcao('gravar');" />
