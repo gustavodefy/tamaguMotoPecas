@@ -25,6 +25,8 @@ public class Cliente {
     private String email;
     private String contato;
     private double limiteCredito;
+    private String senha;
+    private String perfil;
 
     public Cliente() {
         this.idCliente = 0;
@@ -41,6 +43,8 @@ public class Cliente {
         this.email = "";
         this.contato = "";
         this.limiteCredito = 0;
+        this.senha = "";
+        this.perfil = "";
     }
 
     public int getIdCliente() {
@@ -183,6 +187,22 @@ public class Cliente {
 
     public void setLimiteCredito(double limiteCredito) {
         this.limiteCredito = limiteCredito;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
 
 }
