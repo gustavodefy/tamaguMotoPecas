@@ -167,7 +167,9 @@ public class ServletCliente extends HttpServlet {
             cliente.setEmail(request.getParameter("email"));
             cliente.setContato(request.getParameter("contato"));
             cliente.setLimiteCredito(Double.parseDouble(request.getParameter("limitecredito")));
-
+            cliente.setSenha(request.getParameter("senha"));
+            cliente.setPerfil(request.getParameter("perfil"));
+            
             persistirCliente.setEntidade(cliente);
 
         } catch (Exception e) {

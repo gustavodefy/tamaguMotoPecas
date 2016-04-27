@@ -224,6 +224,22 @@ public class DaoFornecedor implements Dao {
 
     @Override
     public Object buscaUnica(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+
+            sql = "select * from fornecedor where idFornecedor = ?";
+
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                obj = new Fornecedor();
+                getDadosQuery();
+            }
+            return obj;
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }        
     }
 }

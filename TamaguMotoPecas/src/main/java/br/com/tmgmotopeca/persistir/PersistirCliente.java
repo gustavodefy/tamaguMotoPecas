@@ -76,12 +76,12 @@ public class PersistirCliente implements Persistir {
         try {
 
             ArrayList whereId = new ArrayList();
-            Range rangeId =  new Range();   
-            
+            Range rangeId = new Range();
+
             rangeId.setAtributo("idCliente");
             rangeId.setRelacao(tpRelacao.IGUAL);
             rangeId.setConteudo(String.valueOf(id));
-            
+
             whereId.add(rangeId);
 
             List lista = daoCliente.getLista(whereId);
@@ -101,7 +101,15 @@ public class PersistirCliente implements Persistir {
     public void validarInformacoes() throws Exception {
         try {
 
+            //===>>>Validar o CPF / CNPJ do cliente
             Lib.validarCpfCnpj(this.cliente.getCpf_cnpj());
+
+            //===>>>Validar email unico por cliente
+            Cliente cliAux = buscarPorEmail(cliente.getEmail());
+            //Se encontrou um cliente, e não é o mesmo id, não permirir gravar
+            if (cliAux != null && cliAux.getIdCliente() != cliente.getIdCliente()) {
+                throw new Exception("email já atribuido a outro cliente");
+            }
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -118,6 +126,56 @@ public class PersistirCliente implements Persistir {
             throw new Exception(e.getMessage());
         }
 
+    }
+
+    public Cliente buscarPorEmail(String email) throws Exception {
+
+        try {
+            //Monta range de busca
+            ArrayList whereId = new ArrayList();
+            Range rangeId = new Range();
+
+            rangeId.setAtributo("email");
+            rangeId.setRelacao(tpRelacao.IGUAL);
+            rangeId.setConteudo(String.valueOf(email));
+            whereId.add(rangeId);
+
+            List lista = daoCliente.getLista(whereId);
+
+            if (lista != null) {
+                return (Cliente) lista.get(0);
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public boolean autenticar() throws Exception{
+        try {
+            
+            Cliente cliAux = buscarPorEmail(cliente.getEmail());
+            
+            if(cliAux != null){
+                
+                //Valida senha
+                if(cliAux.getSenha() == this.cliente.getSenha()){
+                    this.cliente = cliAux;
+                    return true;
+                }else{
+                    throw new Exception("Senha inválida!");
+                }
+                
+            }else{
+                throw new Exception("Usuário não cadastrado!");
+            }
+                                   
+                    
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }        
     }
 
 }

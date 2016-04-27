@@ -75,6 +75,12 @@ public class DaoCliente implements Dao {
             nx++;
             ps.setDouble(nx, obj.getLimiteCredito());
 
+            nx++;
+            ps.setString(nx, obj.getSenha());
+
+            nx++;
+            ps.setString(nx, obj.getPerfil());
+            
             if (comId == 1) {
                 //o id deve ser sempre o ultimo
                 nx++;
@@ -103,7 +109,9 @@ public class DaoCliente implements Dao {
             obj.setEmail(rs.getString("email"));
             obj.setContato(rs.getString("contato"));
             obj.setLimiteCredito(rs.getDouble("limiteCredito"));
-
+            obj.setSenha(rs.getString("senha"));
+            obj.setPerfil(rs.getString("perfil"));
+            
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -131,7 +139,9 @@ public class DaoCliente implements Dao {
             sql += "email,";
             sql += "contato,";
             sql += "limiteCredito";
-            sql += ") values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            sql += "senha";
+            sql += "perfil";
+            sql += ") values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             ps = connection.prepareStatement(sql);
             setDadosQuery(0);
@@ -177,6 +187,8 @@ public class DaoCliente implements Dao {
             sql += "email=?,";
             sql += "contato=?,";
             sql += "limiteCredito=?";
+            sql += "senha";
+            sql += "perfil";
             sql += " where idCliente=?";
 
             ps = connection.prepareStatement(sql);

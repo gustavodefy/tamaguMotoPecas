@@ -101,7 +101,7 @@
                 <fieldset class="grupo">                   
                     <div class="campo">
                         <label for="senha">Senha</label>
-                        <input type="password" id="senha" name="senha" style="width: 10em" value="<c:out value="${linCliente.limiteCredito}" />" />
+                        <input type="password" id="senha" name="senha" style="width: 10em" value="<c:out value="${linCliente.senha}" />" />
                     </div>
 
                     <div class="campo">
