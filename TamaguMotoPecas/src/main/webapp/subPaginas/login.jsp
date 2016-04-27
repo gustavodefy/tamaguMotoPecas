@@ -20,7 +20,7 @@
                     <input type="email" placeholder="Email"/>
                     <input type="password" placeholder="Senha"/>
                     <button>login</button>
-                    <p class="message">Não tenho Cadastro? <a href="../subPaginas/cadastroClientes.jsp">Criar Conta</a></p>
+                    <p class="message">Não tenho Cadastro? <a href="../ServletCliente?action=inserir">Criar Conta</a></p>
                 </form>
             </div>
         </div>
