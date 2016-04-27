@@ -16,6 +16,16 @@
     <body>
         <table class="menuTopo">
             <tr>
+
+                <td>
+                    <div class="topoLogar" align="left">
+                        <li> <img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/>
+                            <a class="textoLogar" target="InlineFrame1">Carrinho: </a>
+                            <a class="textoLogar" target="InlineFrame1">0 </a>
+                            <a class="textoLogar" target="InlineFrame1">Item</a>
+                        </li>
+                    </div>
+                </td>
                 <td>
                     <div class="topoLogar" align="right">
                         <li><a class="textoLogar" target="InlineFrame1">Usuário</a>
@@ -39,9 +49,11 @@
                     <div align="center" class="menu">
                         <li><a href="subPaginas/home.jsp" target="InlineFrame1">Home</a></li>
                         <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Sobre</a></li>
-                        <li><a href="#">Catalogo</a>
+                        <li><a href="#">Cadastro</a>
                             <ul>
-                                <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Produtos</a></li>
+                                <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
+                                <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedores</a></li>
+                                <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
                             </ul>
                         </li>
                         <li><a href="subPaginas/contato.jsp" target="InlineFrame1">Contato</a></li>
