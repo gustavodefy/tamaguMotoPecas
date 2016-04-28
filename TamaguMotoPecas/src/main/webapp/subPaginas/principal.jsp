@@ -18,11 +18,11 @@
             <tr>
                 <td>
                     <div class="topoLogar" align="right">
-                        <li><a class="textoLogar" target="InlineFrame1">Usuário</a>
-                            <img src="./img/user.png" width="25" height="23" alt="user"/>
+                        <li><a class="textoLogar" target="InlineFrame1">Usuário  </a>
+                            <img id="img" src="./img/user.png" width="25" height="23" alt="user"/>
                             <input class="email" type="email" id="nome" name="nome" style="width: 10em"/>
                             <a class="textoLogar" target="InlineFrame1">Senha</a>
-                            <img src="./img/senha.png" width="25" height="23" alt="senha"/>
+                            <img id="img" src="./img/senha.png" width="25" height="23" alt="senha"/>
                             <input class="senha" type="password" id="nome" name="nome" style="width: 10em"/>
                             <a href="subPaginas/login.jsp" class="logarEntrar" target="InlineFrame1">Entrar</a>
                         </li>
