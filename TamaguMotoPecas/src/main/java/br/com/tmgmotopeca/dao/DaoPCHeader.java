@@ -81,31 +81,31 @@ public class DaoPCHeader implements Dao {
 
         this.obj = (PCHeader) entidade;
         this.newId = 0;
-
-        sql = "insert into PCHeader (";
-        sql += "fornecedor,";
-        sql += "dtLcto,";
-        sql += "totalPedido,";
-        sql += "status";
-        sql += ") values (?,?,?,?)";
-
-        ps = connection.prepareStatement(sql);
-        setDadosQuery(0);
-        newId = ps.executeUpdate();
-
-        //Verifica se inseriu algum registro
-        if (newId > 0) {
-
-            rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                newId = (int) rs.getLong(1);
-            }
-
-        } else {
-            newId = 0;
-        }
-
+        
         try {
+            
+            sql = "insert into PCHeader (";
+            sql += "fornecedor,";
+            sql += "dtLcto,";
+            sql += "totalPedido,";
+            sql += "status";
+            sql += ") values (?,?,?,?)";
+
+            ps = connection.prepareStatement(sql);
+            setDadosQuery(0);
+            newId = ps.executeUpdate();
+
+            //Verifica se inseriu algum registro
+            if (newId > 0) {
+
+                rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    newId = (int) rs.getLong(1);
+                }
+
+            } else {
+                newId = 0;
+            }
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -113,12 +113,11 @@ public class DaoPCHeader implements Dao {
 
         ps.close();
         return newId;
-
     }
 
     @Override
     public void alterar(Object entidade) throws Exception {
-        
+
         this.obj = (PCHeader) entidade;
 
         try {
@@ -126,7 +125,7 @@ public class DaoPCHeader implements Dao {
             sql += "fornecedor=?,";
             sql += "dtLcto=?,";
             sql += "totalPedido=?,";
-            sql += "status";
+            sql += "status=?";
             sql += " where idPedido=?";
 
             ps = connection.prepareStatement(sql);
@@ -202,5 +201,4 @@ public class DaoPCHeader implements Dao {
             throw new Exception(e.getMessage());
         }
     }
-
 }

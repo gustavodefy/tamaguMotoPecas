@@ -19,20 +19,20 @@ import java.util.List;
  *
  * @author Gustavo
  */
-public class DaoPVHeader implements Dao{
-    
+public class DaoPVHeader implements Dao {
+
     private Connection connection;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
     private PVHeader obj;
     private int newId;
-    
+
     public DaoPVHeader() {
         this.connection = Conexao.conectar();
-    } 
-    
-       private void setDadosQuery(int comId) throws Exception {
+    }
+
+    private void setDadosQuery(int comId) throws Exception {
 
         int nx = 0;
 
@@ -48,7 +48,7 @@ public class DaoPVHeader implements Dao{
 
             nx++;
             ps.setString(nx, String.valueOf(obj.getStatus()));
-            
+
             if (comId == 1) {
                 //o id deve ser sempre o ultimo
                 nx++;
@@ -59,16 +59,18 @@ public class DaoPVHeader implements Dao{
             throw new Exception(e.getMessage());
         }
     }
-         private void getDadosQuery() throws Exception {
+
+    private void getDadosQuery() throws Exception {
 
         try {
             DaoCliente daocliente = new DaoCliente();
-            
-            obj.setIdPedido(rs.getInt("idPedido"));                        
-            obj.setCliente((Cliente)daocliente.buscaUnica(rs.getInt("idFornecedor")));                        
+
+            obj.setIdPedido(rs.getInt("idPedido"));
+            obj.setCliente((Cliente) daocliente.buscaUnica(rs.getInt("idFornecedor")));
             obj.setDtLcto(rs.getDate("dtLcto"));
             obj.setTotalPedido(rs.getDouble("totalPedido"));
             obj.setStatus(PVHeader.eStatus.valueOf(rs.getString("status")));
+            
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -76,8 +78,8 @@ public class DaoPVHeader implements Dao{
 
     @Override
     public int inserir(Object entidade) throws Exception {
-        
-        this.obj = (PVHeader)entidade;
+
+        this.obj = (PVHeader) entidade;
         this.newId = 0;
 
         try {
@@ -86,7 +88,7 @@ public class DaoPVHeader implements Dao{
             sql += "cliente,";
             sql += "dtLcto,";
             sql += "totalPedido,";
-            sql += "status,";
+            sql += "status";
             sql += ") values (?,?,?,?)";
 
             ps = connection.prepareStatement(sql);
@@ -112,19 +114,18 @@ public class DaoPVHeader implements Dao{
         ps.close();
         return newId;
     }
- 
 
     @Override
     public void alterar(Object entidade) throws Exception {
-        
+
         this.obj = (PVHeader) entidade;
 
         try {
             sql = "update pvHeader set ";
-            sql += "cliente,";
-            sql += "dtLcto,";
-            sql += "totalPedido,";
-            sql += "status,";
+            sql += "cliente=?,";
+            sql += "dtLcto=?,";
+            sql += "totalPedido=?,";
+            sql += "status=?,";
             sql += " where idPedido=?";
 
             ps = connection.prepareStatement(sql);
@@ -136,9 +137,10 @@ public class DaoPVHeader implements Dao{
             throw new Exception(e.getMessage());
         }
     }
+
     @Override
     public void deletar(Object entidade) throws Exception {
-        
+
         this.obj = (PVHeader) entidade;
 
         try {
@@ -156,7 +158,7 @@ public class DaoPVHeader implements Dao{
 
     @Override
     public List getLista(ArrayList<Range> arrayRange) throws Exception {
-    
+
         List<PVHeader> lista = new ArrayList();
 
         try {

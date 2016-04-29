@@ -12,26 +12,25 @@ import java.util.Date;
  * @author Gustavo
  */
 public class PVHeader {
-    
+
     private int idPedido;
     private Cliente cliente;
     private Date dtLcto;
     private double totalPedido;
     private eStatus status;
 
-    
-    public static enum eStatus{
-        ABERTO, 
-        CANCELADO, 
+    public static enum eStatus {
+        ABERTO,
+        CANCELADO,
         CONCLUIDO;
     }
 
     public PVHeader() {
-     idPedido = 0;
+        idPedido = 0;
         cliente = null;
         dtLcto = new Date();
-       totalPedido = 0;
-       status = eStatus.ABERTO;
+        totalPedido = 0;
+        status = eStatus.ABERTO;
     }
 
     public int getIdPedido() {
