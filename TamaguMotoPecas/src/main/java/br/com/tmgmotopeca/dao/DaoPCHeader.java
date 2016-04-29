@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author ResVUT42
  */
-public class DaoPCHeader implements Dao{
+public class DaoPCHeader implements Dao {
 
     private Connection connection;
     private String sql;
@@ -27,11 +27,11 @@ public class DaoPCHeader implements Dao{
     private ResultSet rs;
     private PCHeader obj;
     private int newId;
-    
+
     public DaoPCHeader() {
         this.connection = Conexao.conectar();
-    }    
-    
+    }
+
     private void setDadosQuery(int comId) throws Exception {
 
         int nx = 0;
@@ -41,14 +41,14 @@ public class DaoPCHeader implements Dao{
             ps.setInt(nx, obj.getFornecedor().getIdFornecedor());
 
             nx++;
-            ps.setDate(nx,  (java.sql.Date) obj.getDtLcto());
+            ps.setDate(nx, (java.sql.Date) obj.getDtLcto());
 
             nx++;
             ps.setDouble(nx, obj.getTotalPedido());
 
             nx++;
             ps.setString(nx, String.valueOf(obj.getStatus()));
-            
+
             if (comId == 1) {
                 //o id deve ser sempre o ultimo
                 nx++;
@@ -64,13 +64,13 @@ public class DaoPCHeader implements Dao{
 
         try {
             DaoFornecedor daofornecedor = new DaoFornecedor();
-            
-            obj.setIdPedido(rs.getInt("idPedido"));                        
-            obj.setFornecedor((Fornecedor)daofornecedor.buscaUnica(rs.getInt("idFornecedor")));                        
+
+            obj.setIdPedido(rs.getInt("idPedido"));
+            obj.setFornecedor((Fornecedor) daofornecedor.buscaUnica(rs.getInt("idFornecedor")));
             obj.setDtLcto(rs.getDate("dtLcto"));
             obj.setTotalPedido(rs.getDouble("totalPedido"));
             obj.setStatus(PCHeader.eStatus.valueOf(rs.getString("status")));
-            
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -78,12 +78,65 @@ public class DaoPCHeader implements Dao{
 
     @Override
     public int inserir(Object entidade) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.obj = (PCHeader) entidade;
+        this.newId = 0;
+
+        sql = "insert into PCHeader (";
+        sql += "fornecedor,";
+        sql += "dtLcto,";
+        sql += "totalPedido,";
+        sql += "status";
+        sql += ") values (?,?,?,?)";
+
+        ps = connection.prepareStatement(sql);
+        setDadosQuery(0);
+        newId = ps.executeUpdate();
+
+        //Verifica se inseriu algum registro
+        if (newId > 0) {
+
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                newId = (int) rs.getLong(1);
+            }
+
+        } else {
+            newId = 0;
+        }
+
+        try {
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+        ps.close();
+        return newId;
+
     }
 
     @Override
     public void alterar(Object entidade) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        this.obj = (PCHeader) entidade;
+
+        try {
+            sql = "update PCHeader set ";
+            sql += "fornecedor=?,";
+            sql += "dtLcto=?,";
+            sql += "totalPedido=?,";
+            sql += "status";
+            sql += " where idPCHeader=?";
+
+            ps = connection.prepareStatement(sql);
+            setDadosQuery(1);
+            ps.execute();
+            ps.close();
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
@@ -100,5 +153,5 @@ public class DaoPCHeader implements Dao{
     public Object buscaUnica(Integer id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
