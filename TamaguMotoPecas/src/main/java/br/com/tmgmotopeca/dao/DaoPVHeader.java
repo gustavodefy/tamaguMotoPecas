@@ -7,8 +7,8 @@ package br.com.tmgmotopeca.dao;
 
 import br.com.tmgmotopeca.biblioteca.Conexao;
 import br.com.tmgmotopeca.biblioteca.Range;
-import br.com.tmgmotopeca.modelo.Fornecedor;
-import br.com.tmgmotopeca.modelo.PCHeader;
+import br.com.tmgmotopeca.modelo.Cliente;
+import br.com.tmgmotopeca.modelo.PVHeader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,28 +17,28 @@ import java.util.List;
 
 /**
  *
- * @author ResVUT42
+ * @author Gustavo
  */
-public class DaoPCHeader implements Dao {
-
+public class DaoPVHeader implements Dao{
+    
     private Connection connection;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
-    private PCHeader obj;
+    private PVHeader obj;
     private int newId;
-
-    public DaoPCHeader() {
+    
+    public DaoPVHeader() {
         this.connection = Conexao.conectar();
-    }
-
-    private void setDadosQuery(int comId) throws Exception {
+    } 
+    
+       private void setDadosQuery(int comId) throws Exception {
 
         int nx = 0;
 
         try {
             nx++;
-            ps.setInt(nx, obj.getFornecedor().getIdFornecedor());
+            ps.setInt(nx, obj.getCliente().getIdCliente());
 
             nx++;
             ps.setDate(nx, (java.sql.Date) obj.getDtLcto());
@@ -48,7 +48,7 @@ public class DaoPCHeader implements Dao {
 
             nx++;
             ps.setString(nx, String.valueOf(obj.getStatus()));
-
+            
             if (comId == 1) {
                 //o id deve ser sempre o ultimo
                 nx++;
@@ -59,18 +59,16 @@ public class DaoPCHeader implements Dao {
             throw new Exception(e.getMessage());
         }
     }
-
-    private void getDadosQuery() throws Exception {
+         private void getDadosQuery() throws Exception {
 
         try {
-            DaoFornecedor daofornecedor = new DaoFornecedor();
-
-            obj.setIdPedido(rs.getInt("idPedido"));
-            obj.setFornecedor((Fornecedor) daofornecedor.buscaUnica(rs.getInt("idFornecedor")));
+            DaoCliente daocliente = new DaoCliente();
+            
+            obj.setIdPedido(rs.getInt("idPedido"));                        
+            obj.setCliente((Cliente)daocliente.buscaUnica(rs.getInt("idFornecedor")));                        
             obj.setDtLcto(rs.getDate("dtLcto"));
             obj.setTotalPedido(rs.getDouble("totalPedido"));
-            obj.setStatus(PCHeader.eStatus.valueOf(rs.getString("status")));
-
+            obj.setStatus(PVHeader.eStatus.valueOf(rs.getString("status")));
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -78,34 +76,34 @@ public class DaoPCHeader implements Dao {
 
     @Override
     public int inserir(Object entidade) throws Exception {
-
-        this.obj = (PCHeader) entidade;
+        
+        this.obj = (PVHeader)entidade;
         this.newId = 0;
 
-        sql = "insert into PCHeader (";
-        sql += "fornecedor,";
-        sql += "dtLcto,";
-        sql += "totalPedido,";
-        sql += "status";
-        sql += ") values (?,?,?,?)";
-
-        ps = connection.prepareStatement(sql);
-        setDadosQuery(0);
-        newId = ps.executeUpdate();
-
-        //Verifica se inseriu algum registro
-        if (newId > 0) {
-
-            rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                newId = (int) rs.getLong(1);
-            }
-
-        } else {
-            newId = 0;
-        }
-
         try {
+
+            sql = "insert into pvHeader (";
+            sql += "cliente,";
+            sql += "dtLcto,";
+            sql += "totalPedido,";
+            sql += "status,";
+            sql += ") values (?,?,?,?)";
+
+            ps = connection.prepareStatement(sql);
+            setDadosQuery(0);
+            newId = ps.executeUpdate();
+
+            //Verifica se inseriu algum registro
+            if (newId > 0) {
+
+                rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    newId = (int) rs.getLong(1);
+                }
+
+            } else {
+                newId = 0;
+            }
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -113,20 +111,20 @@ public class DaoPCHeader implements Dao {
 
         ps.close();
         return newId;
-
     }
+ 
 
     @Override
     public void alterar(Object entidade) throws Exception {
         
-        this.obj = (PCHeader) entidade;
+        this.obj = (PVHeader) entidade;
 
         try {
-            sql = "update PCHeader set ";
-            sql += "fornecedor=?,";
-            sql += "dtLcto=?,";
-            sql += "totalPedido=?,";
-            sql += "status";
+            sql = "update pvHeader set ";
+            sql += "cliente,";
+            sql += "dtLcto,";
+            sql += "totalPedido,";
+            sql += "status,";
             sql += " where idPedido=?";
 
             ps = connection.prepareStatement(sql);
@@ -138,11 +136,10 @@ public class DaoPCHeader implements Dao {
             throw new Exception(e.getMessage());
         }
     }
-
     @Override
     public void deletar(Object entidade) throws Exception {
-
-        this.obj = (PCHeader) entidade;
+        
+        this.obj = (PVHeader) entidade;
 
         try {
 
@@ -159,19 +156,19 @@ public class DaoPCHeader implements Dao {
 
     @Override
     public List getLista(ArrayList<Range> arrayRange) throws Exception {
-
-        List<PCHeader> lista = new ArrayList();
+    
+        List<PVHeader> lista = new ArrayList();
 
         try {
 
             String condicao = Range.RangeToString(arrayRange);
 
-            sql = "select * from pcHeader " + condicao;
+            sql = "select * from pvHeader " + condicao;
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                obj = new PCHeader();
+                obj = new PVHeader();
                 getDadosQuery();
                 lista.add(obj);
             }
@@ -186,14 +183,14 @@ public class DaoPCHeader implements Dao {
     public Object buscaUnica(Integer id) throws Exception {
         try {
 
-            sql = "select * from pcHeader where idPedido = ?";
+            sql = "select * from pvHeader where idPedido = ?";
 
             ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                obj = new PCHeader();
+                obj = new PVHeader();
                 getDadosQuery();
             }
             return obj;
@@ -202,5 +199,4 @@ public class DaoPCHeader implements Dao {
             throw new Exception(e.getMessage());
         }
     }
-
 }
