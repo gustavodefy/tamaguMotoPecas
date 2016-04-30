@@ -73,7 +73,7 @@
                     </div>
                     <div class="campo">
                         <label for="estado">Estado</label>
-                        <select id="estado" name="estado" value="<c:out value="${linCliente.estado}" />"></select>
+                        <select id="estado" name="estado"></select>
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
@@ -106,17 +106,16 @@
 
                     <div class="campo">
                         <label for="confirmasenha">Confirma Senha</label>
-                        <input type="password" id="confirmasenha" name="confirmasenha" style="width: 10em" value="<c:out value="${linCliente.limiteCredito}" />" />
+                        <input type="password" id="confirmasenha" name="confirmasenha" style="width: 10em" value="<c:out value="${confirmasenha}" />"/>
                     </div>
 
                 </fieldset>
-                                    <fieldset class="grupo">                   
+                <fieldset class="grupo">                   
                     <div class="campo">
-                        <label for="senha">Tipo de Acesso</label>
-                        <select name="acesso">
-                            <option value="acesso">${linCliente.estado}</option> 
-                            <option value="Cliente">Cliente</option> 
-                            <option value="Funcionario">Funcionario</option>
+                        <label for="perfil">Tipo de Acesso</label>
+                        <select name="perfil">
+                            <option value="C" ${linCliente.perfil ==  "C" ? 'selected' : ''}>Cliente</option> 
+                            <option value="F" ${linCliente.perfil ==  "F" ? 'selected' : ''}>Funcionario</option>
                         </select>
                     </div>
                 </fieldset>

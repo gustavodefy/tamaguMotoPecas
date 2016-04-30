@@ -2,9 +2,12 @@
     Document   : principal
     Created on : 14/03/2016, 20:48:04
     Author     : Thayro.
+
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,38 +15,85 @@
         <title>TAMAGU Moto Peças</title>
         <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
         <link rel = "stylesheet" href="css/principal.css" type= "text/css" >
+        <script src="./js/login.js"></script>
     </head>
     <body>
-        <table class="menuTopo">
-            <tr>
-                <td>
-                    <div class="topoLogar" align="right">
-                        <li><a class="textoLogar" target="InlineFrame1">Usuário  </a>
-                            <img id="img" src="./img/user.png" width="25" height="23" alt="user"/>
-                            <input class="email" type="email" id="nome" name="nome" style="width: 10em"/>
-                            <a class="textoLogar" target="InlineFrame1">Senha</a>
-                            <img id="img" src="./img/senha.png" width="25" height="23" alt="senha"/>
-                            <input class="senha" type="password" id="nome" name="nome" style="width: 10em"/>
-                            <a href="subPaginas/login.jsp" class="logarEntrar" target="InlineFrame1">Entrar</a>
-                        </li>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <form name="formuLogin" action="./ServletLogin?action=acessar" method="post">
+            <table class="menuTopo">
+                <tr>
+
+                    <td>
+                        <div class="topoLogar" align="left">
+                            <c:if test="${cliente=='true'}">
+                                <li> <img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/>
+                                    <a class="textoLogar" target="InlineFrame1">Carrinho: </a>
+                                    <a class="textoLogar" target="InlineFrame1">0 </a>
+                                    <a class="textoLogar" target="InlineFrame1">Item</a>
+                                </li>
+                            </c:if>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="topoLogar" align="right">
+                            <li>
+                                <c:if test="${logado=='false'}">
+                                    <a class="textoLogar">Usuário</a>
+                                    <img id="img" src="./img/user.png" width="25" height="23" alt="user"/>
+                                    <input  type="text" id="email" name="email" style="width: 10em"/>
+
+                                    <a class="textoLogar">Senha</a>
+                                    <img id="img" src="./img/senha.png" width="25" height="23" alt="senha"/>
+                                    <input  type="password" id="senha" name="senha" style="width: 10em"/>
+
+                                    <input type="submit" class="logarEntrar" value="Ok" onclick="return validar_Login()"/>
+                                </c:if>
+
+                                <c:if test="${logado=='true'}">
+                                    <div class="logado" align="right">
+                                        <c:if test="${cliente=='true'}">
+                                            <a>Bem vindo <% out.print(session.getAttribute("login"));%>!</a>
+                                            <a href="./ServletLogin?action=logout">Sair</a>
+                                        </c:if>
+                                    </div>
+
+                                    <div class="logado" align="right">
+                                        <c:if test="${funcionario=='true'}">
+                                            <a>Bem vindo <% out.print(session.getAttribute("login"));%>!</a>
+                                            <a href="./ServletLogin?action=logout">Sair</a> 
+                                        </c:if>
+                                    </div>
+                                </c:if>
+                            </li>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="action" value="login" />
+        </form>
         <table width="auto" border="0">
             <tr>
                 <td><div align="center" class="logo">
-                        <img src="img/logoNova.png" width="757" height="154" alt="logoNova"/>
-
+                        <a href="./index.jsp"><img src="img/logoNova.png" width="757" height="154" alt="logoNova"/></a>
                     </div>
                     <div align="center" class="menu">
                         <li><a href="subPaginas/home.jsp" target="InlineFrame1">Home</a></li>
                         <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Sobre</a></li>
-                        <li><a href="#">Catalogo</a>
-                            <ul>
-                                <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Produtos</a></li>
-                            </ul>
-                        </li>
+                            <c:if test="${funcionario=='true'}">
+                            <li><a href="#">Cadastro</a>
+                                <ul>
+                                    <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
+                                    <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedores</a></li>
+                                    <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
+                                </ul>
+                            </li>
+                        </c:if>
+                        <c:if test="${funcionario=='false'}">
+                            <li><a href="#">Catalogo</a>
+                                <ul>
+                                    <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
+                                </ul>
+                            </li>
+                        </c:if>
                         <li><a href="subPaginas/contato.jsp" target="InlineFrame1">Contato</a></li>
                     </div></td>
             </tr>

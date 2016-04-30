@@ -138,8 +138,8 @@ public class DaoCliente implements Dao {
             sql += "telefone,";
             sql += "email,";
             sql += "contato,";
-            sql += "limiteCredito";
-            sql += "senha";
+            sql += "limiteCredito,";
+            sql += "senha,";
             sql += "perfil";
             sql += ") values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -186,9 +186,9 @@ public class DaoCliente implements Dao {
             sql += "telefone=?,";
             sql += "email=?,";
             sql += "contato=?,";
-            sql += "limiteCredito=?";
-            sql += "senha";
-            sql += "perfil";
+            sql += "limiteCredito=?,";
+            sql += "senha=?,";
+            sql += "perfil=?";
             sql += " where idCliente=?";
 
             ps = connection.prepareStatement(sql);

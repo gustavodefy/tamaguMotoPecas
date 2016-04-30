@@ -153,29 +153,28 @@ public class PersistirCliente implements Persistir {
         }
     }
 
-    public boolean autenticar() throws Exception{
+    public boolean autenticar() throws Exception {
         try {
-            
+
             Cliente cliAux = buscarPorEmail(cliente.getEmail());
-            
-            if(cliAux != null){
-                
+
+            if (cliAux != null) {
+
                 //Valida senha
-                if(cliAux.getSenha() == this.cliente.getSenha()){
+                if (cliAux.getSenha().equals(this.cliente.getSenha())) {
                     this.cliente = cliAux;
                     return true;
-                }else{
+                } else {
                     throw new Exception("Senha inválida!");
                 }
-                
-            }else{
+
+            } else {
                 throw new Exception("Usuário não cadastrado!");
             }
-                                   
-                    
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-        }        
+        }
     }
 
 }

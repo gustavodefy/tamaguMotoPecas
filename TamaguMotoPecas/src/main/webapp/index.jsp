@@ -11,8 +11,7 @@
     </head>
     
     <body>
-        <!jsp:forward page="subPaginas/principal.jsp"/> 
-        <jsp:forward page="subPaginas/principal_funcionario.jsp"/> 
+        <jsp:forward page="./ServletLogin?action=inicio"/>
     </body>
     
 </html>

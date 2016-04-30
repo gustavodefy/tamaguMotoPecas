@@ -112,6 +112,12 @@ div iframe{
 .topoLogar input:focus{
     background: #ffffcc;
 }
+div.logado{
+    font-family: "Arial";
+    font-size: 15px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
 
 .logarEntrar {
     font-size:9px;

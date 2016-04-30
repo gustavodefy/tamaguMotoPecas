@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,11 +33,11 @@
                         <div class="topoLogar" align="right">
                             <li><a class="textoLogar" target="InlineFrame1">Usuário  </a>
                                 <img id="img" src="./img/user.png" width="25" height="23" alt="user"/>
-                                <input  type="text" id="username" name="username" style="width: 10em"/>
+                                <input  type="text" id="username" name="username" style="width: 10em" value="<c:out value="${linCliente.email}" />"/>
 
                                 <a class="textoLogar" target="InlineFrame1">Senha</a>
                                 <img id="img" src="./img/senha.png" width="25" height="23" alt="senha"/>
-                                <input  type="password" id="password" name="password" style="width: 10em"/>
+                                <input  type="password" id="password" name="password" style="width: 10em" value="<c:out value="${linCliente.senha}" />"/>
 
                                 <a class="logarEntrar" target="InlineFrame1" onclick="Login()">Entrar</a>
                             </li>
@@ -54,11 +55,9 @@
                 <div align="center" class="menu">
                     <li><a href="subPaginas/home.jsp" target="InlineFrame1">Home</a></li>
                     <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Sobre</a></li>
-                    <li><a href="#">Cadastro</a>
+                    <li><a href="#">Catalogo</a>
                         <ul>
-                            <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
-                            <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedores</a></li>
-                            <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
+                            <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Produtos</a></li>
                         </ul>
                     </li>
                     <li><a href="subPaginas/contato.jsp" target="InlineFrame1">Contato</a></li>
