@@ -160,6 +160,7 @@ public class ServletProduto extends HttpServlet {
             produto.setPercentualVenda(Double.parseDouble(request.getParameter("percentualVenda")));
             produto.setPrecoCompra(Double.parseDouble(request.getParameter("precoCompra")));
             produto.setPrecoVenda(Double.parseDouble(request.getParameter("precoVenda")));
+            produto.setEstoque(Double.parseDouble(request.getParameter("estoque")));
 
             persistirProduto.setEntidade(produto);
             

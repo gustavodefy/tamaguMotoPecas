@@ -145,7 +145,7 @@ public class DaoPVHeader implements Dao {
 
         try {
 
-            sql = "delete from cliente where idPedido = ?";
+            sql = "delete from pvHeader where idPedido = ?";
             ps = connection.prepareStatement(sql);
             ps.setInt(1, this.obj.getIdPedido());
             ps.execute();

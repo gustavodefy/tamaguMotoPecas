@@ -51,6 +51,9 @@ public class DaoProduto implements Dao {
 
             nx++;
             ps.setDouble(nx, obj.getPrecoVenda());
+            
+            nx++;
+            ps.setDouble(nx, obj.getEstoque());
 
             //o id deve ser sempre o ultimo
             if (comId == 1) {
@@ -72,6 +75,7 @@ public class DaoProduto implements Dao {
             obj.setPercentualVenda(rs.getDouble("percentualvenda"));
             obj.setPrecoCompra(rs.getDouble("precocompra"));
             obj.setPrecoVenda(rs.getDouble("precovenda"));
+            obj.setEstoque(rs.getDouble("estoque"));
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -92,8 +96,9 @@ public class DaoProduto implements Dao {
             sql += "modelo,";
             sql += "percentualvenda,";
             sql += "precocompra,";
-            sql += "precovenda";
-            sql += ") values (?,?,?,?,?,?)";
+            sql += "precovenda,";
+            sql += "estoque";
+            sql += ") values (?,?,?,?,?,?,?)";
 
             ps = connection.prepareStatement(sql);
             setDadosQuery(0);
@@ -132,6 +137,7 @@ public class DaoProduto implements Dao {
             sql += "percentualvenda=?,";
             sql += "precocompra=?,";
             sql += "precovenda=?";
+            sql += "estoque=?";
             sql += " where idproduto=?";
 
             ps = connection.prepareStatement(sql);

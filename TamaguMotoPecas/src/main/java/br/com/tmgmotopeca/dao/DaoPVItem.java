@@ -7,8 +7,8 @@ package br.com.tmgmotopeca.dao;
 
 import br.com.tmgmotopeca.biblioteca.Conexao;
 import br.com.tmgmotopeca.biblioteca.Range;
-import br.com.tmgmotopeca.modelo.Fornecedor;
-import br.com.tmgmotopeca.modelo.PCHeader;
+import br.com.tmgmotopeca.modelo.PVItem;
+import br.com.tmgmotopeca.modelo.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,42 +19,41 @@ import java.util.List;
  *
  * @author ResVUT42
  */
-public class DaoPCHeader implements Dao {
+public class DaoPVItem implements Dao {
 
     private Connection connection;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
-    private PCHeader obj;
+    private PVItem obj;
     private int newId;
 
-    public DaoPCHeader() {
+    public DaoPVItem() {
         this.connection = Conexao.conectar();
     }
 
-    private void setDadosQuery(int comId) throws Exception {
+    private void setDadosQuery() throws Exception {
 
         int nx = 0;
 
         try {
-            nx++;
-            ps.setInt(nx, obj.getFornecedor().getIdFornecedor());
 
             nx++;
-            ps.setDate(nx, (java.sql.Date) obj.getDtLcto());
+            ps.setDouble(nx, obj.getQuantidade());
 
             nx++;
-            ps.setDouble(nx, obj.getTotalPedido());
+            ps.setDouble(nx, obj.getVlrUnitario());
 
             nx++;
-            ps.setString(nx, String.valueOf(obj.getStatus()));
+            ps.setDouble(nx, obj.getVlrTotal());
 
-            if (comId == 1) {
-                //o id deve ser sempre o ultimo
-                nx++;
-                ps.setInt(nx, obj.getIdPedido());
-            }
+            //o id deve ser sempre o ultimo
+            nx++;
+            ps.setInt(nx, obj.getIdPedido());
 
+            nx++;
+            ps.setInt(nx, obj.getProduto().getIdProduto());
+            
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -63,13 +62,13 @@ public class DaoPCHeader implements Dao {
     private void getDadosQuery() throws Exception {
 
         try {
-            DaoFornecedor daofornecedor = new DaoFornecedor();
+            DaoProduto daoproduto = new DaoProduto();
 
             obj.setIdPedido(rs.getInt("idPedido"));
-            obj.setFornecedor((Fornecedor) daofornecedor.buscaUnica(rs.getInt("idFornecedor")));
-            obj.setDtLcto(rs.getDate("dtLcto"));
-            obj.setTotalPedido(rs.getDouble("totalPedido"));
-            obj.setStatus(PCHeader.eStatus.valueOf(rs.getString("status")));
+            obj.setProduto((Produto) daoproduto.buscaUnica(rs.getInt("idProduto")));
+            obj.setQuantidade(rs.getDouble("quantidade"));
+            obj.setVlrUnitario(rs.getDouble("vlrUnitario"));
+            obj.setVlrTotal(rs.getDouble("vlrTotal"));
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -79,33 +78,25 @@ public class DaoPCHeader implements Dao {
     @Override
     public int inserir(Object entidade) throws Exception {
 
-        this.obj = (PCHeader) entidade;
+        this.obj = (PVItem) entidade;
         this.newId = 0;
-        
+
         try {
-            
-            sql = "insert into PCHeader (";
-            sql += "fornecedor,";
-            sql += "dtLcto,";
-            sql += "totalPedido,";
-            sql += "status";
-            sql += ") values (?,?,?,?)";
+
+            sql = "insert into pvItem (";
+            sql += "quantidade,";
+            sql += "vlrUnitario,";
+            sql += "vlrTotal,";
+            //o id deve ser sempre o ultimo, isso quando não for gerado automáticamente
+            sql += "idPedido,";
+            sql += "idProduto";            
+            sql += ") values (?,?,?,?,?)";
 
             ps = connection.prepareStatement(sql);
-            setDadosQuery(0);
-            newId = ps.executeUpdate();
+            setDadosQuery();
+            ps.executeUpdate();
 
-            //Verifica se inseriu algum registro
-            if (newId > 0) {
-
-                rs = ps.getGeneratedKeys();
-                if (rs.next()) {
-                    newId = (int) rs.getLong(1);
-                }
-
-            } else {
-                newId = 0;
-            }
+            newId = obj.getIdPedido();
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -117,19 +108,19 @@ public class DaoPCHeader implements Dao {
 
     @Override
     public void alterar(Object entidade) throws Exception {
-
-        this.obj = (PCHeader) entidade;
+        
+        this.obj = (PVItem) entidade;
 
         try {
-            sql = "update PCHeader set ";
-            sql += "fornecedor=?,";
-            sql += "dtLcto=?,";
-            sql += "totalPedido=?,";
-            sql += "status=?";
+            sql = "update pvItem set ";
+            sql += "quantidade=?,";
+            sql += "vltUnitario=?,";
+            sql += "vlrTotal=?";
             sql += " where idPedido=?";
+            sql += "   and idProduto=?";
 
             ps = connection.prepareStatement(sql);
-            setDadosQuery(1);
+            setDadosQuery();
             ps.execute();
             ps.close();
 
@@ -140,14 +131,16 @@ public class DaoPCHeader implements Dao {
 
     @Override
     public void deletar(Object entidade) throws Exception {
-
-        this.obj = (PCHeader) entidade;
+        
+        this.obj = (PVItem) entidade;
 
         try {
 
-            sql = "delete from pcHeader where idPedido = ?";
+            sql  = "delete from pvItem where idPedido  = ?";
+            sql += "                     and idProduto = ?";
             ps = connection.prepareStatement(sql);
             ps.setInt(1, this.obj.getIdPedido());
+            ps.setInt(2, this.obj.getProduto().getIdProduto());
             ps.execute();
             ps.close();
 
@@ -155,25 +148,44 @@ public class DaoPCHeader implements Dao {
             throw new Exception(e.getMessage());
         }
     }
+    
+    public void deletarTodosItens(Object entidade) throws Exception {
+        
+        this.obj = (PVItem) entidade;
 
+        try {
+
+            sql  = "delete from pvItem where idPedido  = ?";
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, this.obj.getIdPedido());
+            ps.setInt(2, this.obj.getProduto().getIdProduto());
+            ps.execute();
+            ps.close();
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+    
     @Override
     public List getLista(ArrayList<Range> arrayRange) throws Exception {
-
-        List<PCHeader> lista = new ArrayList();
+        
+        List<PVItem> lista = new ArrayList();
 
         try {
 
             String condicao = Range.RangeToString(arrayRange);
 
-            sql = "select * from pcHeader " + condicao;
+            sql = "select * from pvItem " + condicao;
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                obj = new PCHeader();
+                obj = new PVItem();
                 getDadosQuery();
                 lista.add(obj);
             }
+            
             return lista;
 
         } catch (Exception e) {
@@ -183,22 +195,7 @@ public class DaoPCHeader implements Dao {
 
     @Override
     public Object buscaUnica(Integer id) throws Exception {
-        try {
-
-            sql = "select * from pcHeader where idPedido = ?";
-
-            ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                obj = new PCHeader();
-                getDadosQuery();
-            }
-            return obj;
-
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

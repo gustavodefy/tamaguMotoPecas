@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `tamagu`.`produto` (
   `percentualvenda` DOUBLE(7,4) NULL DEFAULT NULL,  
   `precocompra`     DOUBLE(15,2) NULL DEFAULT NULL,
   `precovenda`      DOUBLE(15,2) NULL DEFAULT NULL,
+  `estoque`         DOUBLE(15,2) NULL DEFAULT NULL,
   PRIMARY KEY (`idproduto`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

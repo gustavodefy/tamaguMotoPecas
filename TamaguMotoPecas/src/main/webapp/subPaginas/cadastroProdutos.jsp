@@ -54,6 +54,10 @@
                         <label for="precoVenda">Preço de Venda</label>
                         <input type="text" id="precoVenda" name="precoVenda" style="width: 10em" value="<c:out value="${linProduto.precoVenda}" />" />
                     </div>
+                    <div class="campo">
+                        <label for="estoque">Estoque</label>
+                        <input type="text" id="estoque" name="estoque" style="width: 10em" value="<c:out value="${linProduto.estoque}" />" />
+                    </div>                    
                 </fieldset>
                     
                 <p align="center">                    

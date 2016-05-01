@@ -18,6 +18,7 @@ public class Produto {
     private double percentualVenda;
     private double precoCompra;
     private double precoVenda;
+    private double estoque;
 
     public Produto() {
         this.idProduto = 0;
@@ -26,6 +27,7 @@ public class Produto {
         this.modelo = "";
         this.percentualVenda = 0;
         this.precoVenda = 0;
+        this.estoque = 0;
     }
 
     public int getIdProduto() {
@@ -82,6 +84,14 @@ public class Produto {
 
     public void setPrecoVenda(double precoVenda) {
         this.precoVenda = precoVenda;
+    }
+
+    public double getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(double estoque) {
+        this.estoque = estoque;
     }
         
 }
