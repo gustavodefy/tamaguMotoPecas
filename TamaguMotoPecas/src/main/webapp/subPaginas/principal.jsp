@@ -27,7 +27,7 @@
                             <c:if test="${cliente=='true'}">
                                 <li> <img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/>
                                     <a class="textoLogar" target="InlineFrame1">Carrinho: </a>
-                                    <a class="textoLogar" target="InlineFrame1">0 </a>
+                                    <a class="textoLogar" target="InlineFrame1" href="./subPaginas/carrinho.jsp">0 </a>
                                     <a class="textoLogar" target="InlineFrame1">Item</a>
                                 </li>
                             </c:if>
@@ -46,6 +46,7 @@
                                     <input  type="password" id="senha" name="senha" style="width: 10em"/>
 
                                     <input type="submit" class="logarEntrar" value="Ok" onclick="return validar_Login()"/>
+                                    <a class="criarConta" href="./ServletCliente?action=inserir" target="InlineFrame1" >Não tenho cadastro</a>
                                 </c:if>
 
                                 <c:if test="${logado=='true'}">

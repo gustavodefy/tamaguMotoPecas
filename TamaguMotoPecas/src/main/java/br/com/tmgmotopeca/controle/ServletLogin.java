@@ -93,7 +93,7 @@ public class ServletLogin extends HttpServlet {
                         request.setAttribute("logado", "true");
                     }
                 } else {
-                    destino = LOGIN;
+                    destino = PRINCIPAL;
                     request.setAttribute("funcionario", "false");
                     request.setAttribute("cliente", "false");
                     request.setAttribute("logado", "false");

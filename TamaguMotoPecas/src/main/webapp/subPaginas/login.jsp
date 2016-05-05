@@ -16,10 +16,10 @@
     <body>
         <div class="login-page" id="white_content">
             <div class="form">
-                <form class="login-form">
-                    <input type="email" placeholder="Email"/>
-                    <input type="password" placeholder="Senha"/>
-                    <button>login</button>
+                <form class="login-form" name="formuLogin" action="../ServletLogin?action=acessar" method="post">
+                    <input  type="text" id="email" name="email" style="width: 20em"/>
+                    <input  type="password" id="senha" name="senha" style="width: 20em"/>
+                    <button type="submit" class="logarEntrar" value="Ok" onclick="window.open('../ServletLogin?action=acessar')">login</button>
                     <p class="message">Não tenho Cadastro? <a href="../ServletCliente?action=inserir">Criar Conta</a></p>
                 </form>
             </div>

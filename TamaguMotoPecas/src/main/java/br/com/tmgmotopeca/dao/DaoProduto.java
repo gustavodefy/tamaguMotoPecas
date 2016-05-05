@@ -136,7 +136,7 @@ public class DaoProduto implements Dao {
             sql += "modelo=?,";
             sql += "percentualvenda=?,";
             sql += "precocompra=?,";
-            sql += "precovenda=?";
+            sql += "precovenda=?,";
             sql += "estoque=?";
             sql += " where idproduto=?";
 

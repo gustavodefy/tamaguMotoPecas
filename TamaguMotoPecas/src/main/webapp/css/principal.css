@@ -109,6 +109,14 @@ div iframe{
     color: #FFFFFF;
     text-decoration: none;
 }
+
+.criarConta{
+    font-family: "Arial";
+    font-size: 10px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
 .topoLogar input:focus{
     background: #ffffcc;
 }

@@ -165,16 +165,19 @@ public class PersistirCliente implements Persistir {
                     this.cliente = cliAux;
                     return true;
                 } else {
-                    throw new Exception("Senha inválida!");
+                    //throw new Exception("Senha inválida!");
+                    return false;
                 }
 
             } else {
-                throw new Exception("Usuário não cadastrado!");
+                //throw new Exception("Usuário não cadastrado!");
+                return false;
             }
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-    }
+        
+    }   
 
 }

@@ -13,11 +13,11 @@
 
         <title>Lista de Produtos</title>
 
-        <link rel="stylesheet" href="./css/lista.css" type= "text/css">
-        <link rel="stylesheet" href="./css/botoes.css" type= "text/css">        
+        <link rel="stylesheet" href="../css/lista.css" type= "text/css">
+        <link rel="stylesheet" href="../css/botoes.css" type= "text/css">        
     </head>
     <body>
-        <h1 align="center">Lista de Produtos</h1>
+        <h1 align="center">Carrinho Compras</h1>
         <table border=1>
             <thead>
                 <tr>
@@ -28,7 +28,7 @@
                     <th>Valor Unitario</th>
                     <th>Quantidade</th>
                     <th>Valor Total</th>
-                    <th>Adicionar</th>
+                    <th>Remover</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,11 +41,11 @@
                         <td><c:out value="${linProduto.precoVenda}" /></td>
                         <td><input type ="number" name="nomeCampo" style="width: 5em"/></td>
                         <td><c:out value="${linProduto.precoVenda}" /></td>
-                        <td><img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/></td>
+                        <td><img src="./img/x.png" width="25" height="23" alt="x"/></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-        <p><a class="btoIncluir" href="./ServletProduto?action=inserir">Incluir</a></p>
+        <p><a class="btoIncluir" href="./ServletProduto?action=inserir">Finalizar Venda</a></p>
     </body>
 </html>
