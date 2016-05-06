@@ -103,7 +103,7 @@
             <table width="800">
                 <nav>
                     <tr class="menu">
-                        <td><iframe class="iframePrincipal" name= "InlineFrame1" id= "InlineFrame1" width="900" height="700" src="subPaginas/home.jsp" frameborder="0"></iframe></td>
+                        <td><iframe class="iframePrincipal" name= "InlineFrame1" id= "InlineFrame1" width="900" height="750" src="subPaginas/home.jsp" frameborder="0"></iframe></td>
                     </tr>
                 </nav>
             </table>   
