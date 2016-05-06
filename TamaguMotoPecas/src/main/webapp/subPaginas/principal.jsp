@@ -107,9 +107,9 @@
                     </tr>
                 </nav>
             </table>   
-        </div>
+        </div>  
         <footer class="rodape"><p align="center"><strong>Posted by: TAMAGU WEBSITES</strong></p>   
-            <p align="center"><strong>Contato Informação: contato@tamagu.com.br </strong></p></footer><p align="center"><img src="./img/formas_pagamento.png" width="485" height="163"></p>
-            <p align="center"><img src="./img/baner-frete-gratis.png" width="539" height="99"></p>
+            <p align="center"><strong>Contato Informação: contato@tamagu.com.br </strong></p></footer>
+        <br><div align="center"><img src="./img/rodape.png" width="901" height="66" alt="rodape"/></div>
     </body>
 </html>

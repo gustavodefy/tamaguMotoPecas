@@ -46,6 +46,6 @@
                 </c:forEach>
             </tbody>
         </table>
-        <p><a class="btoIncluir" href="./ServletProduto?action=inserir">Finalizar Venda</a></p>
+        <p><a class="btoIncluir" href="./ServletProduto?action=inserir">Finalizar Pedido</a></p>
     </body>
 </html>

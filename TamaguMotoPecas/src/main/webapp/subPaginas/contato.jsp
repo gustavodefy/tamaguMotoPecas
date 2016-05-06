@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="../css/botoes.css" type= "text/css">
     </head>
     <body>
-        <form name="formulario" action="http://scripts.redehost.com.br/formmail.aspx" method="post">
+        <form name="formulario" action="../contato/enviarEmail.php" method="post">
             <fieldset class="grupo">
                 <div class="campo">
                     <input type=hidden name="destino" value="thayro.ads@gmail.com">
