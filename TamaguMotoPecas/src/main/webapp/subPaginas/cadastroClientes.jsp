@@ -15,8 +15,6 @@
 
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
-
-        <script type="text/javascript" src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.0-utf8.js"></script>
         <script src="./js/cpf_cnpj.js"></script>
         <script src="./js/estados.js"></script>
         <script src="./js/validarCliente.js"></script>
@@ -25,6 +23,10 @@
     <body>
         <h1 align="center">Cadastro de Clientes</h1>
         <form action="ServletCliente" method="post">
+            <div class="mensagem">
+                <input type="text" id="mensagem" name="mensagem" style="width: 20em"value="<c:out value="${mensagem}" />" />
+            </div>
+
             <fieldset class="grupo">
                 <fieldset class="grupo">
                     <div class="campo">
@@ -73,35 +75,34 @@
                     </div>
                     <div class="campo">
                         <label for="estado">Estado</label>
-                        <select name="estado">
-                            <option value="estado">${linCliente.estado}</option> 
-                            <option value="Acre">Acre</option> 
-                            <option value="Alagoas">Alagoas</option> 
-                            <option value="Amazonas">Amazonas</option> 
-                            <option value="Amapá">Amapá</option> 
-                            <option value="Bahia">Bahia</option> 
-                            <option value="Ceará">Ceará</option> 
-                            <option value="Distrito Federal">Distrito Federal</option> 
-                            <option value="Espírito Santo">Espírito Santo</option> 
-                            <option value="Goiás">Goiás</option> 
-                            <option value="Maranhão">Maranhão</option> 
-                            <option value="Mato Grosso">Mato Grosso</option> 
-                            <option value="Mato Grosso do Sul">Mato Grosso do Sul</option> 
-                            <option value="Minas Gerais">Minas Gerais</option> 
-                            <option value="Pará">Pará</option> 
-                            <option value="Paraíba">Paraíba</option> 
-                            <option value="Paraná">Paraná</option> 
-                            <option value="Pernambuco">Pernambuco</option> 
-                            <option value="Piauí">Piauí</option> 
-                            <option value="Rio de Janeiro">Rio de Janeiro</option> 
-                            <option value="Rio Grande do Norte">Rio Grande do Norte</option> 
-                            <option value="Rondônia">Rondônia</option> 
-                            <option value="Rio Grande do Sul">Rio Grande do Sul</option> 
-                            <option value="Roraima">Roraima</option> 
-                            <option value="Santa Catarina">Santa Catarina</option> 
-                            <option value="Sergipe">Sergipe</option> 
-                            <option value="São Paulo">São Paulo</option> 
-                            <option value="Tocantins">Tocantins</option> 
+                        <select name="estado" id="estado">
+                            <option value="AC" ${linCliente.estado ==  "AC" ? 'selected' : ''} >Acre</option> 
+                            <option value="AL" ${linCliente.estado ==  "AL" ? 'selected' : ''} >Alagoas</option> 
+                            <option value="AP" ${linCliente.estado ==  "AP" ? 'selected' : ''} >Amapá</option>                             
+                            <option value="AM" ${linCliente.estado ==  "AM" ? 'selected' : ''} >Amazonas</option> 
+                            <option value="BA" ${linCliente.estado ==  "BA" ? 'selected' : ''} >Bahia</option> 
+                            <option value="CE" ${linCliente.estado ==  "CE" ? 'selected' : ''} >Ceará</option> 
+                            <option value="DF" ${linCliente.estado ==  "DF" ? 'selected' : ''} >Distrito Federal</option> 
+                            <option value="ES" ${linCliente.estado ==  "ES" ? 'selected' : ''} >Espírito Santo</option> 
+                            <option value="GO" ${linCliente.estado ==  "GO" ? 'selected' : ''} >Goiás</option> 
+                            <option value="MA" ${linCliente.estado ==  "MA" ? 'selected' : ''} >Maranhão</option> 
+                            <option value="MT" ${linCliente.estado ==  "MT" ? 'selected' : ''} >Mato Grosso</option> 
+                            <option value="MS" ${linCliente.estado ==  "MS" ? 'selected' : ''} >Mato Grosso do Sul</option> 
+                            <option value="MG" ${linCliente.estado ==  "MG" ? 'selected' : ''} >Minas Gerais</option> 
+                            <option value="PA" ${linCliente.estado ==  "PA" ? 'selected' : ''} >Pará</option> 
+                            <option value="PB" ${linCliente.estado ==  "PB" ? 'selected' : ''} >Paraíba</option> 
+                            <option value="PR" ${linCliente.estado ==  "PR" ? 'selected' : ''} >Paraná</option> 
+                            <option value="PB" ${linCliente.estado ==  "PB" ? 'selected' : ''} >Pernambuco</option> 
+                            <option value="PI" ${linCliente.estado ==  "PI" ? 'selected' : ''} >Piauí</option> 
+                            <option value="RJ" ${linCliente.estado ==  "RJ" ? 'selected' : ''} >Rio de Janeiro</option> 
+                            <option value="RN" ${linCliente.estado ==  "RN" ? 'selected' : ''} >Rio Grande do Norte</option>                             
+                            <option value="RS" ${linCliente.estado ==  "RS" ? 'selected' : ''} >Rio Grande do Sul</option> 
+                            <option value="RO" ${linCliente.estado ==  "RO" ? 'selected' : ''} >Rondônia</option> 
+                            <option value="RR" ${linCliente.estado ==  "RR" ? 'selected' : ''} >Roraima</option> 
+                            <option value="SC" ${linCliente.estado ==  "SC" ? 'selected' : ''} >Santa Catarina</option> 
+                            <option value="SE" ${linCliente.estado ==  "SE" ? 'selected' : ''} >Sergipe</option> 
+                            <option value="SP" ${linCliente.estado ==  "SP" ? 'selected' : ''} >São Paulo</option> 
+                            <option value="TO" ${linCliente.estado ==  "TO" ? 'selected' : ''} >Tocantins</option> 
                         </select>
                     </div>
                 </fieldset>

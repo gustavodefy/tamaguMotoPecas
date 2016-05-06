@@ -41,24 +41,30 @@ public class ServletLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action;
         // Validando se o usuário é igual a "admin" e a senha é igual a "senha"
-        try {
-            action = request.getParameter("action");
 
-            if (action.equals("inicio")) {
-                destino = PRINCIPAL;
-                request.setAttribute("funcionario", "false");
-                request.setAttribute("cliente", "false");
-                request.setAttribute("logado", "false");
-                
-            } else if (action.equals("logout")) {
-                HttpSession sessao = request.getSession();
-                sessao.invalidate();
-                request.setAttribute("funcionario", "false");
-                request.setAttribute("cliente", "false");
-                request.setAttribute("logado", "false");
-                destino = PRINCIPAL;
+        action = request.getParameter("action");
 
-            } else {
+        if (action.equals("inicio")) {
+
+            HttpSession sessao = request.getSession();
+            sessao.invalidate();
+            request.setAttribute("funcionario", "false");
+            request.setAttribute("cliente", "false");
+            request.setAttribute("logado", "false");
+            destino = PRINCIPAL;
+
+        } else if (action.equals("logout")) {
+
+            HttpSession sessao = request.getSession();
+            sessao.invalidate();
+            request.setAttribute("funcionario", "false");
+            request.setAttribute("cliente", "false");
+            request.setAttribute("logado", "false");
+            destino = PRINCIPAL;
+
+        } else {
+
+            try {
 
                 Cliente cliente = new Cliente();
 
@@ -70,8 +76,10 @@ public class ServletLogin extends HttpServlet {
 
                 PersistirCliente clientePer = new PersistirCliente(cliente);
 
-                if (clientePer.autenticar()) {
-                    cliente = (Cliente) clientePer.getEntidade();
+                clientePer.autenticar();
+                cliente = (Cliente) clientePer.getEntidade();
+
+                if (cliente != null) {
 
                     //Validando Sessão
                     HttpSession sessao = request.getSession();
@@ -92,16 +100,25 @@ public class ServletLogin extends HttpServlet {
                         request.setAttribute("cliente", "true");
                         request.setAttribute("logado", "true");
                     }
+
                 } else {
+
                     destino = PRINCIPAL;
                     request.setAttribute("funcionario", "false");
                     request.setAttribute("cliente", "false");
                     request.setAttribute("logado", "false");
-                }
-            }
 
-        } catch (Exception e) {
+                }
+
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = PRINCIPAL;
+                request.setAttribute("funcionario", "false");
+                request.setAttribute("cliente", "false");
+                request.setAttribute("logado", "false");
+            }
         }
+
         RequestDispatcher view = request.getRequestDispatcher(destino);
         view.forward(request, response);
 

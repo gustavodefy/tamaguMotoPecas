@@ -70,3 +70,11 @@ fieldset.grupo .campo {
 .campo input:focus, .campo select:focus, .campo textarea:focus {
     background: #FFC;
 }
+
+.mensagem{
+    background-color: blue;
+    box-shadow: 0 0 0 0;
+    border: none;
+    outline: none;
+    color: red;    
+}
