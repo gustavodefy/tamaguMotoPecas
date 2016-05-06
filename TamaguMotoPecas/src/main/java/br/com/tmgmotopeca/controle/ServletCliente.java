@@ -29,6 +29,7 @@ public class ServletCliente extends HttpServlet {
     private String destino = "";
     private static String UNICO = "./subPaginas/cadastroClientes.jsp";
     private static String LISTA = "./subPaginas/listaClientes.jsp";
+    private static String PRINCIPAL = "./subPaginas/principal.jsp";
 
     private String tabela = "tabCliente";
     private String linha = "linCliente";
@@ -44,40 +45,45 @@ public class ServletCliente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         cliente = new Cliente();
         persistirCliente = new PersistirCliente(cliente);
-            
-        try {
-            String action;
-            
-            boolean bGravar   = request.getParameter("gravar")   != null;
-            boolean bExcluir  = request.getParameter("excluir")  != null;
-            boolean bCancelar = request.getParameter("cancelar") != null;
-            
-            if(bGravar){
-                action = "gravar";
-            }else if (bExcluir){
-                action = "excluir";
-            }else if (bCancelar){
-                action = "cancelar";
-            }else{
-                action = request.getParameter("action");
-            }
-                        
-            if (action.equals("listar")) {
-                
+
+        String action;
+
+        boolean bGravar = request.getParameter("gravar") != null;
+        boolean bExcluir = request.getParameter("excluir") != null;
+        boolean bCancelar = request.getParameter("cancelar") != null;
+
+        if (bGravar) {
+            action = "gravar";
+        } else if (bExcluir) {
+            action = "excluir";
+        } else if (bCancelar) {
+            action = "cancelar";
+        } else {
+            action = request.getParameter("action");
+        }
+
+        if (action.equals("listar")) {
+
+            try {
                 //Busca e lista os dados da entidade
                 setLista(request);
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = PRINCIPAL;
+            }
 
-            } else if (action.equals("inserir")) {
+        } else if (action.equals("inserir")) {
 
-                //Direciona para incluir um novo registro
-                request.setAttribute("excluir", "false");
-                destino = UNICO;                
+            //Direciona para incluir um novo registro
+            request.setAttribute("excluir", "false");
+            destino = UNICO;
 
-            } else if (action.equals("editar")) {
+        } else if (action.equals("editar")) {
 
+            try {
                 //Busca o codigo do cliente na tela
                 int idCliente = Integer.parseInt(request.getParameter("idCliente"));
 
@@ -92,39 +98,57 @@ public class ServletCliente extends HttpServlet {
                 request.setAttribute("excluir", "true");
                 destino = UNICO;
 
-            } else if (action.equals("excluir")) {
-
-                //busca os dados na tela
-                getDadosTela(request);                
-                
-                //exclui o registro do banco
-                persistirCliente.excluir();
-                
-                //Lista os registros da entidade
-                setLista(request);
-
-            } else if (action.equals("gravar")) {
-
-                //busca os dados da tela
-                getDadosTela(request);
-                
-                //gravar os dados no banco
-                persistirCliente.gravar();
-                
-                //Lista os registros da entidade
-                setLista(request);
-                            
-            } else {
-                 //Lista os registros da entidade
-                setLista(request);
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = PRINCIPAL;
             }
 
-        } catch (Exception e) {
+        } else if (action.equals("excluir")) {
+
             try {
+                //busca os dados na tela
+                getDadosTela(request);
+
+                //exclui o registro do banco
+                persistirCliente.excluir();
+
+                //Lista os registros da entidade
                 setLista(request);
+
+            } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
-            } catch (Exception j) {
-                request.setAttribute("mensagem", j.getMessage());
+                destino = PRINCIPAL;
+            }
+
+        } else if (action.equals("gravar")) {
+
+            try {
+                //busca os dados da tela
+                getDadosTela(request);
+
+                //gravar os dados no banco
+                persistirCliente.gravar();
+
+                //Lista os registros da entidade
+                setLista(request);
+
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+
+                //Seta atributo na tela
+                request.setAttribute(linha, cliente);
+                
+                destino = UNICO;
+            }
+
+        } else {
+            
+            try {
+                //Lista os registros da entidade
+                setLista(request);
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = PRINCIPAL;
             }
         }
 
@@ -169,11 +193,11 @@ public class ServletCliente extends HttpServlet {
             cliente.setLimiteCredito(Double.parseDouble(request.getParameter("limitecredito")));
             cliente.setSenha(request.getParameter("senha"));
             cliente.setPerfil(request.getParameter("perfil"));
-            
+
             persistirCliente.setEntidade(cliente);
 
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Preencher todos os campos!!");
         }
     }
 

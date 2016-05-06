@@ -33,6 +33,13 @@
                             </c:if>
                         </div>
                     </td>
+                    
+                    <td>
+                        <div class="mensagem">
+                            <input type="text" id="mensagem" name="mensagem" style="width: 20em"value="<c:out value="${mensagem}" />" />
+                        </div>                        
+                    </td>
+                    
                     <td>
                         <div class="topoLogar" align="right">
                             <li>
@@ -51,17 +58,8 @@
 
                                 <c:if test="${logado=='true'}">
                                     <div class="logado" align="right">
-                                        <c:if test="${cliente=='true'}">
-                                            <a>Bem vindo <% out.print(session.getAttribute("login"));%>!</a>
-                                            <a href="./ServletLogin?action=logout">Sair</a>
-                                        </c:if>
-                                    </div>
-
-                                    <div class="logado" align="right">
-                                        <c:if test="${funcionario=='true'}">
-                                            <a>Bem vindo <% out.print(session.getAttribute("login"));%>!</a>
-                                            <a href="./ServletLogin?action=logout">Sair</a> 
-                                        </c:if>
+                                        <a>Bem vindo <% out.print(session.getAttribute("login"));%>!</a>
+                                        <a href="./ServletLogin?action=logout">Sair</a>
                                     </div>
                                 </c:if>
                             </li>
@@ -110,6 +108,6 @@
         </div>
         <footer class="rodape"><p align="center"><strong>Posted by: TAMAGU WEBSITES</strong></p>   
             <p align="center"><strong>Contato Informação: contato@tamagu.com.br </strong></p></footer><p align="center"><img src="./img/formas_pagamento.png" width="485" height="163"></p>
-            <p align="center"><img src="./img/baner-frete-gratis.png" width="539" height="99"></p>
+        <p align="center"><img src="./img/baner-frete-gratis.png" width="539" height="99"></p>
     </body>
 </html>

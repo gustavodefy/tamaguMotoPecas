@@ -142,10 +142,10 @@ public class PersistirCliente implements Persistir {
 
             List lista = daoCliente.getLista(whereId);
 
-            if (lista != null) {
-                return (Cliente) lista.get(0);
-            } else {
+            if (lista.isEmpty()) {
                 return null;
+            } else {
+                return (Cliente) lista.get(0);
             }
 
         } catch (Exception e) {
@@ -153,7 +153,7 @@ public class PersistirCliente implements Persistir {
         }
     }
 
-    public boolean autenticar() throws Exception {
+    public void autenticar() throws Exception {
         try {
 
             Cliente cliAux = buscarPorEmail(cliente.getEmail());
@@ -163,15 +163,14 @@ public class PersistirCliente implements Persistir {
                 //Valida senha
                 if (cliAux.getSenha().equals(this.cliente.getSenha())) {
                     this.cliente = cliAux;
-                    return true;
                 } else {
-                    //throw new Exception("Senha inválida!");
-                    return false;
+                    cliAux = null;
+                    throw new Exception("Senha inválida!");                    
                 }
 
             } else {
-                //throw new Exception("Usuário não cadastrado!");
-                return false;
+                cliAux = null;
+                throw new Exception("Usuário não cadastrado!");
             }
 
         } catch (Exception e) {

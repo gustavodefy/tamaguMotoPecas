@@ -9,13 +9,19 @@ $('.message a').click(function () {
     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
 });
 
-function validar_Login() {   
-    if (document.getElementById("email").value == "" || document.getElementById("senha").value == "" ) {
+function validar_Login() {
+    if (document.getElementById("email").value == "" || document.getElementById("senha").value == "") {
         alert('Por favor, preencha o campo Email e Senha');
         document.getElementById("email").focus();
-        return false
+        return false;
     }
-
-
-
 }
+
+window.onload(function () {
+    
+    var men = document.getElementById("mensagem").value;
+        
+        alert(men);        
+        return false;
+
+});
