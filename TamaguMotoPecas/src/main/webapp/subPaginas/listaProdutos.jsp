@@ -40,7 +40,7 @@
                         <td><c:out value="${linProduto.modelo}" /></td>
                         <td><c:out value="${linProduto.precoVenda}" /></td>
                         <td><input type ="number" name="nomeCampo" style="width: 5em"/></td>
-                        <td><c:out value="${linProduto.precoVenda}" /></td>
+                        <td><c:out value="${linProduto.estoque}" /></td>
                         <td><img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/></td>
                     </tr>
                 </c:forEach>

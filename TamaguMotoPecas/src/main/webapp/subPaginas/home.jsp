@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Documento sem título</title>
         <link rel = "stylesheet" href="../css/home.css" type= "text/css">
@@ -31,82 +31,21 @@
                     </div></td>
             </tr>
             <tr>
-                <td class="motor" width="200"><img src="../img/bomba.png" width="200" height="150" /></td>
-                <td width="125"><table width="125" height="100" border="0">
-                        <tr>
-                            <td class="produto">Bomba Falcon</td>
-                        </tr>
-                        <tr>
-                            <td class="preco">R$ 1150</td>
-                        </tr>
-                        <tr>
-                            <td><a class="comprar" href="">Comprar</a></td>
-                        </tr>
-                    </table></td>
-                <td class="motor" width="200"><img src="../img/painel.png" alt="" width="200" height="150" /></td>
-                <td width="125"><table width="125" height="100" border="0">
-                        <tr>
-                            <td class="produto">Painel CG</td>
-                        </tr>
-                        <tr>
-                            <td class="preco">R$ 190</td>
-                        </tr>
-                        <tr>
-                            <td><a class="comprar" href="">Comprar</a></td>
-                        </tr>
-                    </table></td>
+              <td width="161" height="211" class="motor"><img src="../img/cat1.png" width="154" height="200" /></td>
+              <td width="165"><img src="../img/cat2.png" width="154" height="200" /></td>
+              <td width="162" class="motor"><img src="../img/cat3.png" width="154" height="200" /></td>
+              <td width="159"><img src="../img/cat4.png" width="154" height="200" /></td>
             </tr>
             <tr>
-                <td class="motor" width="200"><img src="../img/corrente.png" alt="" width="200" height="150" /></td>
-                <td width="125"><table width="125" height="100" border="0">
-                        <tr>
-                            <td class="produto">Corrente</td>
-                        </tr>
-                        <tr>
-                            <td class="preco">R$ 300</td>
-                        </tr>
-                        <tr>
-                            <td><a class="comprar" href="">Comprar</a></td>
-                        </tr>
-                    </table></td>
-                <td class="motor" width="200"><img src="../img/roda.png" alt="" width="200" height="150" /></td>
-                <td width="125"><table width="125" height="100" border="0">
-                        <tr>
-                            <td class="produto">Roda Liga lev</td>
-                        </tr>
-                        <tr>
-                            <td class="preco">R$ 330</td>
-                        </tr>
-                        <tr>
-                            <td><a class="comprar" href="">Comprar</a></td>
-                        </tr>
-                    </table></td>
-            </tr>
+              <td height="28" colspan="4" class="motor"><img src="../img/assista.png" width="860" height="31" /></td>
+          </tr>
             <tr>
-                <td class="motor" width="200"><img src="../img/motor.png" alt="" width="200" height="150" /></td>
-                <td width="125"><table width="125" height="100" border="0">
-                        <tr>
-                            <td class="produto">MOTOR FALCON</td>
-                        </tr>
-                        <tr>
-                            <td class="preco">R$ 2150</td>
-                        </tr>
-                        <tr>
-                            <td><a class="comprar" href="">Comprar</a></td>
-                        </tr>
-                    </table></td>
-                <td class="motor" width="200"><img src="../img/paralama.png" alt="" width="200" height="150" /></td>
-                <td width="125"><table width="125" height="100" border="0">
-                        <tr>
-                            <td class="produto">PARALAMA</td>
-                        </tr>
-                        <tr>
-                            <td class="preco">R$ 150</td>
-                        </tr>
-                        <tr>
-                            <td><a class="comprar" href="">Comprar</a></td>
-                        </tr>
-                    </table></td>
+                <td height="220" colspan="4" class="motor"><video class="teste" width="860" height="240" muted="muted" controls="controls" autoplay="autoplay" > <source src="../video/motocross.mp4" type="video/mp4"> <div align="center">
+                                <div align="center">
+                                    <object data="" width="320" height="240"> 
+                                        <embed width="320" height="240" src="../video/motocross.mp4">                   
+                                    </object>
+                                </div></td>
             </tr>
         </table>
 

@@ -39,7 +39,7 @@
                                 <c:if test="${logado=='false'}">
                                     <a class="textoLogar">Usuário</a>
                                     <img id="img" src="./img/user.png" width="25" height="23" alt="user"/>
-                                    <input  type="text" id="email" name="email" style="width: 10em"/>
+                                    <input  type="email" id="email" placeholder="contato@mail.com" name="email" style="width: 10em"/>
 
                                     <a class="textoLogar">Senha</a>
                                     <img id="img" src="./img/senha.png" width="25" height="23" alt="senha"/>
@@ -109,6 +109,7 @@
             </table>   
         </div>
         <footer class="rodape"><p align="center"><strong>Posted by: TAMAGU WEBSITES</strong></p>   
-            <p align="center"><strong>Contato Informação: contato@tamagu.com.br </strong></p></footer>
+            <p align="center"><strong>Contato Informação: contato@tamagu.com.br </strong></p></footer><p align="center"><img src="./img/formas_pagamento.png" width="485" height="163"></p>
+            <p align="center"><img src="./img/baner-frete-gratis.png" width="539" height="99"></p>
     </body>
 </html>
