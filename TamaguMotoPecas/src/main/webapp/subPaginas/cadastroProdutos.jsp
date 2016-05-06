@@ -67,9 +67,6 @@
                     </c:if>
                     <input class="btoCancelar" type="submit" value="Cancelar" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
                 </p>
-                
-                <label>Mensagem:</label>
-                <input id="mensagem" name="mensagem" value="${mensagem}" readonly="readonly" >
             </fieldset>
         </form>
     </body>
