@@ -29,6 +29,16 @@ body, input, select, textarea, button {
     display: table;
 }
 
+div.mensagem input{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+    background-color: white;
+    border-color: white;
+    font-family: "Arial";
+    color: #ce0100; 
+}
+
 .grupo:after {
     clear: both;
 }
@@ -69,12 +79,4 @@ fieldset.grupo .campo {
 
 .campo input:focus, .campo select:focus, .campo textarea:focus {
     background: #FFC;
-}
-
-.mensagem{
-    background-color: blue;
-    box-shadow: 0 0 0 0;
-    border: none;
-    outline: none;
-    color: red;    
 }

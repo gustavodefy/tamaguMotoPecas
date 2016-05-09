@@ -24,7 +24,7 @@
         <h1 align="center">Cadastro de Clientes</h1>
         <form action="ServletCliente" method="post">
             <div class="mensagem">
-                <input type="text" id="mensagem" name="mensagem" style="width: 20em"value="<c:out value="${mensagem}" />" />
+                <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em"value="<c:out value="${mensagem}" />" />
             </div>
 
             <fieldset class="grupo">

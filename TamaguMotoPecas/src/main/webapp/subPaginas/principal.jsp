@@ -35,7 +35,7 @@
                     </td>
                     <td>
                         <div class="mensagem">
-                            <input type="text" id="mensagem" name="mensagem" style="width: 20em"value="<c:out value="${mensagem}" />" />
+                            <input type="text" readonly="readonly" id="mensagem" name="mensagem" style="width: 20em"value="<c:out value="${mensagem}" />" />
                         </div>                        
                     </td>
                     <td>
