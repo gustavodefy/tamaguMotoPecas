@@ -56,17 +56,8 @@
 
                                 <c:if test="${logado=='true'}">
                                     <div class="logado" align="right">
-                                        <c:if test="${cliente=='true'}">
-                                            <a>Bem vindo <% out.print(session.getAttribute("login"));%>!</a>
-                                            <a href="./ServletLogin?action=logout">Sair</a>
-                                        </c:if>
-                                    </div>
-
-                                    <div class="logado" align="right">
-                                        <c:if test="${funcionario=='true'}">
-                                            <a>Bem vindo <% out.print(session.getAttribute("login"));%>!</a>
-                                            <a href="./ServletLogin?action=logout">Sair</a> 
-                                        </c:if>
+                                        <a href="./ServletCliente?action=editar&idCliente=<c:out value="${sessaoCliente.idCliente}"/>" target="InlineFrame1" > Bem vindo <c:out value="${sessaoCliente.nome}"/> </a>
+                                        <a href="./ServletLogin?action=logout">Sair</a>
                                     </div>
                                 </c:if>
                             </li>
