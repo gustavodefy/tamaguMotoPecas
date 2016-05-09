@@ -37,25 +37,25 @@
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome" style="width: 22em" value="<c:out value="${linCliente.nome}" />" />
+                        <input type="text" id="nome" name="nome" required="required" style="width: 22em" value="<c:out value="${linCliente.nome}" />" />
                     </div>
                     <div class="campo">
                         <label for="cpf_cnpj">CPF/CNPJ</label>
-                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" style="width: 10em" onblur="return validarCpfCnpj();" value="<c:out value="${linCliente.cpf_cnpj}" />"/>
+                        <input type="text" id="cpf_cnpj" name="cpf_cnpj" required="required" style="width: 10em" onblur="return validarCpfCnpj();" value="<c:out value="${linCliente.cpf_cnpj}" />"/>
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="logradouro">Logradouro</label>
-                        <input type="text" id="logradouro" name="logradouro" style="width: 15em" value="<c:out value="${linCliente.logradouro}" />" />
+                        <input type="text" id="logradouro" name="logradouro" required="required" style="width: 15em" value="<c:out value="${linCliente.logradouro}" />" />
                     </div>
                     <div class="campo">
                         <label for="numero">Numero</label>
-                        <input type="text" id="numero" name="numero" style="width: 5em" value="<c:out value="${linCliente.numero}" />" />
+                        <input type="text" id="numero" name="numero" required="required" style="width: 5em" value="<c:out value="${linCliente.numero}" />" />
                     </div>
                     <div class="campo">
                         <label for="complemento">Complemento</label>
-                        <input type="text" id="complemento" name="complemento" style="width: 10em" value="<c:out value="${linCliente.complemento}" />" />
+                        <input type="text" id="complemento" name="complemento" required="required" style="width: 10em" value="<c:out value="${linCliente.complemento}" />" />
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
@@ -65,17 +65,18 @@
                     </div>
                     <div class="campo">
                         <label for="bairro">Bairro</label>
-                        <input type="text" id="bairro" name="bairro" style="width: 21.5em" value="<c:out value="${linCliente.bairro}" />" />
+                        <input type="text" id="bairro" name="bairro" required="required" style="width: 21.5em" value="<c:out value="${linCliente.bairro}" />" />
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="cidade">Cidade</label>
-                        <input type="text" id="cidade" name="cidade" style="width: 21.5em" value="<c:out value="${linCliente.cidade}" />">
+                        <input type="text" id="cidade" name="cidade" required="required" style="width: 21.5em" value="<c:out value="${linCliente.cidade}" />">
                     </div>
                     <div class="campo">
                         <label for="estado">Estado</label>
-                        <select name="estado" id="estado">
+                        <select name="estado" id="estado" required="required">
+                            <option value="-" ${linCliente.estado ==  "-" ? 'selected' : ''} >-</option> 
                             <option value="AC" ${linCliente.estado ==  "AC" ? 'selected' : ''} >Acre</option> 
                             <option value="AL" ${linCliente.estado ==  "AL" ? 'selected' : ''} >Alagoas</option> 
                             <option value="AP" ${linCliente.estado ==  "AP" ? 'selected' : ''} >Amapá</option>                             
@@ -109,41 +110,41 @@
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="telefone">Telefone</label>
-                        <input type="tel" id="telefone" name="telefone" style="width: 10em" value="<c:out value="${linCliente.telefone}" />" />
+                        <input type="tel" id="telefone" required="required" name="telefone" style="width: 10em" value="<c:out value="${linCliente.telefone}" />" />
                     </div>
                     <div class="campo">
                         <label for="contato">Contato</label>
-                        <input type="text" id="contato" name="contato" style="width: 10em" value="<c:out value="${linCliente.contato}" />" />
+                        <input type="text" id="contato" required="required" name="contato" style="width: 10em" value="<c:out value="${linCliente.contato}" />" />
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" style="width: 21.5em" value="<c:out value="${linCliente.email}" />" />
+                        <input type="email" id="email" required="required" name="email" style="width: 21.5em" value="<c:out value="${linCliente.email}" />" />
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="limitecredito">Limite Credito</label>
-                        <input type="text" id="limitecredito" name="limitecredito" style="width: 10em" value="<c:out value="${linCliente.limiteCredito}" />" />
+                        <input type="text" id="limitecredito" required="required" name="limitecredito" style="width: 10em" value="<c:out value="${linCliente.limiteCredito}" />" />
                     </div>
                 </fieldset>
                 <fieldset class="grupo">                   
                     <div class="campo">
                         <label for="senha">Senha</label>
-                        <input type="password" id="senha" name="senha" style="width: 10em" value="<c:out value="${linCliente.senha}" />" />
+                        <input type="password" id="senha" name="senha" required="required" style="width: 10em" value="<c:out value="${linCliente.senha}" />" />
                     </div>
 
                     <div class="campo">
                         <label for="confirmasenha">Confirma Senha</label>
-                        <input type="password" id="confirmasenha" name="confirmasenha" style="width: 10em" value="<c:out value="${confirmasenha}" />"/>
+                        <input type="password" id="confirmasenha" required="required" name="confirmasenha" style="width: 10em" value="<c:out value="${confirmasenha}" />"/>
                     </div>
 
                 </fieldset>
                 <fieldset class="grupo">                   
                     <div class="campo">
                         <label for="perfil">Tipo de Acesso</label>
-                        <select name="perfil">
+                        <select name="perfil" required="required">
                             <option value="C" ${linCliente.perfil ==  "C" ? 'selected' : ''}>Cliente</option> 
                             <option value="F" ${linCliente.perfil ==  "F" ? 'selected' : ''}>Funcionario</option>
                         </select>
