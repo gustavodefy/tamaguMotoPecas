@@ -27,7 +27,7 @@
                             <c:if test="${cliente=='true'}">
                                 <li> <img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/>
                                     <a class="textoLogar" target="InlineFrame1">Carrinho: </a>
-                                    <a class="textoLogar" target="InlineFrame1" href="./subPaginas/carrinho.jsp">0 </a>
+                                    <a class="textoQtd" target="InlineFrame1" href="./subPaginas/carrinho.jsp"> 0 </a>
                                     <a class="textoLogar" target="InlineFrame1">Item</a>
                                 </li>
                             </c:if>
@@ -56,8 +56,8 @@
 
                                 <c:if test="${logado=='true'}">
                                     <div class="logado" align="right">
-                                        <a href="./ServletCliente?action=editar&idCliente=<c:out value="${sessaoCliente.idCliente}"/>" target="InlineFrame1" > Bem vindo <c:out value="${sessaoCliente.nome}"/> </a>
-                                        <a href="./ServletLogin?action=logout">Sair</a>
+                                        <a class="idLogado" href="./ServletCliente?action=editar&idCliente=<c:out value="${sessaoCliente.idCliente}"/>" target="InlineFrame1" > Bem vindo <c:out value="${sessaoCliente.nome}"/> </a>
+                                        <a class="idSair" href="./ServletLogin?action=logout">Sair</a>
                                     </div>
                                 </c:if>
                             </li>
