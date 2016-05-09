@@ -44,11 +44,11 @@
                                 <c:if test="${logado=='false'}">
                                     <a class="textoLogar">Usuário</a>
                                     <img id="img" src="./img/user.png" width="25" height="23" alt="user"/>
-                                    <input  type="email" id="email" placeholder="contato@mail.com" name="email" style="width: 10em"/>
+                                    <input class="campoEmail"  type="email" id="email" placeholder="contato@mail.com" name="email" style="width: 15em"/>
 
                                     <a class="textoLogar">Senha</a>
                                     <img id="img" src="./img/senha.png" width="25" height="23" alt="senha"/>
-                                    <input  type="password" id="senha" name="senha" style="width: 10em"/>
+                                    <input class="campoEmail" type="password" id="senha" name="senha" style="width: 10em"/>
 
                                     <input type="submit" class="logarEntrar" value="Ok" onclick="return validar_Login()"/>
                                     <a class="criarConta" href="./ServletCliente?action=inserir" target="InlineFrame1" >Não tenho cadastro</a>
