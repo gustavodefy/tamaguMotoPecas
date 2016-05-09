@@ -28,6 +28,13 @@ footer.rodape{
     color: black;
 
 }
+
+div.mensagem input{
+    background-color: #000;
+    border-color: #000;
+    font-family: "Arial";
+    color: #ce0100; 
+}
 .menu{
     list-style-type: none;
     margin: auto auto auto auto;
