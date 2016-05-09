@@ -85,7 +85,7 @@ public class ServletLogin extends HttpServlet {
                     HttpSession sessao = request.getSession();
                     // setando um atributo da sessao
                     sessao.setAttribute("sessaoCliente", cliente);
-                    sessao.setAttribute("login", cliente.getNome());
+                    //sessao.setAttribute("login", cliente.getNome());
                     //sessao.setAttribute("login", request.getParameter("login"));
 
                     //Validando Login
