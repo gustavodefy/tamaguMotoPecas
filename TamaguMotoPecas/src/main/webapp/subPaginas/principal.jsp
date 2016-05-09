@@ -34,6 +34,11 @@
                         </div>
                     </td>
                     <td>
+                        <div class="mensagem">
+                            <input type="text" id="mensagem" name="mensagem" style="width: 20em"value="<c:out value="${mensagem}" />" />
+                        </div>                        
+                    </td>
+                    <td>
                         <div class="topoLogar" align="right">
                             <li>
                                 <c:if test="${logado=='false'}">
