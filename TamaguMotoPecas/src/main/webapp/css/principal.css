@@ -107,10 +107,6 @@ div iframe{
     box-shadow: 0px 0px 100px black;
     box-sizing: border-box;
     border-radius: 20px;
-    
-    border: 0 none;
-    outline: 0;
-    
 }
 .menuTopo {
     position:fixed;
