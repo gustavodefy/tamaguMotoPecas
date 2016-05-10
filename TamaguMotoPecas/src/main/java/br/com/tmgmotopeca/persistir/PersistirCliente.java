@@ -10,6 +10,8 @@ import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.biblioteca.Range.tpRelacao;
 import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.dao.DaoCliente;
+import br.com.tmgmotopeca.dao.SelecionaDao;
+import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
 import br.com.tmgmotopeca.modelo.Cliente;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,7 +28,7 @@ public class PersistirCliente implements Persistir {
 
     public PersistirCliente(Cliente cliente) {
         this.cliente = cliente;
-        daoCliente = new DaoCliente();
+        daoCliente = SelecionaDao.Selecionar(ListaDaos.CLIENTE);
     }
 
     @Override
