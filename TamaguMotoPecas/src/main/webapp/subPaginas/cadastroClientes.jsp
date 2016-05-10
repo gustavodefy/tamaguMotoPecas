@@ -141,15 +141,13 @@
                     </div>
 
                 </fieldset>
+
                 <fieldset class="grupo">                   
                     <div class="campo">
                         <label for="perfil">Tipo de Acesso</label>
                         <select name="perfil" required="required">
                             <option value="C" ${linCliente.perfil ==  "C" ? 'selected' : ''}>Cliente</option> 
-                            <!-- Só liberar opção de funcionario !-->
-
-                                <option value="F" ${linCliente.perfil ==  "F" ? 'selected' : ''} >Funcionario</option>
-
+                            <option value="F" ${linCliente.perfil ==  "F" ? 'selected' : ''}>Funcionario</option>
                         </select>
                     </div>
                 </fieldset>
