@@ -12,6 +12,7 @@ import br.com.tmgmotopeca.modelo.PCHeader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class DaoPCHeader implements Dao {
             sql += "status";
             sql += ") values (?,?,?,?)";
 
-            ps = connection.prepareStatement(sql);
+            ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             setDadosQuery(0);
             newId = ps.executeUpdate();
 

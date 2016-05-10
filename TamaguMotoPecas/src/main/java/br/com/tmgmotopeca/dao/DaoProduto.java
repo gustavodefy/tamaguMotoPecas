@@ -11,6 +11,7 @@ import br.com.tmgmotopeca.modelo.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +101,7 @@ public class DaoProduto implements Dao {
             sql += "estoque";
             sql += ") values (?,?,?,?,?,?,?)";
 
-            ps = connection.prepareStatement(sql);
+            ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             setDadosQuery(0);
             newId = ps.executeUpdate();
 
