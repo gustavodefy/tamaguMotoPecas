@@ -10,16 +10,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                
+
         <title>Cadastro de Produtos</title>
-        
+
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
-        
+
     </head>
     <body>
         <h1 align="center">Cadastro de Produtos</h1>
         <form action="ServletProduto" method="post">
+            <div class="mensagem">
+                <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
+            </div>
             <fieldset class="grupo">
                 <fieldset class="grupo">
                     <div class="campo">
@@ -59,7 +62,7 @@
                         <input type="text" id="estoque" name="estoque" style="width: 10em" value="<c:out value="${linProduto.estoque}" />" />
                     </div>                    
                 </fieldset>
-                    
+
                 <p align="center">                    
                     <input class="btoGravar"   type="submit" value="Gravar"   id="gravar"   name="gravar"   onclick="validarAcao('gravar');" />
                     <c:if test="${excluir=='true'}">
