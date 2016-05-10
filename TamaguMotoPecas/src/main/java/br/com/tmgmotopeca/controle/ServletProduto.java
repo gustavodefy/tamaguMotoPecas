@@ -30,6 +30,7 @@ public class ServletProduto extends HttpServlet {
     private String destino = "";
     private static String UNICO = "./subPaginas/cadastroProdutos.jsp";
     private static String LISTA = "./subPaginas/listaProdutos.jsp";
+    private static String PRINCIPAL = "./subPaginas/principal.jsp";
 
     private String tabela = "tabProduto";
     private String linha = "linProduto";
@@ -49,36 +50,39 @@ public class ServletProduto extends HttpServlet {
         produto = new Produto();
         persistirProduto = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, produto);
 
-        try {
-            String action;
+        String action;
 
-            boolean bGravar = request.getParameter("gravar") != null;
-            boolean bExcluir = request.getParameter("excluir") != null;
-            boolean bCancelar = request.getParameter("cancelar") != null;
+        boolean bGravar = request.getParameter("gravar") != null;
+        boolean bExcluir = request.getParameter("excluir") != null;
+        boolean bCancelar = request.getParameter("cancelar") != null;
 
-            if (bGravar) {
-                action = "gravar";
-            } else if (bExcluir) {
-                action = "excluir";
-            } else if (bCancelar) {
-                action = "cancelar";
-            } else {
-                action = request.getParameter("action");
-            }
+        if (bGravar) {
+            action = "gravar";
+        } else if (bExcluir) {
+            action = "excluir";
+        } else if (bCancelar) {
+            action = "cancelar";
+        } else {
+            action = request.getParameter("action");
+        }
 
-            if (action.equals("listar")) {
-
+        if (action.equals("listar")) {
+            try {
                 //Busca e lista os dados da entidade
                 setLista(request);
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = PRINCIPAL;
+            }
 
-            } else if (action.equals("inserir")) {
+        } else if (action.equals("inserir")) {
 
-                //Direciona para incluir um novo registro
-                request.setAttribute("excluir", "false");
-                destino = UNICO;
+            //Direciona para incluir um novo registro
+            request.setAttribute("excluir", "false");
+            destino = UNICO;
 
-            } else if (action.equals("editar")) {
-
+        } else if (action.equals("editar")) {
+            try {
                 //Busca o codigo do produto na tela
                 int idProduto = Integer.parseInt(request.getParameter("idProduto"));
 
@@ -92,9 +96,13 @@ public class ServletProduto extends HttpServlet {
                 //Direciona para alterar o registro
                 request.setAttribute("excluir", "true");
                 destino = UNICO;
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = PRINCIPAL;
+            }
 
-            } else if (action.equals("excluir")) {
-
+        } else if (action.equals("excluir")) {
+            try {
                 //busca os dados na tela
                 getDadosTela(request);
 
@@ -103,9 +111,13 @@ public class ServletProduto extends HttpServlet {
 
                 //Lista os registros da entidade
                 setLista(request);
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = PRINCIPAL;
+            }
 
-            } else if (action.equals("gravar")) {
-
+        } else if (action.equals("gravar")) {
+            try {
                 //busca os dados da tela
                 getDadosTela(request);
 
@@ -114,18 +126,25 @@ public class ServletProduto extends HttpServlet {
 
                 //Lista os registros da entidade
                 setLista(request);
+            } catch (Exception e) {
 
-            } else {
-                //Lista os registros da entidade
-                setLista(request);
+                //Seta atributo na tela
+                request.setAttribute("mensagem", e.getMessage());
+
+                //Seta atributo na tela
+                request.setAttribute(linha, produto);
+
+                destino = UNICO;
             }
 
-        } catch (Exception e) {
+        } else {
+
             try {
+                //Lista os registros da entidade
                 setLista(request);
+            } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
-            } catch (Exception j) {
-                request.setAttribute("mensagem", j.getMessage());
+                destino = PRINCIPAL;
             }
         }
 
@@ -164,9 +183,9 @@ public class ServletProduto extends HttpServlet {
             produto.setEstoque(Double.parseDouble(request.getParameter("estoque")));
 
             persistirProduto.setEntidade(produto);
-            
+
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Preencher todos os campos!!");
         }
     }
 

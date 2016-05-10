@@ -28,6 +28,7 @@ and open the template in the editor.
     padding: 5px;
     text-decoration: none;
     color: #000;
+    border-radius: 30px;
 }
 
 #banner a:hover {
