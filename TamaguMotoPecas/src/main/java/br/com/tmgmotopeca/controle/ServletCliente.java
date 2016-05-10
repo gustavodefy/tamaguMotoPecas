@@ -91,7 +91,7 @@ public class ServletCliente extends HttpServlet {
                 //Busca o registro selecionado no banco
                 persistirCliente.buscar(idCliente);
                 cliente = (Cliente) persistirCliente.getEntidade();
-
+                request.setAttribute("confirmasenha", cliente.getSenha());
                 //Seta atributo na tela
                 request.setAttribute(linha, cliente);
 

@@ -30,7 +30,7 @@ public class SelecionaPersistir {
             return new PersistirFornecedor((Fornecedor) entidade);
         }
         if(persistir == ListaPersistir.PProduto){
-            return  new PersistirProduto((Produto) entidade);
+            return new PersistirProduto((Produto) entidade);
         }
         return null;
     }
