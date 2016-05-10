@@ -8,6 +8,7 @@ package br.com.tmgmotopeca.controle;
 import br.com.tmgmotopeca.modelo.Fornecedor;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.PersistirFornecedor;
+import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,7 +47,7 @@ public class ServletFornecedor extends HttpServlet {
             throws ServletException, IOException {
 
         fornecedor = new Fornecedor();
-        persistirFornecedor = new PersistirFornecedor(fornecedor);
+        persistirFornecedor = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PFornecedor, fornecedor);
 
         try {
             String action;

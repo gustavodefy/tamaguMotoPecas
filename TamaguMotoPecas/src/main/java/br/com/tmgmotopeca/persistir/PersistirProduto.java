@@ -9,6 +9,7 @@ import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.biblioteca.Range.tpRelacao;
 import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.dao.DaoProduto;
+import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.modelo.Produto;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +26,7 @@ public class PersistirProduto implements Persistir{
 
     public PersistirProduto(Produto produto) {
         this.produto = produto;
-        daoProduto = new DaoProduto();
+        daoProduto = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PRODUTO);
     }
 
     @Override
