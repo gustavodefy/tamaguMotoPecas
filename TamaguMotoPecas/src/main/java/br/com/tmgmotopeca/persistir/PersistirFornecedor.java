@@ -10,6 +10,8 @@ import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.biblioteca.Range.tpRelacao;
 import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.dao.DaoFornecedor;
+import br.com.tmgmotopeca.dao.SelecionaDao;
+import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
 import br.com.tmgmotopeca.modelo.Fornecedor;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,7 +28,7 @@ public class PersistirFornecedor implements Persistir{
 
     public PersistirFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
-        daoFornecedor = new DaoFornecedor();
+        daoFornecedor = SelecionaDao.Selecionar(ListaDaos.FORNECEDOR);
     }
 
     @Override

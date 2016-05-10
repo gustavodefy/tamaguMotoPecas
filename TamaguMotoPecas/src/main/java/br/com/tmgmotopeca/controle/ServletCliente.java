@@ -8,6 +8,7 @@ package br.com.tmgmotopeca.controle;
 import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.PersistirCliente;
+import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,7 +48,7 @@ public class ServletCliente extends HttpServlet {
             throws ServletException, IOException {
 
         cliente = new Cliente();
-        persistirCliente = new PersistirCliente(cliente);
+        persistirCliente = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PCliente, cliente);
 
         String action;
 

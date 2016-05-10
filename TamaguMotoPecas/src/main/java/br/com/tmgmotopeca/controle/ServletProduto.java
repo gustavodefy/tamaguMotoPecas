@@ -8,6 +8,7 @@ package br.com.tmgmotopeca.controle;
 import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.PersistirProduto;
+import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,7 +47,7 @@ public class ServletProduto extends HttpServlet {
             throws ServletException, IOException {
 
         produto = new Produto();
-        persistirProduto = new PersistirProduto(produto);
+        persistirProduto = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, produto);
 
         try {
             String action;
