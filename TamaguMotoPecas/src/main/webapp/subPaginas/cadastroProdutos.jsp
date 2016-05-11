@@ -15,7 +15,9 @@
 
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
-
+        <script type="text/javascript" src="./jquery/jquery.js"></script>
+        <script type="text/javascript" src="./jquery/jquery.maskedinput.js"></script>
+        <script type="text/javascript" src="./js/mascaras.js"></script>
     </head>
     <body>
         <h1 align="center">Cadastro de Produtos</h1>
@@ -62,8 +64,10 @@
                         <input type="text" id="estoque" name="estoque" style="width: 10em" value="<c:out value="${linProduto.estoque}" />" />
                     </div>
                     <div class="campo">
-                        <label for="imagem">Imagem:</label>
-                        <input type="file" name="imagem"/>
+                        <label for="fornecedor">Fornecedor</label>
+                        <select name="fornecedor" id="fornecedor" style="width: 10em">
+                            <option value="<c:out value="${linFornecedor.nome}" />"></option> 
+                        </select>
                     </div>
                 </fieldset>
 

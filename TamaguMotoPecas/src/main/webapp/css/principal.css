@@ -68,13 +68,13 @@ div.mensagem input{
 }
 
 .menu li a:hover{
-    background-color: gray;
-    color: black;         
+    background-color: #990000;
+    color: #FFFFFF;         
 }
 
 .menu li:hover{
-    background-color: gray;
-    color: black;        
+    background-color: #990000;
+    color: #FFFFFF;        
 }
 
 .menu li ul{

@@ -15,6 +15,9 @@
 
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
+        <script type="text/javascript" src="./jquery/jquery.js"></script>
+        <script type="text/javascript" src="./jquery/jquery.maskedinput.js"></script>
+        <script type="text/javascript" src="./js/mascaras.js"></script>
         <script src="./js/cpf_cnpj.js"></script>
         <script src="./js/estados.js"></script>
         <script src="./js/validarCliente.js"></script>
@@ -120,7 +123,7 @@
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="email">Email</label>
-                        <input type="email" id="email" required="required" name="email" style="width: 21.5em" value="<c:out value="${linCliente.email}" />" />
+                        <input type="email" id="email" placeholder="contato@mail.com" required="required" name="email" style="width: 21.5em" value="<c:out value="${linCliente.email}" />" />
                     </div>
                 </fieldset>
                 <fieldset class="grupo">

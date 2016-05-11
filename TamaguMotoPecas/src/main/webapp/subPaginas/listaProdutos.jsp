@@ -18,7 +18,7 @@
     </head>
     <body>
         <h1 align="center">Lista de Produtos</h1>
-        <table border=1>
+        <table border=1 width="800px">
             <thead>
                 <tr>
                     <th>Codigo</th>
