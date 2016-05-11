@@ -13,3 +13,9 @@ function mascara(t, mask) {
         t.value += texto.substring(0, 1);
     }
 }
+
+jQuery(function ($) {
+    $("#modelo").mask("9999/9999");
+    $("#cep").mask("99.999-999");
+    $("#telefone").mask("(99)9999-9999");
+});
