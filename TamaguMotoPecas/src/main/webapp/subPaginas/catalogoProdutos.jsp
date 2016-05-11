@@ -11,13 +11,14 @@
     <head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <title>Lista de Produtos</title>
+        <title>Catalogo</title>
 
+        <script src="./js/catalogo.js"></script>
         <link rel="stylesheet" href="./css/lista.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">        
     </head>
     <body>
-        <h1 align="center">Lista de Produtos</h1>
+        <h1 align="center">Catalogo de Produtos</h1>
         <table border=1>
             <thead>
                 <tr>
@@ -33,14 +34,14 @@
             </thead>
             <tbody>
                 <c:forEach var="linProduto" items="${tabProduto}">
-                    <tr>
+                    <tr id="lintable" name="lintable">
                         <td><a class="btoAlterar" href="./ServletCatalogo?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
                         <td><c:out value="${linProduto.descricao}" /></td>
                         <td><c:out value="${linProduto.marca}" /></td>
                         <td><c:out value="${linProduto.modelo}" /></td>
                         <td><c:out value="${linProduto.precoVenda}" /></td>
-                        <td><input type ="number" name="nomeCampo" style="width: 5em"/></td>
-                        <td><c:out value="${linProduto.estoque}" /></td>
+                        <td><input type="number" name="quantidade"  id="quantidade"  value="${pvItem.quantidade}" style="width: 5em" min="0" onclick="calcularTotal()"/></td>
+                        <td><input type="text"   name="totalpedido" id="totalpedido" value="${pvItem.vlrTotal}" style="width: 5em"/></td>
                         <td><img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/></td>
                     </tr>
                 </c:forEach>
