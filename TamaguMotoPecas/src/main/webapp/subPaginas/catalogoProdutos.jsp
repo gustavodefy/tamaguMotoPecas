@@ -1,7 +1,7 @@
 <%-- 
-    Document   : listaProdutos
-    Created on : 21/03/2016, 19:06:49
-    Author     : Thayro
+    Document   : catalagoProdutos
+    Created on : 10/05/2016, 19:46:59
+    Author     : ResVUT42
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,20 +26,25 @@
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Valor Unitario</th>
+                    <th>Quantidade</th>
+                    <th>Valor Total</th>
+                    <th>Adicionar</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="linProduto" items="${tabProduto}">
                     <tr>
-                        <td><a class="btoAlterar" href="./ServletProduto?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
+                        <td><a class="btoAlterar" href="./ServletCatalogo?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
                         <td><c:out value="${linProduto.descricao}" /></td>
                         <td><c:out value="${linProduto.marca}" /></td>
                         <td><c:out value="${linProduto.modelo}" /></td>
                         <td><c:out value="${linProduto.precoVenda}" /></td>
+                        <td><input type ="number" name="nomeCampo" style="width: 5em"/></td>
+                        <td><c:out value="${linProduto.estoque}" /></td>
+                        <td><img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-        <p><a class="btoIncluir" href="./ServletProduto?action=inserir">Incluir</a></p>
     </body>
 </html>

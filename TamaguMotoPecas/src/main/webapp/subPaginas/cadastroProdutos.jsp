@@ -19,7 +19,7 @@
     </head>
     <body>
         <h1 align="center">Cadastro de Produtos</h1>
-        <form action="ServletProduto" method="post">
+        <form action="<c:out value="${toservlet}"/>" method="post">
             <div class="mensagem">
                 <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
             </div>
@@ -67,8 +67,10 @@
                     </div>
                 </fieldset>
 
-                <p align="center">                    
-                    <input class="btoGravar"   type="submit" value="Gravar"   id="gravar"   name="gravar"   onclick="validarAcao('gravar');" />
+                <p align="center">
+                    <c:if test="${gravar=='true'}">
+                        <input class="btoGravar"   type="submit" value="Gravar"   id="gravar"   name="gravar"   onclick="validarAcao('gravar');" />
+                    </c:if>                    
                     <c:if test="${excluir=='true'}">
                         <input class="btoExcluir"  type="submit" value="Excluir"  id="excluir"  name="excluir"  onclick="validarAcao('excluir');" />
                     </c:if>
