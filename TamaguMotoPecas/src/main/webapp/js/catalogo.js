@@ -5,14 +5,15 @@
  */
 
 
-function calcularTotal(){
+function calcularTotal(id) {
     
-    	var linha = document.getElementById("linProduto");
-	var colunas = linha.getElementsByTagName('td');
-	
-	for (i=0;i<colunas.length;i++)
-	{
-	alert("conteudo da coluna"+i+" ->"+colunas[i].firstChild.nodeValue);
-	}
+    var linha = document.getElementById(id);
+    var coluna = linha.getElementsByTagName("td");
+               
+    var unit = coluna[4].firstChild.nodeValue;
+    var qtd  = coluna[5].firstElementChild.value;
+    var total = unit * qtd;
     
+    coluna[6].innerHTML = total;
+               
 }
