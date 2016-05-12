@@ -21,6 +21,7 @@
         <script src="./js/cpf_cnpj.js"></script>
         <script src="./js/estados.js"></script>
         <script src="./js/validarCliente.js"></script>
+        <script src="./js/login.js"></script>
 
     </head>
     <body>
@@ -140,7 +141,11 @@
 
                     <div class="campo">
                         <label for="confirmasenha">Confirma Senha</label>
-                        <input type="password" id="confirmasenha" required="required" name="confirmasenha" style="width: 10em" value="<c:out value="${confirmasenha}" />"/>
+                        <input type="password" id="confirmasenha" required="required" onblur="confirma_senha()" name="confirmasenha" style="width: 10em" value="<c:out value="${confirmasenha}" />"/>
+                    </div>
+                    <div class="campo">
+                        <br><label for="confirmasenha"></label>
+                        <img id="erroSenha" src="./img/ajuda.png" width="27" height="27" alt="ajuda"/>
                     </div>
 
                 </fieldset>
@@ -156,7 +161,7 @@
                 </fieldset>
 
                 <p align="center">                    
-                    <input class="btoGravar"   type="submit" value="Gravar"   id="gravar"   name="gravar"   onclick="validarAcao('gravar');" />
+                    <input class="btoGravar"   type="submit" value="Gravar"   id="gravar" name="gravar" onclick="validarAcao('gravar');" />
                     <c:if test="${excluir=='true'}">
                         <input class="btoExcluir"  type="submit" value="Excluir"  id="excluir"  name="excluir"  onclick="validarAcao('excluir');" />
                     </c:if>

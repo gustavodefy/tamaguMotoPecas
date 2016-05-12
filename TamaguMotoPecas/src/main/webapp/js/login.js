@@ -19,10 +19,20 @@ function validar_Login() {
 }
 
 window.onload(function () {
-    
+
     var men = document.getElementById("mensagem").value;
-        
-        alert(men);        
-        return false;
+
+    alert(men);
+    return false;
 
 });
+
+function confirma_senha() {
+    if (document.getElementById("senha").value != document.getElementById("confirmasenha").value) {
+        document.getElementById('erroSenha').src = "./img/erro.png";
+        document.getElementById("senha").focus();
+        return false;
+    }else{
+        document.getElementById('erroSenha').src = "./img/ok.png";
+    }
+}
