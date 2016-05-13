@@ -42,7 +42,13 @@
                         <td><c:out value="${linProduto.precoVenda}" /></td>
                         <td><input type="number" name="quantidade"  id="quantidade"  value="" style="width: 5em" min="0" onchange="calcularTotal(<c:out value="${linProduto.idProduto}"/>)"/></td>
                         <td></td>
-                        <td><img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/></td>
+                        <td><a onclick="validarCarrinho(<c:out value="${linProduto.idProduto}"/>, <c:out value="${cliente}" />)"
+                               href="./ServletCatalogo?action=addCarrinho&idProduto=<c:out value="${linProduto.idProduto}"/>"> 
+                                
+                                <img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/>
+                                
+                            </a>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
