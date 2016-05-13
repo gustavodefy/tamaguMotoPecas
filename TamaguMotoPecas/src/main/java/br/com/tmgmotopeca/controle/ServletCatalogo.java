@@ -5,6 +5,7 @@
  */
 package br.com.tmgmotopeca.controle;
 
+import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -47,8 +49,30 @@ public class ServletCatalogo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //Validando Sessão
+        HttpSession sessao = request.getSession();
+        Cliente cliente = (Cliente) sessao.getAttribute("sessaoCliente");
+
+        if(cliente == null){
+            request.setAttribute("funcionario", "false");
+            request.setAttribute("cliente", "false");
+            request.setAttribute("logado", "false");            
+        }else if (cliente.getPerfil().equals("F")) {
+            request.setAttribute("funcionario", "true");
+            request.setAttribute("cliente", "false");
+            request.setAttribute("logado", "true");
+        } else if (cliente.getPerfil().equals("C")) {
+            request.setAttribute("funcionario", "false");
+            request.setAttribute("cliente", "true");
+            request.setAttribute("logado", "true");
+        } else {
+            request.setAttribute("funcionario", "false");
+            request.setAttribute("cliente", "false");
+            request.setAttribute("logado", "false");
+        }
+
         request.setAttribute("toservlet", "ServletCatalogo");
-        
+
         produto = new Produto();
         persistirProduto = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, produto);
 
@@ -86,10 +110,20 @@ public class ServletCatalogo extends HttpServlet {
                 request.setAttribute("gravar", "false");
                 request.setAttribute("excluir", "false");
                 destino = UNICO;
-                
+
             } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
                 destino = PRINCIPAL;
+            }
+        
+        } else if (action.equals("addCarrinho")){
+            try {
+                String idProduto = request.getParameter("idProduto");
+                String[] item  =  request.getParameterValues(idProduto);
+                
+                destino = LISTA;
+            } catch (Exception e) {
+                
             }
 
         } else {

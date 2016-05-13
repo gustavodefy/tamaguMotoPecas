@@ -34,15 +34,21 @@
             </thead>
             <tbody>
                 <c:forEach var="linProduto" items="${tabProduto}">
-                    <tr id="lintable" name="lintable">
+                    <tr id="<c:out value="${linProduto.idProduto}"/>" name="<c:out value="${linProduto.idProduto}"/>">
                         <td><a class="btoAlterar" href="./ServletCatalogo?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
                         <td><c:out value="${linProduto.descricao}" /></td>
                         <td><c:out value="${linProduto.marca}" /></td>
                         <td><c:out value="${linProduto.modelo}" /></td>
                         <td><c:out value="${linProduto.precoVenda}" /></td>
-                        <td><input type="number" name="quantidade"  id="quantidade"  value="${pvItem.quantidade}" style="width: 5em" min="0" onclick="calcularTotal()"/></td>
-                        <td><input type="text"   name="totalpedido" id="totalpedido" value="${pvItem.vlrTotal}" style="width: 5em"/></td>
-                        <td><img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/></td>
+                        <td><input type="number" name="quantidade"  id="quantidade"  value="" style="width: 5em" min="0" onchange="calcularTotal(<c:out value="${linProduto.idProduto}"/>)"/></td>
+                        <td></td>
+                        <td><a onclick="validarCarrinho(<c:out value="${linProduto.idProduto}"/>, <c:out value="${cliente}" />)"
+                               href="./ServletCatalogo?action=addCarrinho&idProduto=<c:out value="${linProduto.idProduto}"/>"> 
+                                
+                                <img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/>
+                                
+                            </a>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

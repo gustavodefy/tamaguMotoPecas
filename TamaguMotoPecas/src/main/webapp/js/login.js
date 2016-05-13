@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 
-
+/*
 $('.message a').click(function () {
     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
 });
+*/
 
 function validar_Login() {
     if (document.getElementById("email").value == "" || document.getElementById("senha").value == "") {
