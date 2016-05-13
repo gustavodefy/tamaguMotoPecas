@@ -56,7 +56,7 @@
 
                                 <c:if test="${logado=='true'}">
                                     <div class="logado" align="right">
-                                        <a class="idLogado" href="./ServletCliente?action=editar&idCliente=<c:out value="${sessaoCliente.idCliente}"/>" target="InlineFrame1" > Bem vindo <c:out value="${sessaoCliente.nome}"/> </a>
+                                        <a class="idLogado" href="./ServletCliente?action=editar&idCliente=<c:out value="${sessaoCliente.idCliente}"/>" target="InlineFrame1"> Bem vindo <c:out value="${sessaoCliente.nome}"/> </a>
                                         <a class="idSair" href="./ServletLogin?action=logout">Sair</a>
                                     </div>
                                 </c:if>
@@ -105,7 +105,8 @@
             </table>   
         </div>  
         <footer class="rodape"><p align="center"><strong>Posted by: TAMAGU WEBSITES</strong></p>   
-            <p align="center"><strong>Contato Informação: contato@tamagu.com.br </strong></p></footer>
+            <p align="center"><strong>Contato Informação: contato@tamagu.com.br </strong></p>
+                        <p align="center"><strong>© 2016 Helizabeth Hato - Dens. Sistema Web e Banco Dados All Rights Reserved  </strong></p></footer>
         <br><div align="center"><img src="./img/rodape.png" width="901" height="66" alt="rodape"/></div>
     </body>
 </html>
