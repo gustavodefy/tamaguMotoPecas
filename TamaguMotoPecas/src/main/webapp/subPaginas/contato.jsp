@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,9 +15,13 @@
         <link rel="stylesheet" href="../css/botoes.css" type= "text/css">
     </head>
     <body>
-        <form action="../contato/enviarEmail.php" method="POST">
-
+        <form action="./ServletContato?action=gravar" method="post">
             <fieldset class="grupo">
+                
+                <div class="mensagem">
+                    <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
+                </div>
+                
                 <div class="campo">
 
 
@@ -31,13 +36,14 @@
                             <input type=text name="assunto" size="45"></p></div>
 
                     <div class="campo"><p><label for="text">Telefone</label>
-                            <input type=text placeholder="(xx)xxxx-xxxx" name="assunto" size="45"></p></div>
+                            <input type=text placeholder="(xx)xxxx-xxxx" name="telefone" size="45"></p></div>
 
                     <div class="campo"><p><label for="text">Mensagem</label>
-                            <textarea name="Mensagem" placeholder="Deixe sua opnião..." required="required" rows="10" cols="60"></textarea></p></div>
+                            <textarea name="observacao" placeholder="Deixe sua opnião..." required="required" rows="10" cols="60"></textarea></p></div>
 
                 </div>
-                <input class="btoGravar" type="submit" value="Enviar"> <input class="btoCancelar" type="reset" value="Limpar">
+                <input class="btoGravar" type="submit" value="Enviar"> 
+                <input class="btoCancelar" type="reset" value="Limpar">
             </fieldset>
         </form>
     </body>

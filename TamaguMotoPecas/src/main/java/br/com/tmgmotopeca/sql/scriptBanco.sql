@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `tamagu`.`cliente` (
   `logradouro`      VARCHAR(45) NULL DEFAULT NULL,
   `numero`          VARCHAR(10) NULL DEFAULT NULL,
   `complemento`     VARCHAR(45) NULL DEFAULT NULL,
-  `cep`             VARCHAR(09) NULL DEFAULT NULL,
+  `cep`             VARCHAR(10) NULL DEFAULT NULL,
   `bairro`          VARCHAR(30) NULL DEFAULT NULL,
   `cidade`          VARCHAR(45) NULL DEFAULT NULL,
   `estado`          VARCHAR(25) NULL DEFAULT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `tamagu`.`fornecedor` (
   `logradouro`      VARCHAR(45) NULL DEFAULT NULL,
   `numero`          VARCHAR(10) NULL DEFAULT NULL,
   `complemento`     VARCHAR(45) NULL DEFAULT NULL,
-  `cep`             VARCHAR(09) NULL DEFAULT NULL,
+  `cep`             VARCHAR(10) NULL DEFAULT NULL,
   `bairro`          VARCHAR(30) NULL DEFAULT NULL,
   `cidade`          VARCHAR(45) NULL DEFAULT NULL,
   `estado`          VARCHAR(25) NULL DEFAULT NULL,
@@ -121,6 +121,17 @@ CREATE TABLE IF NOT EXISTS tamagu.PVItem(
     vlrTotal       DOUBLE(15,2),
     PRIMARY KEY (idPedido,idProduto),
     FOREIGN KEY (idProduto) REFERENCES produto(idProduto))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `tamagu`.`contato` (
+  `idContato`   INT(11) NOT NULL AUTO_INCREMENT,
+  `nome`        VARCHAR(30) NULL DEFAULT NULL,
+  `email`       VARCHAR(30) NULL DEFAULT NULL,
+  `assunto`     VARCHAR(30) NULL DEFAULT NULL,
+  `telefone`    VARCHAR(15) NULL DEFAULT NULL,  
+  `mensagem`    VARCHAR(200) NULL DEFAULT NULL,
+  PRIMARY KEY (`idContato`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 

@@ -16,6 +16,7 @@ public class SelecionaDao {
         FORNECEDOR,
         PCHEADER,
         PVHEADER,
+        CONTATO,
         PRODUTO;
     }
     
@@ -36,6 +37,10 @@ public class SelecionaDao {
       if(entidadeDao == ListaDaos.PVHEADER){
           return new DaoPVHeader();
         }
+      
+      if(entidadeDao == ListaDaos.CONTATO){
+          return new DaoContato();
+      }
       
       if(entidadeDao == ListaDaos.PRODUTO){
           return new DaoProduto();

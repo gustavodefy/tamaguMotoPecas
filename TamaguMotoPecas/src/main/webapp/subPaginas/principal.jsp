@@ -91,7 +91,7 @@
                                 </ul>
                             </li>
                         </c:if>
-                        <li><a href="subPaginas/contato.jsp" target="InlineFrame1">Contato</a></li>
+                        <li><a href="./ServletContato?action=inicio" target="InlineFrame1">Contato</a></li>
                     </div></td>
             </tr>
         </table>
