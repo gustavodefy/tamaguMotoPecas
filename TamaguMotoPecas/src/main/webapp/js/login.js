@@ -32,7 +32,20 @@ function confirma_senha() {
         document.getElementById('erroSenha').src = "./img/erro.png";
         document.getElementById("senha").focus();
         return false;
-    }else{
+    } else {
         document.getElementById('erroSenha').src = "./img/ok.png";
     }
 }
+
+//function ativa() {
+//    var ativar = document.getElementById("perfilClienteSELECT").selected = "Cliente";
+//    var desativar = document.getElementById("perfilClienteSELECT").selected = "Funcionario";
+//
+//    if (ativa) {
+//        document.getElementById("perfilClienteFIELDSET").style.display = "none";
+//    } else {
+//        if (desativar) {
+//            document.getElementById("perfilClienteFIELDSET").style.display = "block";
+//        }
+//    }
+//}

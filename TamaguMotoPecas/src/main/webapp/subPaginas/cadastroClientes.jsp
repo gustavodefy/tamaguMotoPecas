@@ -151,7 +151,7 @@
                 </fieldset>
 
                 <fieldset class="grupo">                   
-                    <div class="campo">
+                    <div id="perfilCliente" class="campo">
                         <label for="perfil">Tipo de Acesso</label>
                         <select name="perfil" required="required">
                             <option value="C" ${linCliente.perfil ==  "C" ? 'selected' : ''}>Cliente</option> 
