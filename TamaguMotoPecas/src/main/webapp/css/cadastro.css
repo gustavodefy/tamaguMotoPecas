@@ -73,6 +73,11 @@ fieldset.grupo .campo {
     margin-right: 1em;
 }
 
+.obg{
+    font-size: 13px;
+    color: #ce0100;
+}
+
 .campo select option {
     padding-right: 1em;
 }

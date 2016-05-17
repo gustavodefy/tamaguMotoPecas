@@ -28,7 +28,7 @@ public class ServletCliente extends HttpServlet {
     private Persistir persistirCliente;
 
     private String destino = "";
-    private static String UNICO = "./subPaginas/cadastroClientes.jsp";
+    private static String UNICO_Funcionario = "./subPaginas/cadastroClientes.jsp";
     private static String UNICO_Cliente = "./subPaginas/cadastroClientes_AreaCliente.jsp";
     private static String LISTA = "./subPaginas/listaClientes.jsp";
     private static String PRINCIPAL = "./subPaginas/principal.jsp";
@@ -81,7 +81,7 @@ public class ServletCliente extends HttpServlet {
 
             //Direciona para incluir um novo registro
             request.setAttribute("excluir", "false");
-            destino = UNICO;
+            destino = UNICO_Funcionario;
 
         } else if (action.equals("inserirNovo")) {
 
@@ -106,7 +106,7 @@ public class ServletCliente extends HttpServlet {
                 request.setAttribute("excluir", "true");
 
                 if (cliente.getPerfil().equals("F")) {
-                    destino = UNICO;
+                    destino = UNICO_Funcionario;
                 } else {
                     destino = UNICO_Cliente;
                 }
@@ -138,7 +138,7 @@ public class ServletCliente extends HttpServlet {
 //                } else {
 //                    destino = UNICO_Cliente;
 //                }
-                destino = UNICO;
+                destino = UNICO_Funcionario;
             } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
                 destino = PRINCIPAL;
@@ -179,7 +179,7 @@ public class ServletCliente extends HttpServlet {
                 //Seta atributo na tela
                 request.setAttribute(linha, cliente);
 
-                destino = UNICO;
+                destino = UNICO_Funcionario;
             }
 
         } else {
