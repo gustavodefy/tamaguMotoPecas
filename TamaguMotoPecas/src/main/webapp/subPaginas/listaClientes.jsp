@@ -32,7 +32,7 @@
             <tbody>
                 <c:forEach var="linCliente" items="${tabCliente}">
                     <tr>
-                        <td><a class="btoAlterar" href="./ServletCliente?action=editar&idCliente=<c:out value="${linCliente.idCliente}"/>"><c:out value="${linCliente.idCliente}"/></a></td>
+                        <td><a class="btoAlterar" href="./ServletCliente?action=editarFuncionario&idCliente=<c:out value="${linCliente.idCliente}"/>"><c:out value="${linCliente.idCliente}"/></a></td>
                         <td><c:out value="${linCliente.nome}" /></td>
                         <td><c:out value="${linCliente.contato}" /></td>
                         <td><c:out value="${linCliente.telefone}" /></td>
