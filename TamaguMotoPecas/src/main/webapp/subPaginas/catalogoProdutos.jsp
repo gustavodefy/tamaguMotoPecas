@@ -18,40 +18,41 @@
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">        
     </head>
     <body>
+
         <h1 align="center">Catalogo de Produtos</h1>
-        <table border=1>
-            <thead>
-                <tr>
-                    <th>Codigo</th>
-                    <th>Descrição</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Valor Unitario</th>
-                    <th>Quantidade</th>
-                    <th>Valor Total</th>
-                    <th>Adicionar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="linProduto" items="${tabProduto}">
-                    <tr id="<c:out value="${linProduto.idProduto}"/>" name="<c:out value="${linProduto.idProduto}"/>">
-                        <td><a class="btoAlterar" href="./ServletCatalogo?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
-                        <td><c:out value="${linProduto.descricao}" /></td>
-                        <td><c:out value="${linProduto.marca}" /></td>
-                        <td><c:out value="${linProduto.modelo}" /></td>
-                        <td><c:out value="${linProduto.precoVenda}" /></td>
-                        <td><input type="number" name="quantidade"  id="quantidade"  value="" style="width: 5em" min="0" onchange="calcularTotal(<c:out value="${linProduto.idProduto}"/>)"/></td>
-                        <td></td>
-                        <td><a onclick="validarCarrinho(<c:out value="${linProduto.idProduto}"/>, <c:out value="${cliente}" />)"
-                               href="./ServletCatalogo?action=addCarrinho&idProduto=<c:out value="${linProduto.idProduto}"/>"> 
-                                
-                                <img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/>
-                                
-                            </a>
-                        </td>
+
+        <div class="mensagem">
+            <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
+        </div>
+
+        <form action="./ServletCatalogo?action=addCarrinho" method="POST">            
+            <table border=1>
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Descrição</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Valor Unitario</th>
+                        <th>Quantidade</th>
+                        <th>Valor Total</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>            
+                    <c:forEach var="linProduto" items="${tabProduto}">
+                        <tr id="<c:out value="${linProduto.idProduto}"/>" name="<c:out value="${linProduto.idProduto}"/>">
+                            <td> <a class="btoAlterar" href="./ServletCatalogo?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
+                            <td> <c:out value="${linProduto.descricao}"/>  </td>
+                            <td> <c:out value="${linProduto.marca}"/>      </td>
+                            <td> <c:out value="${linProduto.modelo}"/>     </td>
+                            <td> <c:out value="${linProduto.precoVenda}"/> </td>
+                            <td> <input type="number" name="qtd<c:out value="${linProduto.idProduto}"/>" id="qtd<c:out value="${linProduto.idProduto}"/>"  value="" style="width: 5em" min="0" onchange="calcularTotal(<c:out value="${linProduto.idProduto}"/>)"/></td>
+                            <td> </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <input type="submit" value="Adicionar">
+        </form>    
     </body>
 </html>

@@ -10,6 +10,7 @@ import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.PersistirCliente;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
+import java.util.Enumeration;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -212,6 +213,8 @@ public class ServletCliente extends HttpServlet {
 
         try {
 
+            Enumeration par = request.getParameterNames();
+            
             //Busca os dados da tela, e atualiza classe Cliente
             cliente = new Cliente();
 
