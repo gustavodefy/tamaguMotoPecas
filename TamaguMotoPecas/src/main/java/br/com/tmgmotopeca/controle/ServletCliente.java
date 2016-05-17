@@ -30,6 +30,7 @@ public class ServletCliente extends HttpServlet {
 
     private String destino = "";
     private static String UNICO = "./subPaginas/cadastroClientes.jsp";
+    private static String UNICO_Cliente = "./subPaginas/cadastroClientes_AreaCliente.jsp";
     private static String LISTA = "./subPaginas/listaClientes.jsp";
     private static String PRINCIPAL = "./subPaginas/principal.jsp";
 
@@ -83,6 +84,12 @@ public class ServletCliente extends HttpServlet {
             request.setAttribute("excluir", "false");
             destino = UNICO;
 
+        } else if (action.equals("inserirNovo")) {
+
+            //Direciona para incluir um novo registro
+            request.setAttribute("excluir", "false");
+            destino = UNICO_Cliente;
+
         } else if (action.equals("editar")) {
 
             try {
@@ -98,8 +105,41 @@ public class ServletCliente extends HttpServlet {
 
                 //Direciona para alterar o registro
                 request.setAttribute("excluir", "true");
-                destino = UNICO;
 
+                if (cliente.getPerfil().equals("F")) {
+                    destino = UNICO;
+                } else {
+                    destino = UNICO_Cliente;
+                }
+
+                //destino = UNICO_Cliente;
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = PRINCIPAL;
+            }
+
+        } else if (action.equals("editarFuncionario")) {
+
+            try {
+                //Busca o codigo do cliente na tela
+                int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+
+                //Busca o registro selecionado no banco
+                persistirCliente.buscar(idCliente);
+                cliente = (Cliente) persistirCliente.getEntidade();
+                request.setAttribute("confirmasenha", cliente.getSenha());
+                //Seta atributo na tela
+                request.setAttribute(linha, cliente);
+
+                //Direciona para alterar o registro
+                request.setAttribute("excluir", "true");
+
+//                if (cliente.getPerfil().equals("F")) {
+//                    destino = UNICO;
+//                } else {
+//                    destino = UNICO_Cliente;
+//                }
+                destino = UNICO;
             } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
                 destino = PRINCIPAL;
@@ -139,12 +179,12 @@ public class ServletCliente extends HttpServlet {
 
                 //Seta atributo na tela
                 request.setAttribute(linha, cliente);
-                
+
                 destino = UNICO;
             }
 
         } else {
-            
+
             try {
                 //Lista os registros da entidade
                 setLista(request);

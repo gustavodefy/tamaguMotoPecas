@@ -51,7 +51,7 @@
                                     <input class="campoEmail" type="password" id="senha" name="senha" style="width: 10em"/>
 
                                     <input type="submit" class="logarEntrar" value="Ok" onclick="return validar_Login()"/>
-                                    <a class="criarConta" href="./ServletCliente?action=inserir" target="InlineFrame1" >Não tenho cadastro</a>
+                                    <a class="criarConta" href="./ServletCliente?action=inserirNovo" target="InlineFrame1" >Não tenho cadastro</a>
                                 </c:if>
 
                                 <c:if test="${logado=='true'}">
