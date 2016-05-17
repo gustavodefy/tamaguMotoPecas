@@ -106,7 +106,7 @@
         </div>  
         <footer class="rodape"><p align="center"><strong>Posted by: TAMAGU WEBSITES</strong></p>   
             <p align="center"><strong>Contato Informação: contato@tamagu.com.br </strong></p>
-                        <p align="center"><strong>© 2016 Helizabeth Hato - Dens. Sistema Web e Banco Dados All Rights Reserved  </strong></p></footer>
+            <p align="center"><strong>© 2016 Helizabeth Hato - Dens. Sistema Web e Banco Dados All Rights Reserved  </strong></p></footer>
         <br><div align="center"><img src="./img/rodape.png" width="901" height="66" alt="rodape"/></div>
     </body>
 </html>
