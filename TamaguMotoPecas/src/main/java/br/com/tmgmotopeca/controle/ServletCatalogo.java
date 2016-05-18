@@ -6,10 +6,12 @@
 package br.com.tmgmotopeca.controle;
 
 import br.com.tmgmotopeca.modelo.Cliente;
+import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -126,11 +128,16 @@ public class ServletCatalogo extends HttpServlet {
                 if (cliente != null && cliente.getPerfil().equals("C")) {
 
                     Set<String> parameterNames = request.getParameterMap().keySet();
-                    
+
                     for (Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
                         String name = entry.getKey();
-                        String[] value = entry.getValue();                                                
-                        
+                        if (name.substring(0, 3).equals("qtd")) {
+                            int idProduto = Integer.parseInt(name.substring(3));
+                            int quantidade = Integer.parseInt(request.getParameter(name));
+                            if (quantidade != 0) {
+                                setItemCarrinho(request, idProduto, quantidade);
+                            }
+                        }
                     }
 
                 } else {
@@ -168,6 +175,44 @@ public class ServletCatalogo extends HttpServlet {
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
+
+    private void setItemCarrinho(HttpServletRequest request, int idProduto, int quantidade) throws Exception {
+        
+        //pega os itens adicionados no carrinhos
+        HttpSession sessao = request.getSession();
+        ArrayList listaCarrinho = (ArrayList) sessao.getAttribute("listaCarrinho");
+        
+        //Se não existe o atributo ainda, cria o array
+        if (listaCarrinho == null) {
+            listaCarrinho = new ArrayList();
+        }
+        
+        
+        boolean achou = false;
+        //Pesquisa para verifica se já existe o id
+        for (int i = 0; i < listaCarrinho.size(); i++) {
+            PVItem pvItem;
+            
+            pvItem = (PVItem)listaCarrinho.get(i);
+            
+            if(pvItem.getProduto().getIdProduto() == idProduto){
+                Double qtdAtual = pvItem.getQuantidade();
+                qtdAtual = qtdAtual + quantidade;
+                pvItem.setQuantidade(qtdAtual);
+                listaCarrinho.set(i, pvItem);
+                achou = true;                
+            }
+        }
+        
+        if(!achou){
+            PVItem pvItem = new PVItem();
+            pvItem.setIdProduto(idProduto);
+            pvItem.setQuantidade(quantidade);
+            listaCarrinho.add(pvItem);
+        }
+        
+        sessao.setAttribute("listaCarrinho", listaCarrinho);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
