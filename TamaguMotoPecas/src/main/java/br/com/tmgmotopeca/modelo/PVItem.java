@@ -5,12 +5,17 @@
  */
 package br.com.tmgmotopeca.modelo;
 
+import br.com.tmgmotopeca.dao.Dao;
+import br.com.tmgmotopeca.dao.DaoProduto;
+import br.com.tmgmotopeca.dao.SelecionaDao;
+import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
+
 /**
  *
  * @author ResVUT42
  */
 public class PVItem {
-    
+
     private int idPedido;
     private Produto produto;
     private double quantidade;
@@ -41,12 +46,25 @@ public class PVItem {
         this.produto = produto;
     }
 
+    public void setIdProduto(int idProduto) throws Exception {
+        
+        try {
+            Dao daoProduto = SelecionaDao.Selecionar(ListaDaos.PRODUTO);
+            this.produto = (Produto) daoProduto.buscaUnica((Integer)idProduto);
+            this.vlrUnitario = produto.getPrecoVenda();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+    }
+
     public double getQuantidade() {
         return quantidade;
     }
 
     public void setQuantidade(double quantidade) {
-        this.quantidade = quantidade;
+        this.quantidade = quantidade;        
+        this.vlrTotal = this.quantidade * this.vlrUnitario;
     }
 
     public double getVlrUnitario() {
@@ -64,5 +82,5 @@ public class PVItem {
     public void setVlrTotal(double vlrTotal) {
         this.vlrTotal = vlrTotal;
     }
-          
+
 }
