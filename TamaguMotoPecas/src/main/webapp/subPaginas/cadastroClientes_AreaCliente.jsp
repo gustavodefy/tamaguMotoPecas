@@ -34,7 +34,7 @@
             <fieldset class="grupo">
                 <fieldset class="grupo">
                     <div class="campo">
-                        <label for="idCliente">Codigo</label>
+                        <label for="idCliente">Codigo*</label>
                         <input type="text" id="idCliente" name="idCliente" readonly="readonly" style="width: 5em" value="<c:out value="${linCliente.idCliente}" />" />
                     </div>
                 </fieldset>
@@ -127,7 +127,7 @@
                         <input type="email" id="email" placeholder="contato@mail.com" required="required" name="email" style="width: 21.5em" value="<c:out value="${linCliente.email}" />" />
                     </div>
                 </fieldset>
-                <fieldset class="grupo">
+                <fieldset class="grupo" style="display: none">
                     <div class="campo">
                         <label for="limitecredito">Limite Credito*</label>
                         <input type="text" id="limitecredito" required="required" name="limitecredito" style="width: 10em" value="<c:out value="${linCliente.limiteCredito}" />" />
@@ -150,23 +150,21 @@
 
                 </fieldset>
 
-                <fieldset class="grupo">                   
+                <fieldset class="grupo" style="display: none" >                   
                     <div id="perfilCliente" class="campo">
                         <label for="perfil">Tipo de Acesso*</label>
                         <select name="perfil" required="required">
                             <option value="C" ${linCliente.perfil ==  "C" ? 'selected' : ''}>Cliente</option> 
-                            <option value="F" ${linCliente.perfil ==  "F" ? 'selected' : ''}>Funcionario</option>
                         </select>
                     </div>
                 </fieldset>
-                        <p align="right">
-                            <label class="obg">Todos os Campos (*) Obrigatórios</label>
-                        </p>
-                        <p align="center">                    
+
+                <p align="right">
+                    <label class="obg">Todos os Campos (*) Obrigatórios</label>
+                </p>
+
+                <p align="center">                    
                     <input class="btoGravar"   type="submit" value="Gravar"   id="gravar" name="gravar" onclick="validarAcao('gravar');" />
-                    <c:if test="${excluir=='true'}">
-                        <input class="btoExcluir"  type="submit" value="Excluir"  id="excluir"  name="excluir"  onclick="validarAcao('excluir');" />
-                    </c:if>
                     <input class="btoCancelar" type="submit" value="Cancelar" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
                 </p>
             </fieldset>

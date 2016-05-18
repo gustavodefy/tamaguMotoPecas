@@ -10,7 +10,11 @@ import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,11 +57,11 @@ public class ServletCatalogo extends HttpServlet {
         HttpSession sessao = request.getSession();
         Cliente cliente = (Cliente) sessao.getAttribute("sessaoCliente");
 
-        if(cliente == null){
+        if (cliente == null) {
             request.setAttribute("funcionario", "false");
             request.setAttribute("cliente", "false");
-            request.setAttribute("logado", "false");            
-        }else if (cliente.getPerfil().equals("F")) {
+            request.setAttribute("logado", "false");
+        } else if (cliente.getPerfil().equals("F")) {
             request.setAttribute("funcionario", "true");
             request.setAttribute("cliente", "false");
             request.setAttribute("logado", "true");
@@ -115,15 +119,28 @@ public class ServletCatalogo extends HttpServlet {
                 request.setAttribute("mensagem", e.getMessage());
                 destino = PRINCIPAL;
             }
-        
-        } else if (action.equals("addCarrinho")){
+
+        } else if (action.equals("addCarrinho")) {
             try {
-                String idProduto = request.getParameter("idProduto");
-                String[] item  =  request.getParameterValues(idProduto);
-                
-                destino = LISTA;
+                //Verifica se está logado
+                if (cliente != null && cliente.getPerfil().equals("C")) {
+
+                    Set<String> parameterNames = request.getParameterMap().keySet();
+                    
+                    for (Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
+                        String name = entry.getKey();
+                        String[] value = entry.getValue();                                                
+                        
+                    }
+
+                } else {
+                    request.setAttribute("mensagem", "Necessário fazer o login!");
+                }
+
+                setLista(request);
+
             } catch (Exception e) {
-                
+
             }
 
         } else {
