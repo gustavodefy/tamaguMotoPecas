@@ -8,7 +8,6 @@ package br.com.tmgmotopeca.controle;
 import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.persistir.PersistirCliente;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,22 +38,45 @@ public class ServletLogin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action;
-        // Validando se o usuário é igual a "admin" e a senha é igual a "senha"
 
+        //Validando Sessão
+        HttpSession sessao = request.getSession();
+        Cliente cliente = (Cliente) sessao.getAttribute("sessaoCliente");
+
+        if (cliente == null) {
+            request.setAttribute("funcionario", "false");
+            request.setAttribute("cliente", "false");
+            request.setAttribute("logado", "false");
+        } else if (cliente.getPerfil().equals("F")) {
+            request.setAttribute("funcionario", "true");
+            request.setAttribute("cliente", "false");
+            request.setAttribute("logado", "true");
+        } else if (cliente.getPerfil().equals("C")) {
+            request.setAttribute("funcionario", "false");
+            request.setAttribute("cliente", "true");
+            request.setAttribute("logado", "true");
+        } else {
+            request.setAttribute("funcionario", "false");
+            request.setAttribute("cliente", "false");
+            request.setAttribute("logado", "false");
+        }        
+
+        
+        
         action = request.getParameter("action");
 
         if (action.equals("inicio")) {
 
-            HttpSession sessao = request.getSession();
-            sessao.invalidate();
-            request.setAttribute("funcionario", "false");
-            request.setAttribute("cliente", "false");
-            request.setAttribute("logado", "false");
+//            HttpSession sessao = request.getSession();
+//            sessao.invalidate();
+//            request.setAttribute("funcionario", "false");
+//            request.setAttribute("cliente", "false");
+//            request.setAttribute("logado", "false");
             destino = PRINCIPAL;
 
         } else if (action.equals("logout")) {
 
-            HttpSession sessao = request.getSession();
+            sessao = request.getSession();
             sessao.invalidate();
             request.setAttribute("funcionario", "false");
             request.setAttribute("cliente", "false");
@@ -66,7 +87,7 @@ public class ServletLogin extends HttpServlet {
 
             try {
 
-                Cliente cliente = new Cliente();
+                cliente = new Cliente();
 
                 String email = request.getParameter("email");
                 String senha = request.getParameter("senha");
@@ -82,11 +103,9 @@ public class ServletLogin extends HttpServlet {
                 if (cliente != null) {
 
                     //Validando Sessão
-                    HttpSession sessao = request.getSession();
+                    sessao = request.getSession();
                     // setando um atributo da sessao
                     sessao.setAttribute("sessaoCliente", cliente);
-                    //sessao.setAttribute("login", cliente.getNome());
-                    //sessao.setAttribute("login", request.getParameter("login"));
 
                     //Validando Login
                     destino = PRINCIPAL;

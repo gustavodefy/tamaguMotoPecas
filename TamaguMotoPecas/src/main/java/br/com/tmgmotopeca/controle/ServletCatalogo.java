@@ -12,9 +12,6 @@ import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 import javax.servlet.RequestDispatcher;
@@ -133,9 +130,12 @@ public class ServletCatalogo extends HttpServlet {
                         String name = entry.getKey();
                         if (name.substring(0, 3).equals("qtd")) {
                             int idProduto = Integer.parseInt(name.substring(3));
-                            int quantidade = Integer.parseInt(request.getParameter(name));
-                            if (quantidade != 0) {
-                                setItemCarrinho(request, idProduto, quantidade);
+                            try {
+                                int quantidade = Integer.parseInt(request.getParameter(name));
+                                if (quantidade != 0) {
+                                    setItemCarrinho(request, idProduto, quantidade);
+                                }
+                            } catch (Exception e) {
                             }
                         }
                     }
@@ -144,10 +144,10 @@ public class ServletCatalogo extends HttpServlet {
                     request.setAttribute("mensagem", "Necessário fazer o login!");
                 }
 
-                setLista(request);
+                destino = PRINCIPAL;
 
             } catch (Exception e) {
-
+                request.setAttribute("mensagem", "Falha ao adicionar no carrinho");
             }
 
         } else {
@@ -178,41 +178,41 @@ public class ServletCatalogo extends HttpServlet {
     }
 
     private void setItemCarrinho(HttpServletRequest request, int idProduto, int quantidade) throws Exception {
-        
+
         //pega os itens adicionados no carrinhos
         HttpSession sessao = request.getSession();
         ArrayList listaCarrinho = (ArrayList) sessao.getAttribute("listaCarrinho");
-        
+
         //Se não existe o atributo ainda, cria o array
         if (listaCarrinho == null) {
             listaCarrinho = new ArrayList();
         }
-        
-        
+
         boolean achou = false;
         //Pesquisa para verifica se já existe o id
         for (int i = 0; i < listaCarrinho.size(); i++) {
             PVItem pvItem;
-            
-            pvItem = (PVItem)listaCarrinho.get(i);
-            
-            if(pvItem.getProduto().getIdProduto() == idProduto){
+
+            pvItem = (PVItem) listaCarrinho.get(i);
+
+            if (pvItem.getProduto().getIdProduto() == idProduto) {
                 Double qtdAtual = pvItem.getQuantidade();
                 qtdAtual = qtdAtual + quantidade;
                 pvItem.setQuantidade(qtdAtual);
                 listaCarrinho.set(i, pvItem);
-                achou = true;                
+                achou = true;
             }
         }
-        
-        if(!achou){
+
+        if (!achou) {
             PVItem pvItem = new PVItem();
             pvItem.setIdProduto(idProduto);
             pvItem.setQuantidade(quantidade);
             listaCarrinho.add(pvItem);
         }
-        
+
         sessao.setAttribute("listaCarrinho", listaCarrinho);
+        sessao.setAttribute("qtdItCar", listaCarrinho.size());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
