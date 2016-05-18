@@ -18,6 +18,12 @@ and open the template in the editor.
     padding: 35px;
 }
 
+.msg{
+    padding:5px;
+    position: absolute;
+    padding-left:90px;
+}
+
 body {
     background-image: url(../img/marcagua3.png);
     background-repeat: repeat;
@@ -41,7 +47,7 @@ div.mensagem input{
 .menu{
     list-style-type: none;
     margin: auto auto auto auto;
-    border: 1px solid white;
+    border: 0px solid white;
     float: left;
 }
 
@@ -49,13 +55,13 @@ div.mensagem input{
     position: relative;
     float: left;
     border-right: 1px solid white ;
-    padding-left: 95px;
+    padding-left: 80px;
     padding-right: 80px;
     background-color: black;
     height: 30px;
     line-height: 30px;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .menu li a{

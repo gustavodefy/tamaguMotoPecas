@@ -20,6 +20,7 @@ and open the template in the editor.
     width: 850px;
     height: 200px;
     border: solid 3px #333;
+    border-radius: 10px;
 }
 
 #banner a {

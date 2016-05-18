@@ -105,35 +105,35 @@ and open the template in the editor.
 }
 
 .btoCancelar {
-	font-size:11px;
-	font-family:Arial;
-	font-weight:bold;
-	-moz-border-radius:8px;
-	-webkit-border-radius:8px;
-	border-radius:8px;
-	border:1px solid #eda933;
-	padding:9px 18px;
-	text-decoration:none;
-	background:-moz-linear-gradient( center top, #f6b33d 22%, #d29105 83% );
-	background:-ms-linear-gradient( top, #f6b33d 22%, #d29105 83% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6b33d', endColorstr='#d29105');
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(22%, #f6b33d), color-stop(83%, #d29105) );
-	background-color:#f6b33d;
-	color:#ffffff;
-	display:inline-block;
-	text-shadow:1px 1px 0px #cd8a15;
- 	-webkit-box-shadow:inset 1px 1px 0px 0px #fed897;
- 	-moz-box-shadow:inset 1px 1px 0px 0px #fed897;
- 	box-shadow:inset 1px 1px 0px 0px #fed897;
+    font-size:11px;
+    font-family:Arial;
+    font-weight:bold;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    border-radius:8px;
+    border:1px solid #eda933;
+    padding:9px 18px;
+    text-decoration:none;
+    background:-moz-linear-gradient( center top, #f6b33d 22%, #d29105 83% );
+    background:-ms-linear-gradient( top, #f6b33d 22%, #d29105 83% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6b33d', endColorstr='#d29105');
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(22%, #f6b33d), color-stop(83%, #d29105) );
+    background-color:#f6b33d;
+    color:#ffffff;
+    display:inline-block;
+    text-shadow:1px 1px 0px #cd8a15;
+    -webkit-box-shadow:inset 1px 1px 0px 0px #fed897;
+    -moz-box-shadow:inset 1px 1px 0px 0px #fed897;
+    box-shadow:inset 1px 1px 0px 0px #fed897;
 }.btoCancelar:hover {
-	background:-moz-linear-gradient( center top, #d29105 22%, #f6b33d 83% );
-	background:-ms-linear-gradient( top, #d29105 22%, #f6b33d 83% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d29105', endColorstr='#f6b33d');
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(22%, #d29105), color-stop(83%, #f6b33d) );
-	background-color:#d29105;
+    background:-moz-linear-gradient( center top, #d29105 22%, #f6b33d 83% );
+    background:-ms-linear-gradient( top, #d29105 22%, #f6b33d 83% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d29105', endColorstr='#f6b33d');
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(22%, #d29105), color-stop(83%, #f6b33d) );
+    background-color:#d29105;
 }.btoCancelar:active {
-	position:relative;
-	top:1px;
+    position:relative;
+    top:1px;
 }
 
 .btoIncluir {

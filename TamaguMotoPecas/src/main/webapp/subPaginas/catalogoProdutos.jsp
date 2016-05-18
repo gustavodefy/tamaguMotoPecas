@@ -14,6 +14,7 @@
         <title>Catalogo</title>
 
         <script src="./js/catalogo.js"></script>
+        <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/lista.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">        
     </head>
@@ -26,7 +27,7 @@
         </div>
 
         <form action="./ServletCatalogo?action=addCarrinho" method="POST">            
-            <table border=1>
+            <br><table border=1 align="center" >
                 <thead>
                     <tr>
                         <th>Codigo</th>
@@ -52,7 +53,7 @@
                     </c:forEach>
                 </tbody>
             </table>
-            <input type="submit" value="Adicionar">
+            <br><br><input class="btoIncluir" type="submit" value="Adicionar">
         </form>    
     </body>
 </html>

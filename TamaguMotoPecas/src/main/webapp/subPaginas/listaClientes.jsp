@@ -19,7 +19,7 @@
     </head>
     <body>
         <h1 align="center">Listas de Clientes</h1>
-        <table border=1 >
+        <table border=1 align="center" >
             <thead>
                 <tr>
                     <th>Código</th>

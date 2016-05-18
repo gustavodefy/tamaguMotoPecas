@@ -13,6 +13,9 @@
         <title>Contato</title>
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
+        <script type="text/javascript" src="./jquery/jquery.js"></script>
+        <script type="text/javascript" src="./jquery/jquery.maskedinput.js"></script>
+        <script type="text/javascript" src="./js/mascaras.js"></script>
     </head>
     <body>
         <form action="./ServletContato?action=gravar" method="post">
@@ -41,7 +44,7 @@
 
                     <div class="campo">
                         <label for="text">Telefone</label>
-                        <input type=text placeholder="(xx)xxxx-xxxx" name="telefone" size="45" value="<c:out value="${linContato.telefone}" />"/>
+                        <input type=text placeholder="(xx)xxxx-xxxx" id="telefone" name="telefone" size="45" value="<c:out value="${linContato.telefone}" />"/>
                     </div>
 
                     <div class="campo">

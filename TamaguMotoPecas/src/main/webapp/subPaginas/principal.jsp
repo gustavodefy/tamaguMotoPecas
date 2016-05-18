@@ -92,7 +92,7 @@
                             </li>
                         </c:if>
                         <c:if test="${funcionario=='true'}">
-                            <li><a href="#">Mensagens</a>
+                            <li><a><img class="msg" src="./img/msg.png" width="30" height="20" alt="msg"/></a><a href="#"> Mensagens</a>
                                 <ul>
                                     <li><a href="./ServletContato?action=listar" target="InlineFrame1">Mensagens</a></li>
                                 </ul>
