@@ -67,7 +67,7 @@ public class ServletContato extends HttpServlet {
                 request.setAttribute(linha, contato);
             }
         }
-        if (action.equals("lista")) {
+        if (action.equals("listar")) {
             try {
                 setLista(request);
                 destino = LISTA;
