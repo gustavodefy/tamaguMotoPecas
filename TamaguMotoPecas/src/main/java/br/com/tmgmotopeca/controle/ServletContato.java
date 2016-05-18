@@ -5,6 +5,7 @@
  */
 package br.com.tmgmotopeca.controle;
 
+import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.Contato;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.PersistirProduto;
@@ -24,13 +25,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ServletContato", urlPatterns = {"/ServletContato"})
 public class ServletContato extends HttpServlet {
 
-    private Contato contato;
-    private Persistir persistirContato;
-
-     String action;
-    private String linha = "linCliente";
-    private String destino = "";
+    private static String LISTA = "./subPaginas/listaContatos.jsp";
     private static String UNICO = "./subPaginas/contato.jsp";
+    private Persistir persistirContato;
+    private String linha = "linContato";
+    private String tabela = "tabContato";
+    private Contato contato;
+    private String destino = "";
+    String action;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,9 +49,9 @@ public class ServletContato extends HttpServlet {
         contato = new Contato();
         persistirContato = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PContato, contato);
 
-
-            action = request.getParameter("action");
-        if (action.equals("gravar")){
+        action = request.getParameter("action");
+        
+        if (action.equals("gravar")) {
             try {
                 //busca os dados da tela
                 getDadosTela(request);
@@ -58,20 +60,69 @@ public class ServletContato extends HttpServlet {
                 //Lista os registros da entidade
                 request.setAttribute("mensagem", "Mensagem enviada com sucesso");
                 destino = UNICO;
-                } catch (Exception e) {
+            } catch (Exception e) {
                 request.setAttribute("mensagem", "Falha ao enviar Mensagem" + e);
-                destino = UNICO;   
+                destino = UNICO;
                 //Seta atributo na tela
                 request.setAttribute(linha, contato);
             }
-        }else if (action.equals("inicio")){
+        }
+        if (action.equals("lista")) {
+            try {
+                setLista(request);
+                destino = LISTA;
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = UNICO;
+                request.setAttribute(linha, contato);
+            }
+        }
+        if (action.equals("deletar")) {
+            try {
+                getDadosTela(request);
+                persistirContato.excluir();
+                setLista(request);
+                destino = LISTA;
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = LISTA;
+            }
+        }
+        if (action.equals("editar")) {
+            try {
+                //Busca o codigo do cliente na tela
+                int idContato = Integer.parseInt(request.getParameter("idContato"));
+                //Busca o registro selecionado no banco
+                persistirContato.buscar(idContato);
+                contato = (Contato) persistirContato.getEntidade();
+                //Seta atributo na tela
+                request.setAttribute(linha, contato);
+                //Direciona para alterar o registro
+                request.setAttribute("excluir", "true");
+                destino = UNICO;
+            } catch (Exception e) {
+                request.setAttribute("mensagem", e.getMessage());
+                destino = LISTA;
+            }
+        } else if (action.equals("inicio")) {
             destino = UNICO;
         }
         RequestDispatcher view = request.getRequestDispatcher(destino);
         view.forward(request, response);
     }
-    
-     private void getDadosTela(HttpServletRequest request) throws Exception {
+
+    private void setLista(HttpServletRequest request) throws Exception {
+        try {
+            //Busca todos os registros de cliente
+            request.setAttribute(tabela, persistirContato.buscarLista(null));
+            //Direciona para pagina de lista
+            destino = LISTA;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    private void getDadosTela(HttpServletRequest request) throws Exception {
         try {
             //Busca os dados da tela, e atualiza classe Cliente
             contato = new Contato();
