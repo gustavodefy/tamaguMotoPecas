@@ -22,12 +22,13 @@
         <table border=1 >
             <thead>
                 <tr>
-                    <th></th>
+                    <th>ID</th>
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Assunto</th>
                     <th>Telefone</th>
                     <th>Mensagem</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +40,7 @@
                         <td><c:out value="${linContato.assunto}" /></td>
                         <td><c:out value="${linContato.telefone}" /></td>
                         <td><c:out value="${linContato.mensagem}" /></td>
+                        <td><a class="deletar" href="./ServletContato?action=deletar&idContato=<c:out value="${linContato.idContato}"/>"> <img src="./img/x.png" width="25" height="23" alt="x"/></a></td>
                     </tr>
                 </c:forEach>
             </tbody>
