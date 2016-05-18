@@ -94,11 +94,13 @@
                         <c:if test="${funcionario=='true'}">
                             <li><a href="#">Mensagens</a>
                                 <ul>
-                            <li><a href="./ServletContato?action=listar" target="InlineFrame1">Mensagens</a></li>
+                                    <li><a href="./ServletContato?action=listar" target="InlineFrame1">Mensagens</a></li>
                                 </ul>
                             </li>
                         </c:if>
-                        <li><a href="./ServletContato?action=inicio" target="InlineFrame1">Contato</a></li>
+                        <c:if test="${funcionario=='false'}">
+                            <li><a href="./ServletContato?action=inicio" target="InlineFrame1">Contato</a></li>
+                            </c:if>
                     </div></td>
             </tr>
         </table>

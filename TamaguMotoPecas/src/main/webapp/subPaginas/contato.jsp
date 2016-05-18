@@ -11,8 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Contato</title>
-        <link rel="stylesheet" href="../css/cadastro.css" type= "text/css">
-        <link rel="stylesheet" href="../css/botoes.css" type= "text/css">
+        <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
+        <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
     </head>
     <body>
         <form action="./ServletContato?action=gravar" method="post">
@@ -23,17 +23,15 @@
                 </div>
 
                 <div class="campo">
-
-
                     <br>
                     <div class="campo">
                         <label for="idCliente">Nome</label>
-                        <input type=text name="nome" required="required" size="45"value="<c:out value="${linContato.nome}" />"/>
+                        <input type=text name="nome" required="required" size="45" value="<c:out value="${linContato.nome}" />"/>
                     </div>
 
                     <div class="campo">
                         <label for="email">Email</label>
-                        <input type=text placeholder="contato@mail.com" required="required" name="email" size="45"value=" <c:out value="${linContato.email}" />"/>
+                        <input type=text placeholder="contato@mail.com" required="required" name="email" size="45" value=" <c:out value="${linContato.email}" />"/>
                     </div>
 
                     <div class="campo">
