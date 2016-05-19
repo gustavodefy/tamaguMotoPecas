@@ -26,7 +26,7 @@
             <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
         </div>
 
-        <form action="./ServletCatalogo?action=addCarrinho" method="POST">            
+        <form action="./ServletCatalogo?action=addCarrinho" target="_parent" method="POST">            
             <br><table border=1 align="center" >
                 <thead>
                     <tr>

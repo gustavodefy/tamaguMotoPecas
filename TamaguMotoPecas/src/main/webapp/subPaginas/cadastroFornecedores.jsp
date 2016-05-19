@@ -20,6 +20,9 @@
         <script src="./js/cpf_cnpj.js"></script>        
         <script src="./js/estados.js"></script>
         <script src="./js/validarFornecedor.js"></script>
+        <script type="text/javascript" src="./jquery/jquery.js"></script>
+        <script type="text/javascript" src="./jquery/jquery.maskedinput.js"></script>
+        <script type="text/javascript" src="./js/mascaras.js"></script>
 
     </head>
     <body>
@@ -73,7 +76,37 @@
                     </div>
                     <div class="campo">
                         <label for="estado">Estado</label>
-                        <select id="estado" name="estado" value="<c:out value="${linFornecedor.estado}" />"></select>
+                        <select name="estado" id="estado" required="required">
+                            <option value="-" ${linCliente.estado ==  "-" ? 'selected' : ''} >-</option> 
+                            <option value="AC" ${linCliente.estado ==  "AC" ? 'selected' : ''} >Acre</option> 
+                            <option value="AL" ${linCliente.estado ==  "AL" ? 'selected' : ''} >Alagoas</option> 
+                            <option value="AP" ${linCliente.estado ==  "AP" ? 'selected' : ''} >Amapá</option>                             
+                            <option value="AM" ${linCliente.estado ==  "AM" ? 'selected' : ''} >Amazonas</option> 
+                            <option value="BA" ${linCliente.estado ==  "BA" ? 'selected' : ''} >Bahia</option> 
+                            <option value="CE" ${linCliente.estado ==  "CE" ? 'selected' : ''} >Ceará</option> 
+                            <option value="DF" ${linCliente.estado ==  "DF" ? 'selected' : ''} >Distrito Federal</option> 
+                            <option value="ES" ${linCliente.estado ==  "ES" ? 'selected' : ''} >Espírito Santo</option> 
+                            <option value="GO" ${linCliente.estado ==  "GO" ? 'selected' : ''} >Goiás</option> 
+                            <option value="MA" ${linCliente.estado ==  "MA" ? 'selected' : ''} >Maranhão</option> 
+                            <option value="MT" ${linCliente.estado ==  "MT" ? 'selected' : ''} >Mato Grosso</option> 
+                            <option value="MS" ${linCliente.estado ==  "MS" ? 'selected' : ''} >Mato Grosso do Sul</option> 
+                            <option value="MG" ${linCliente.estado ==  "MG" ? 'selected' : ''} >Minas Gerais</option> 
+                            <option value="PA" ${linCliente.estado ==  "PA" ? 'selected' : ''} >Pará</option> 
+                            <option value="PB" ${linCliente.estado ==  "PB" ? 'selected' : ''} >Paraíba</option> 
+                            <option value="PR" ${linCliente.estado ==  "PR" ? 'selected' : ''} >Paraná</option> 
+                            <option value="PB" ${linCliente.estado ==  "PB" ? 'selected' : ''} >Pernambuco</option> 
+                            <option value="PI" ${linCliente.estado ==  "PI" ? 'selected' : ''} >Piauí</option> 
+                            <option value="RJ" ${linCliente.estado ==  "RJ" ? 'selected' : ''} >Rio de Janeiro</option> 
+                            <option value="RN" ${linCliente.estado ==  "RN" ? 'selected' : ''} >Rio Grande do Norte</option>                             
+                            <option value="RS" ${linCliente.estado ==  "RS" ? 'selected' : ''} >Rio Grande do Sul</option> 
+                            <option value="RO" ${linCliente.estado ==  "RO" ? 'selected' : ''} >Rondônia</option> 
+                            <option value="RR" ${linCliente.estado ==  "RR" ? 'selected' : ''} >Roraima</option> 
+                            <option value="SC" ${linCliente.estado ==  "SC" ? 'selected' : ''} >Santa Catarina</option> 
+                            <option value="SE" ${linCliente.estado ==  "SE" ? 'selected' : ''} >Sergipe</option> 
+                            <option value="SP" ${linCliente.estado ==  "SP" ? 'selected' : ''} >São Paulo</option> 
+                            <option value="TO" ${linCliente.estado ==  "TO" ? 'selected' : ''} >Tocantins</option> 
+                        </select>
+
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
@@ -92,7 +125,7 @@
                         <input type="email" id="email" name="email" style="width: 21.5em" value="<c:out value="${linFornecedor.email}" />" />
                     </div>
                 </fieldset>
-                    
+
                 <p align="center">                    
                     <input class="btoGravar"   type="submit" value="Gravar"   id="gravar"   name="gravar"   onclick="validarAcao('gravar');" />
                     <c:if test="${excluir=='true'}">
@@ -100,7 +133,7 @@
                     </c:if>
                     <input class="btoCancelar" type="submit" value="Cancelar" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
                 </p>
-                
+
                 <label>Mensagem:</label>
                 <input id="mensagem" name="mensagem" value="${mensagem}" readonly="readonly">
 
