@@ -81,7 +81,7 @@
                                     <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
                                     <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedores</a></li>
                                     <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
-                                    <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Pedidos</a></li>
+                                    <li><a href="subPaginas/pedidoFornecedor.jsp" target="InlineFrame1">Pedidos</a></li>
                                 </ul>
                             </li>
                         </c:if>

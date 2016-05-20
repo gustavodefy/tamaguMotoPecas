@@ -39,6 +39,16 @@ div.mensagem input{
     color: #ce0100; 
 }
 
+input{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+    background-color: white;
+    border-color: white;
+    font-family: "Arial";
+    color: #000; 
+}
+
 .grupo:after {
     clear: both;
 }
