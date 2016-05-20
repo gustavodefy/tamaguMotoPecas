@@ -14,13 +14,13 @@
         <title>Catalogo</title>
 
         <script src="./js/catalogo.js"></script>
-        <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
-        <link rel="stylesheet" href="./css/lista.css" type= "text/css">
-        <link rel="stylesheet" href="./css/botoes.css" type= "text/css">        
+        <link rel="stylesheet" href="../css/cadastro.css" type= "text/css">
+        <link rel="stylesheet" href="../css/lista.css" type= "text/css">
+        <link rel="stylesheet" href="../css/botoes.css" type= "text/css">        
     </head>
     <body>
 
-        <h1 align="center">Catalogo de Produtos</h1>
+        <br><h1 class="titulo" align="center">Carrinho Compras</h1>
 
         <div class="mensagem">
             <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
@@ -40,20 +40,20 @@
                     </tr>
                 </thead>
                 <tbody>            
-                    <c:forEach var="linProduto" items="${tabProduto}">
-                        <tr id="<c:out value="${linProduto.idProduto}"/>" name="<c:out value="${linProduto.idProduto}"/>">
-                            <td> <a class="btoAlterar" href="./ServletCatalogo?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
-                            <td> <c:out value="${linProduto.descricao}"/>  </td>
-                            <td> <c:out value="${linProduto.marca}"/>      </td>
-                            <td> <c:out value="${linProduto.modelo}"/>     </td>
-                            <td> <c:out value="${linProduto.precoVenda}"/> </td>
-                            <td> <input type="number" name="qtd<c:out value="${linProduto.idProduto}"/>" id="qtd<c:out value="${linProduto.idProduto}"/>"  value="" style="width: 5em" min="0" onchange="calcularTotal(<c:out value="${linProduto.idProduto}"/>)"/></td>
-                            <td> </td>
+                    <c:forEach var="linCliente" items="${tabCliente}">
+                        <tr>
+                            <td><input class="preTabela" type="text" value="Teste"></td>
+                            <td><input class="preTabela" type="text" value="Teste"></td>
+                            <td><input class="preTabela" type="text" value="Teste"></td>
+                            <td><input class="preTabela" type="text" value="Teste"></td>
+                            <td><input class="preTabela" type="text" value="Teste"></td>
+                            <td><input class="preTabela" type="number"></td>
+                            <td><input class="preTabela" type="text" value="Teste"></td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-            <br><br><input class="btoIncluir" type="submit" value="Adicionar">
+            <br><br><input class="btoIncluir" type="submit" value="Finalizar Compra">
         </form>    
     </body>
 </html>

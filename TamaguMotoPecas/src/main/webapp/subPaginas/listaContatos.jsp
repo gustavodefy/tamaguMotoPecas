@@ -18,7 +18,7 @@
         
     </head>
     <body>
-        <h1 align="center">Lista Mensagens de Contatos</h1>
+        <h1 class="titulo" align="center">Lista Mensagens de Contatos</h1>
         <table border=1 width="800px" align="center" >
             <thead>
                 <tr>

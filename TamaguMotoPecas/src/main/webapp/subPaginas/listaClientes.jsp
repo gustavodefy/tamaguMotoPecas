@@ -18,7 +18,7 @@
         
     </head>
     <body>
-        <h1 align="center">Listas de Clientes</h1>
+        <h1 class="titulo" align="center">Listas de Clientes</h1>
         <table border=1 align="center" >
             <thead>
                 <tr>

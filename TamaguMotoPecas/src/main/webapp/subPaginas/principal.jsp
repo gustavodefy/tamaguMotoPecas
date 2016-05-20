@@ -35,7 +35,7 @@
                     </td>
                     <td>
                         <div class="mensagem">
-                            <input type="text" readonly="readonly" id="mensagem" name="mensagem" style="width: 20em"value="<c:out value="${mensagem}" />" />
+                            <input type="text" readonly="readonly" id="mensagem" name="mensagem" style="width: 20em" value="<c:out value="${mensagem}" />" />
                         </div>                        
                     </td>
                     <td>
@@ -81,6 +81,7 @@
                                     <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
                                     <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedores</a></li>
                                     <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
+                                    <li><a href="subPaginas/pedidoFornecedor.jsp" target="InlineFrame1">Pedidos</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -88,6 +89,7 @@
                             <li><a href="#">Catalogo</a>
                                 <ul>
                                     <li><a href="./ServletCatalogo?action=listar" target="InlineFrame1">Produtos</a></li>
+                                    <li><a href="./ServletCatalogo?action=listar" target="InlineFrame1">Meus Pedidos</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -115,7 +117,7 @@
         </div>  
         <footer class="rodape"><p align="center"><strong>Posted by: TAMAGU WEBSITES</strong></p>   
             <p align="center"><strong>Contato Informação: contato@tamagu.com.br </strong></p>
-            <p align="center"><strong>© 2016 Helizabeth Hato - Dens. Sistema Web e Banco Dados All Rights Reserved  </strong></p></footer>
+            <p align="center"><strong>© 2016 Elisabete Hato - Dens. Sistema Web e Banco Dados All Rights Reserved  </strong></p></footer>
         <br><div align="center"><img src="./img/rodape.png" width="901" height="66" alt="rodape"/></div>
     </body>
 </html>

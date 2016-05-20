@@ -49,7 +49,7 @@
 
                     <div class="campo">
                         <label for="text">Mensagem</label>
-                        <textarea name="observacao" placeholder="Deixe sua opnião..." rows="10" cols="60"><c:out value="${linContato.mensagem}"/></textarea>
+                        <textarea name="observacao" placeholder="Deixe sua opnião..." rows="10" cols="101"><c:out value="${linContato.mensagem}"/></textarea>
                     </div>
 
                 </div>

@@ -63,12 +63,6 @@
                         <label for="estoque">Estoque</label>
                         <input type="text" id="estoque" name="estoque" style="width: 10em" value="<c:out value="${linProduto.estoque}" />" />
                     </div>
-                    <div class="campo">
-                        <label for="fornecedor">Fornecedor</label>
-                        <select name="fornecedor" id="fornecedor" style="width: 10em">
-                            <option value="<c:out value="${linFornecedor.nome}" />"></option> 
-                        </select>
-                    </div>
                 </fieldset>
 
                 <p align="center">
