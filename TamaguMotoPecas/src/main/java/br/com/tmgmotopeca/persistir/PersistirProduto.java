@@ -84,10 +84,10 @@ public class PersistirProduto implements Persistir{
             
             whereId.add(rangeId);
 
-            List lista = daoProduto.getLista(whereId);
+            Iterator lista = daoProduto.getLista(whereId);
 
-            if (lista != null) {
-                this.produto = (Produto) lista.get(0);
+            if (lista.hasNext()) {
+                this.produto = (Produto) lista.next();
             } else {
                 throw new Exception("Produto não encontrado!");
             }
@@ -106,8 +106,8 @@ public class PersistirProduto implements Persistir{
     public Iterator buscarLista(ArrayList<Range> rangeCondicao) throws Exception {
 
         try {
-            List lista = daoProduto.getLista(rangeCondicao);
-            return lista.iterator();
+            Iterator lista = daoProduto.getLista(rangeCondicao);
+            return lista;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

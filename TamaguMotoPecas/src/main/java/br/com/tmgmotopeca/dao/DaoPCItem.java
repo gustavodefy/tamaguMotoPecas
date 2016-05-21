@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -168,7 +169,7 @@ public class DaoPCItem implements Dao {
     }
     
     @Override
-    public List getLista(ArrayList<Range> arrayRange) throws Exception {
+    public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
         
         List<PCItem> lista = new ArrayList();
 
@@ -186,7 +187,7 @@ public class DaoPCItem implements Dao {
                 lista.add(obj);
             }
             
-            return lista;
+            return lista.iterator();
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());

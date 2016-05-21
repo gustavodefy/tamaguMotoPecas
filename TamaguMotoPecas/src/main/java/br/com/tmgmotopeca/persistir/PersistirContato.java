@@ -83,10 +83,10 @@ public class PersistirContato  implements Persistir {
             
             whereId.add(rangeId);
 
-            List lista = daoContato.getLista(whereId);
+            Iterator lista = daoContato.getLista(whereId);
 
-            if (lista != null) {
-                this.contato = (Contato) lista.get(0);
+            if (lista.hasNext()) {
+                this.contato = (Contato) lista.next();
             } else {
                 throw new Exception("Contatos não encontrados!");
             }
@@ -105,8 +105,8 @@ public class PersistirContato  implements Persistir {
     public Iterator buscarLista(ArrayList<Range> rangeCondicao) throws Exception {
 
         try {
-            List lista = daoContato.getLista(rangeCondicao);
-            return lista.iterator();
+            Iterator lista = daoContato.getLista(rangeCondicao);
+            return lista;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

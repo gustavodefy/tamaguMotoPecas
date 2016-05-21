@@ -7,7 +7,7 @@ package br.com.tmgmotopeca.dao;
 
 import br.com.tmgmotopeca.biblioteca.Range;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 
 /**
  *
@@ -25,7 +25,7 @@ public interface Dao {
      public void deletar(Object entidade) throws Exception;
 
      //Retorna lista da seleção, se o range vier null, busca tudo
-     public List getLista(ArrayList<Range> arrayRange) throws Exception;
+     public Iterator getLista(ArrayList<Range> arrayRange) throws Exception;
      
      //
      public Object buscaUnica(Integer id) throws Exception;

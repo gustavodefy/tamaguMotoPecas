@@ -86,10 +86,10 @@ public class PersistirCliente implements Persistir {
 
             whereId.add(rangeId);
 
-            List lista = daoCliente.getLista(whereId);
+            Iterator lista = daoCliente.getLista(whereId);
 
-            if (lista != null) {
-                this.cliente = (Cliente) lista.get(0);
+            if (lista.hasNext()) {
+                this.cliente = (Cliente) lista.next();
             } else {
                 throw new Exception("Cliente não encontrado!");
             }
@@ -122,8 +122,8 @@ public class PersistirCliente implements Persistir {
     public Iterator buscarLista(ArrayList<Range> rangeCondicao) throws Exception {
 
         try {
-            List lista = daoCliente.getLista(rangeCondicao);
-            return lista.iterator();
+            Iterator lista = daoCliente.getLista(rangeCondicao);
+            return lista;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -142,12 +142,12 @@ public class PersistirCliente implements Persistir {
             rangeId.setConteudo(String.valueOf(email));
             whereId.add(rangeId);
 
-            List lista = daoCliente.getLista(whereId);
+            Iterator lista = daoCliente.getLista(whereId);
 
-            if (lista.isEmpty()) {
-                return null;
+            if (lista.hasNext()) {
+                return (Cliente) lista.next();                
             } else {
-                return (Cliente) lista.get(0);
+                return null;
             }
 
         } catch (Exception e) {

@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -170,7 +171,7 @@ public class DaoProduto implements Dao {
     }
 
     @Override
-    public List getLista(ArrayList<Range> arrayRange) throws Exception {
+    public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
         
         List<Produto> lista = new ArrayList();
 
@@ -187,7 +188,7 @@ public class DaoProduto implements Dao {
                 getDadosQuery();
                 lista.add(obj);
             }
-            return lista;
+            return lista.iterator();
             
         } catch (Exception e) {
             throw new Exception(e.getMessage());

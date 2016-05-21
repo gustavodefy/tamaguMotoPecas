@@ -86,10 +86,10 @@ public class PersistirFornecedor implements Persistir{
             
             whereId.add(rangeId);
 
-            List lista = daoFornecedor.getLista(whereId);
+            Iterator lista = daoFornecedor.getLista(whereId);
 
-            if (lista != null) {
-                this.fornecedor = (Fornecedor) lista.get(0);
+            if (lista.hasNext()) {
+                this.fornecedor = (Fornecedor) lista.next();
             } else {
                 throw new Exception("Fornecedor não encontrado!");
             }
@@ -114,8 +114,8 @@ public class PersistirFornecedor implements Persistir{
     public Iterator buscarLista(ArrayList<Range> rangeCondicao) throws Exception {
 
         try {
-            List lista = daoFornecedor.getLista(rangeCondicao);
-            return lista.iterator();
+            Iterator lista = daoFornecedor.getLista(rangeCondicao);
+            return lista;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
