@@ -27,7 +27,7 @@
                             <c:if test="${cliente=='true'}">
                                 <li> <img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/>
                                     <a class="textoLogar" target="InlineFrame1">Carrinho: </a>
-                                    <a class="textoQtd" target="InlineFrame1" href="./subPaginas/carrinho.jsp"> <c:out value="${qtdItCar}"/> </a>
+                                    <a class="textoQtd" target="InlineFrame1" href="./ServletCarrinho?action=listar"> <c:out value="${qtdItCar}"/> </a>
                                     <a class="textoLogar" target="InlineFrame1">Item</a>
                                 </li>
                             </c:if>
