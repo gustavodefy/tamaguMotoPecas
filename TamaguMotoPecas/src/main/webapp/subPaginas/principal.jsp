@@ -18,7 +18,7 @@
         <script src="./js/login.js"></script>
     </head>
     <body>
-        <form name="formuLogin" action="./ServletLogin?action=acessar" method="post">
+        <form name="formuLogin" action="./ServletLogin?action=acessar" method="post" target="_parent">
             <table class="menuTopo">
                 <tr>
 

@@ -10,43 +10,52 @@ package br.com.tmgmotopeca.dao;
  * @author Gustavo
  */
 public class SelecionaDao {
-    
-    public enum ListaDaos{
+
+    public enum ListaDaos {
         CLIENTE,
         FORNECEDOR,
         PCHEADER,
+        PCITEM,
         PVHEADER,
+        PVITEM,
         CONTATO,
         PRODUTO;
     }
-    
-    public static Dao Selecionar(ListaDaos entidadeDao){
-    
-      if(entidadeDao == ListaDaos.CLIENTE){
-         return new DaoCliente();
+
+    public static Dao Selecionar(ListaDaos entidadeDao) {
+
+        if (entidadeDao == ListaDaos.CLIENTE) {
+            return new DaoCliente();
         }
-      
-      if(entidadeDao == ListaDaos.FORNECEDOR){
-          return  new DaoFornecedor();
+
+        if (entidadeDao == ListaDaos.FORNECEDOR) {
+            return new DaoFornecedor();
         }
-      
-      if(entidadeDao == ListaDaos.PCHEADER){
-          return  new DaoPCHeader();
+
+        if (entidadeDao == ListaDaos.PCHEADER) {
+            return new DaoPCHeader();
         }
-      
-      if(entidadeDao == ListaDaos.PVHEADER){
-          return new DaoPVHeader();
+
+        if (entidadeDao == ListaDaos.PCITEM) {
+            return new DaoPCItem();
         }
-      
-      if(entidadeDao == ListaDaos.CONTATO){
-          return new DaoContato();
-      }
-      
-      if(entidadeDao == ListaDaos.PRODUTO){
-          return new DaoProduto();
+
+        if (entidadeDao == ListaDaos.PVHEADER) {
+            return new DaoPVHeader();
         }
-      
-      return null;
+
+        if (entidadeDao == ListaDaos.PVITEM) {
+            return new DaoPVItem();
+        }
+
+        if (entidadeDao == ListaDaos.CONTATO) {
+            return new DaoContato();
+        }
+
+        if (entidadeDao == ListaDaos.PRODUTO) {
+            return new DaoProduto();
+        }
+
+        return null;
     }
 }
-     

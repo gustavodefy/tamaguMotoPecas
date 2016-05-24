@@ -56,23 +56,23 @@ public class ServletCatalogo extends HttpServlet {
         HttpSession sessao = request.getSession();
         Cliente cliente = (Cliente) sessao.getAttribute("sessaoCliente");
 
-        if (cliente == null) {
-            request.setAttribute("funcionario", "false");
-            request.setAttribute("cliente", "false");
-            request.setAttribute("logado", "false");
-        } else if (cliente.getPerfil().equals("F")) {
-            request.setAttribute("funcionario", "true");
-            request.setAttribute("cliente", "false");
-            request.setAttribute("logado", "true");
-        } else if (cliente.getPerfil().equals("C")) {
-            request.setAttribute("funcionario", "false");
-            request.setAttribute("cliente", "true");
-            request.setAttribute("logado", "true");
-        } else {
-            request.setAttribute("funcionario", "false");
-            request.setAttribute("cliente", "false");
-            request.setAttribute("logado", "false");
-        }
+//        if (cliente == null) {
+//            request.setAttribute("funcionario", "false");
+//            request.setAttribute("cliente", "false");
+//            request.setAttribute("logado", "false");
+//        } else if (cliente.getPerfil().equals("F")) {
+//            request.setAttribute("funcionario", "true");
+//            request.setAttribute("cliente", "false");
+//            request.setAttribute("logado", "true");
+//        } else if (cliente.getPerfil().equals("C")) {
+//            request.setAttribute("funcionario", "false");
+//            request.setAttribute("cliente", "true");
+//            request.setAttribute("logado", "true");
+//        } else {
+//            request.setAttribute("funcionario", "false");
+//            request.setAttribute("cliente", "false");
+//            request.setAttribute("logado", "false");
+//        }
 
         request.setAttribute("toservlet", "ServletCatalogo");
 

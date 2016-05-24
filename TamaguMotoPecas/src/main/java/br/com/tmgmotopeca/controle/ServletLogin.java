@@ -44,25 +44,29 @@ public class ServletLogin extends HttpServlet {
         Cliente cliente = (Cliente) sessao.getAttribute("sessaoCliente");
 
         if (cliente == null) {
-            request.setAttribute("funcionario", "false");
-            request.setAttribute("cliente", "false");
-            request.setAttribute("logado", "false");
+            sessao.setAttribute("funcionario", "false");
+            sessao.setAttribute("cliente", "false");
+            sessao.setAttribute("logado", "false");
+            sessao.setAttribute("listaCarrinho", null);
+            sessao.setAttribute("qtdItCar", 0);                        
         } else if (cliente.getPerfil().equals("F")) {
-            request.setAttribute("funcionario", "true");
-            request.setAttribute("cliente", "false");
-            request.setAttribute("logado", "true");
+            sessao.setAttribute("funcionario", "true");
+            sessao.setAttribute("cliente", "false");
+            sessao.setAttribute("logado", "true");
+            sessao.setAttribute("listaCarrinho", null);
+            sessao.setAttribute("qtdItCar", 0);                        
         } else if (cliente.getPerfil().equals("C")) {
-            request.setAttribute("funcionario", "false");
-            request.setAttribute("cliente", "true");
-            request.setAttribute("logado", "true");
+            sessao.setAttribute("funcionario", "false");
+            sessao.setAttribute("cliente", "true");
+            sessao.setAttribute("logado", "true");
         } else {
-            request.setAttribute("funcionario", "false");
-            request.setAttribute("cliente", "false");
-            request.setAttribute("logado", "false");
+            sessao.setAttribute("funcionario", "false");
+            sessao.setAttribute("cliente", "false");
+            sessao.setAttribute("logado", "false");
+            sessao.setAttribute("listaCarrinho", null);
+            sessao.setAttribute("qtdItCar", 0);                        
         }        
-
-        
-        
+                
         action = request.getParameter("action");
 
         if (action.equals("inicio")) {
@@ -77,10 +81,12 @@ public class ServletLogin extends HttpServlet {
         } else if (action.equals("logout")) {
 
             sessao = request.getSession();
+            sessao.setAttribute("funcionario", "false");
+            sessao.setAttribute("cliente", "false");
+            sessao.setAttribute("logado", "false");
+            sessao.setAttribute("listaCarrinho", null);
+            sessao.setAttribute("qtdItCar", 0);            
             sessao.invalidate();
-            request.setAttribute("funcionario", "false");
-            request.setAttribute("cliente", "false");
-            request.setAttribute("logado", "false");
             destino = PRINCIPAL;
 
         } else {
@@ -111,30 +117,30 @@ public class ServletLogin extends HttpServlet {
                     destino = PRINCIPAL;
 
                     if (cliente.getPerfil().equals("F")) {
-                        request.setAttribute("funcionario", "true");
-                        request.setAttribute("cliente", "false");
-                        request.setAttribute("logado", "true");
+                        sessao.setAttribute("funcionario", "true");
+                        sessao.setAttribute("cliente", "false");
+                        sessao.setAttribute("logado", "true");
                     } else {
-                        request.setAttribute("funcionario", "false");
-                        request.setAttribute("cliente", "true");
-                        request.setAttribute("logado", "true");
+                        sessao.setAttribute("funcionario", "false");
+                        sessao.setAttribute("cliente", "true");
+                        sessao.setAttribute("logado", "true");
                     }
 
                 } else {
 
                     destino = PRINCIPAL;
-                    request.setAttribute("funcionario", "false");
-                    request.setAttribute("cliente", "false");
-                    request.setAttribute("logado", "false");
+                    sessao.setAttribute("funcionario", "false");
+                    sessao.setAttribute("cliente", "false");
+                    sessao.setAttribute("logado", "false");
 
                 }
 
             } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
                 destino = PRINCIPAL;
-                request.setAttribute("funcionario", "false");
-                request.setAttribute("cliente", "false");
-                request.setAttribute("logado", "false");
+                sessao.setAttribute("funcionario", "false");
+                sessao.setAttribute("cliente", "false");
+                sessao.setAttribute("logado", "false");
             }
         }
 

@@ -38,6 +38,5 @@ public class PedidoVenda {
     public void addItem(PVItem item){
         this.item.add(item);
     }
-    
-    
+        
 }
