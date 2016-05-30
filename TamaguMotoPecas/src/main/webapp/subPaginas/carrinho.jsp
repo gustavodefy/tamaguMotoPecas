@@ -14,9 +14,9 @@
         <title>Catalogo</title>
 
         <script src="./js/catalogo.js"></script>
-        <link rel="stylesheet" href="../css/cadastro.css" type= "text/css">
-        <link rel="stylesheet" href="../css/lista.css" type= "text/css">
-        <link rel="stylesheet" href="../css/botoes.css" type= "text/css">        
+        <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
+        <link rel="stylesheet" href="./css/lista.css" type= "text/css">
+        <link rel="stylesheet" href="./css/botoes.css" type= "text/css">        
     </head>
     <body>
 
@@ -26,7 +26,7 @@
             <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
         </div>
 
-        <form action="./ServletCatalogo?action=addCarrinho" target="_parent" method="POST">            
+        <form action="./ServletCarrinho?action=finalizarCompra" target="_parent" method="POST">            
             <br><table border=1 align="center" >
                 <thead>
                     <tr>
@@ -37,20 +37,27 @@
                         <th>Valor Unitario</th>
                         <th>Quantidade</th>
                         <th>Valor Total</th>
+                        <th>Remover</th>
                     </tr>
                 </thead>
                 <tbody>            
-                    <c:forEach var="linCliente" items="${tabCliente}">
-                        <tr>
-                            <td><input class="preTabela" type="text" value="Teste"></td>
-                            <td><input class="preTabela" type="text" value="Teste"></td>
-                            <td><input class="preTabela" type="text" value="Teste"></td>
-                            <td><input class="preTabela" type="text" value="Teste"></td>
-                            <td><input class="preTabela" type="text" value="Teste"></td>
-                            <td><input class="preTabela" type="number"></td>
-                            <td><input class="preTabela" type="text" value="Teste"></td>
+                    <c:forEach var="linProduto" items="${tabProduto}">
+                        <tr id="<c:out value="${linProduto.produto.idProduto}"/>" name="<c:out value="${linProduto.produto.idProduto}"/>">
+                            <td> <a class="btoAlterar" href="./ServletCarrinho?action=consulta&idProduto=<c:out value="${linProduto.produto.idProduto}"/>"><c:out value="${linProduto.produto.idProduto}"/></a></td>
+                            <td> <c:out value="${linProduto.produto.descricao}"/>  </td>
+                            <td> <c:out value="${linProduto.produto.marca}"/>      </td>
+                            <td> <c:out value="${linProduto.produto.modelo}"/>     </td>
+                            <td> <c:out value="${linProduto.vlrUnitario}"/> </td>
+                            <td> <input type="number" name="qtd<c:out value="${linProduto.produto.idProduto}"/>" id="qtd<c:out value="${linProduto.produto.idProduto}"/>"  value="<c:out value="${linProduto.quantidade}"/>" style="width: 5em" min="0" onchange="calcularTotal(<c:out value="${linProduto.produto.idProduto}"/>)"/></td>
+                            <td> <c:out value="${linProduto.vlrTotal}"/> </td>
+                            <td> <a href="./ServletCarrinho?action=remover&idProduto=<c:out value="${linProduto.produto.idProduto}"/>"><img src="./img/x.png" width="25" height="23" alt="excluir"/></a></td>
                         </tr>
                     </c:forEach>
+                    <tr>
+                        <td colspan="6">Total Pedido</td>
+                        <td> <c:out value="${totalPedido}"/></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
             <br><br><input class="btoIncluir" type="submit" value="Finalizar Compra">
