@@ -6,10 +6,16 @@
 package br.com.tmgmotopeca.controle;
 
 import br.com.tmgmotopeca.modelo.Fornecedor;
+import br.com.tmgmotopeca.modelo.PCHeader;
+import br.com.tmgmotopeca.modelo.PCItem;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,12 +29,21 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ServletPedidos", urlPatterns = {"/ServletPedidos"})
 public class ServletPedidos extends HttpServlet {
 
-    private Fornecedor fornecedor;
-    private Persistir persistirFornecedor;
+    private PCHeader pedidoCompra;
+    private PCItem pedidoCompraItem;
+    private Persistir pesistirPCompra;
+    private Persistir pesistirFornecedor;
+    private Persistir pesistirProdutos;
 
     private String destino = "";
-    private static String UNICO = "./subPaginas/cadastroFornecedores.jsp";
-    private static String LISTA = "./subPaginas/listaFornecedores.jsp";
+    private static String UNICO = "./subPaginas/pedidoFornecedor.jsp";
+    private static String LISTA = "./subPaginas/listaPedidoFornecedores.jsp";
+    private static String PRINCIPAL = "./subPaginas/principal.jsp";
+
+    private String tabelaFornecedor = "tabForn";
+    private String tabelaProduto = "tabProd";
+
+    private String linha = "linPedidos";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,16 +55,50 @@ public class ServletPedidos extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        fornecedor = new Fornecedor();
-        persistirFornecedor = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PFornecedor, fornecedor);
-        
+
+        String action;
+
+        action = request.getParameter("action");
+
+        if (action.equals("inicio")) {
+            try {
+                setListaFornecedor(request);
+            } catch (Exception e) {
+                request.setAttribute("mensagem", "Nenhum Fornecedor encontrado");
+            }
+            try {
+                setListaProduto(request);
+            } catch (Exception e) {
+                request.setAttribute("mensagem", "Nenhum Produto encontrado");
+            }
+            destino = UNICO;
+        }
+
+        RequestDispatcher view = request.getRequestDispatcher(destino);
+        view.forward(request, response);
+    }
+
+    private void setListaFornecedor(HttpServletRequest request) throws Exception {
         try {
-            
+            //Busca todos os registros de fornecedores
+            request.setAttribute(tabelaFornecedor, pesistirFornecedor.buscarLista(null));
+
         } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    private void setListaProduto(HttpServletRequest request) throws Exception {
+        try {
+            //Busca todos os registros de Produtos
+            request.setAttribute(tabelaProduto, pesistirProdutos.buscarLista(null));
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
