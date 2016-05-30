@@ -8,6 +8,7 @@ package br.com.tmgmotopeca.persistir;
 import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.dao.SelecionaDao;
+import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,18 +17,18 @@ import java.util.Iterator;
  *
  * @author ResVUT42
  */
-public class PersistirVenda implements Persistir{
+public class PersistirVenda implements Persistir {
 
     private PedidoVenda pedidoVenda;
     private Dao daoPVHeader;
     private Dao daoPVItem;
-    
+
     public PersistirVenda(PedidoVenda pedidoVenda) {
         this.pedidoVenda = pedidoVenda;
         this.daoPVHeader = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PVHEADER);
-        this.daoPVItem   = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PVITEM);
-    }       
-    
+        this.daoPVItem = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PVITEM);
+    }
+
     @Override
     public Object getEntidade() throws Exception {
         return this.pedidoVenda;
@@ -40,7 +41,41 @@ public class PersistirVenda implements Persistir{
 
     @Override
     public int gravar() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            int id = 0;
+
+            validarInformacoes();
+
+            
+            if (pedidoVenda.getHeader().getIdPedido() == 0) {
+                //Se estiver incluindo
+                id = daoPVHeader.inserir(pedidoVenda.getHeader());
+                Iterator<PVItem> listaItem = pedidoVenda.getItens();
+
+                while (listaItem.hasNext()) {
+                    PVItem pvItem = listaItem.next();
+                    pvItem.setIdPedido(id);
+                    daoPVItem.inserir(pvItem);
+                }
+
+                
+            } else {
+                //Se estiver alterando
+                id = pedidoVenda.getHeader().getIdPedido();
+                daoPVHeader.alterar(pedidoVenda.getHeader());
+                
+                Iterator<PVItem> listaItem = pedidoVenda.getItens();
+                while (listaItem.hasNext()) {
+                    PVItem pvItem = listaItem.next();
+                    daoPVItem.alterar(pvItem);
+                }                
+            }
+
+            return id;
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
@@ -62,5 +97,5 @@ public class PersistirVenda implements Persistir{
     public Iterator buscarLista(ArrayList<Range> arrayRange) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

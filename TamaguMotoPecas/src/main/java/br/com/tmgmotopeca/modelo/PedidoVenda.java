@@ -27,15 +27,16 @@ public class PedidoVenda {
         this.header = header;
     }
 
-    public Iterator<PVItem> getItem() {
+    public Iterator<PVItem> getItens() {
         return item.iterator();
     }
 
-    public void setItem(ArrayList<PVItem> item) {
+    public void setItens(ArrayList<PVItem> item) {
         this.item = item;
     }
     
     public void addItem(PVItem item){
+        this.header.setTotalPedido(this.header.getTotalPedido() + item.getVlrTotal());
         this.item.add(item);
     }
         

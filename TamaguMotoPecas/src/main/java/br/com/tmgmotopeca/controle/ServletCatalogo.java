@@ -124,7 +124,7 @@ public class ServletCatalogo extends HttpServlet {
                 //Verifica se está logado
                 if (cliente != null && cliente.getPerfil().equals("C")) {
 
-                    Set<String> parameterNames = request.getParameterMap().keySet();
+                    //Set<String> parameterNames = request.getParameterMap().keySet();
 
                     for (Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
                         String name = entry.getKey();

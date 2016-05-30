@@ -8,6 +8,7 @@ package br.com.tmgmotopeca.controle;
 import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.PVHeader;
 import br.com.tmgmotopeca.modelo.PVItem;
+import br.com.tmgmotopeca.modelo.PedidoVenda;
 import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.PersistirProduto;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,10 +32,11 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ServletCarrinho", urlPatterns = {"/ServletCarrinho"})
 public class ServletCarrinho extends HttpServlet {
 
+    private PedidoVenda pedidoVenda;
     private PVHeader pvHeader;
     private PVItem pvItem;
     private Cliente cliente;
-    
+
     private String destino = "";
     private static String PRODUTO = "./subPaginas/cadastroProdutos.jsp";
     private static String CARRINHO = "./subPaginas/carrinho.jsp";
@@ -41,6 +44,9 @@ public class ServletCarrinho extends HttpServlet {
 
     private String tabela = "tabProduto";
     private String linha = "linProduto";
+
+    private HttpServletRequest lRequest;
+    private HttpServletResponse lResponse;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,16 +60,19 @@ public class ServletCarrinho extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        lRequest = request;
+        lResponse = response;
+
         //Busca a sessão ativa
-        HttpSession sessao = request.getSession();
+        HttpSession sessao = lRequest.getSession();
         cliente = (Cliente) sessao.getAttribute("sessaoCliente");
 
-        request.setAttribute("toservlet", "ServletCatalogo");
+        lRequest.setAttribute("toservlet", "ServletCatalogo");
 
         if (cliente != null && cliente.getPerfil().equals("C")) {
 
             String action;
-            action = request.getParameter("action");
+            action = lRequest.getParameter("action");
 
             if (action.equals("listar")) {
 
@@ -71,24 +80,23 @@ public class ServletCarrinho extends HttpServlet {
                 ArrayList listaCarrinho = (ArrayList) sessao.getAttribute("listaCarrinho");
                 if (listaCarrinho == null || listaCarrinho.isEmpty()) {
 
-                    request.setAttribute("mensagem", "Nenhum item no carrinho!");
-                    destino = PRINCIPAL;                    
-                    
+                    lRequest.setAttribute("mensagem", "Nenhum item no carrinho!");
+                    destino = PRINCIPAL;
+
                 } else {
-                    
-                    
+
                     double totalPedido = calculaTotal(listaCarrinho.iterator());
-                    request.setAttribute(tabela, listaCarrinho);
-                    request.setAttribute("totalPedido", totalPedido);
+                    lRequest.setAttribute(tabela, listaCarrinho);
+                    lRequest.setAttribute("totalPedido", totalPedido);
                     destino = CARRINHO;
-                    
+
                 }
 
             } else if (action.equals("editar")) {
 
                 try {
                     //Busca o codigo do produto na tela
-                    int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+                    int idProduto = Integer.parseInt(lRequest.getParameter("idProduto"));
 
                     //Busca o registro selecionado no banco
                     Produto produto = new Produto();
@@ -97,15 +105,15 @@ public class ServletCarrinho extends HttpServlet {
                     produto = (Produto) persistirProduto.getEntidade();
 
                     //Seta atributo na tela
-                    request.setAttribute(linha, produto);
+                    lRequest.setAttribute(linha, produto);
 
                     //Direciona para alterar o registro
-                    request.setAttribute("gravar", "false");
-                    request.setAttribute("excluir", "false");
+                    lRequest.setAttribute("gravar", "false");
+                    lRequest.setAttribute("excluir", "false");
                     destino = PRODUTO;
 
                 } catch (Exception e) {
-                    request.setAttribute("mensagem", e.getMessage());
+                    lRequest.setAttribute("mensagem", e.getMessage());
                     destino = PRINCIPAL;
                 }
 
@@ -115,7 +123,7 @@ public class ServletCarrinho extends HttpServlet {
                 ArrayList listaCarrinho = (ArrayList) sessao.getAttribute("listaCarrinho");
                 if (!listaCarrinho.isEmpty()) {
 
-                    int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+                    int idProduto = Integer.parseInt(lRequest.getParameter("idProduto"));
 
                     for (int i = 0; i < listaCarrinho.size(); i++) {
 
@@ -128,71 +136,95 @@ public class ServletCarrinho extends HttpServlet {
                     }
 
                     if (listaCarrinho.isEmpty()) {
-                        
+
                         sessao.setAttribute("listaCarrinho", null);
                         sessao.setAttribute("qtdItCar", 0);
-                        request.setAttribute("mensagem", "Nenhum item no carrinho!");
+                        lRequest.setAttribute("mensagem", "Nenhum item no carrinho!");
                         destino = PRINCIPAL;
-                        
+
                     } else {
-                        
+
                         double totalPedido = calculaTotal(listaCarrinho.iterator());
-                        request.setAttribute("totalPedido", totalPedido);
-                        
+                        lRequest.setAttribute("totalPedido", totalPedido);
+
                         sessao.setAttribute("listaCarrinho", listaCarrinho);
                         sessao.setAttribute("qtdItCar", listaCarrinho.size());
-                        request.setAttribute(tabela, listaCarrinho);
+                        lRequest.setAttribute(tabela, listaCarrinho);
                         destino = CARRINHO;
-                        
+
                     }
-                    
 
                 } else {
-                    request.setAttribute("mensagem", "Nenhum item no carrinho!");
+                    lRequest.setAttribute("mensagem", "Nenhum item no carrinho!");
                     destino = PRINCIPAL;
                 }
-                
-            } else if(action.equals("finalizarCompra")){
-                
+
+            } else if (action.equals("finalizarCompra")) {
+
                 try {
-                    
+
                     montaPVHeader();
-                    
+                    montaPVItem();
+
                 } catch (Exception e) {
-                    request.setAttribute("mensagem", "Nenhum item no carrinho!");
-                    destino = PRINCIPAL;                    
+                    lRequest.setAttribute("mensagem", "Nenhum item no carrinho!");
+                    destino = PRINCIPAL;
                 }
-                
+
             }
 
         } else {
-            request.setAttribute("mensagem", "Necessário fazer o login!");
+            lRequest.setAttribute("mensagem", "Necessário fazer o login!");
             destino = PRINCIPAL;
         }
 
-        RequestDispatcher view = request.getRequestDispatcher(destino);
-        view.forward(request, response);
+        RequestDispatcher view = lRequest.getRequestDispatcher(destino);
+        view.forward(lRequest, lResponse);
     }
-    
-    private double calculaTotal(Iterator lista){
-        
-        double valorTotal=0;
-        
-        while(lista.hasNext()){
+
+    private double calculaTotal(Iterator lista) {
+
+        double valorTotal = 0;
+
+        while (lista.hasNext()) {
             PVItem item = (PVItem) lista.next();
             valorTotal = valorTotal + item.getVlrTotal();
         }
         return valorTotal;
     }
-    
-    private void montaPVHeader(){
+
+    private void montaPVHeader() {
         pvHeader = new PVHeader();
         pvHeader.setCliente(cliente);
         pvHeader.setDtLcto(new Date());
         pvHeader.setStatus(PVHeader.eStatus.ABERTO);
-        pvHeader.setTotalPedido(0);        
+        pvHeader.setTotalPedido(0);
+        
+        pedidoVenda.setHeader(pvHeader);
     }
-    
+
+    private void montaPVItem() {
+
+        //Set<String> parameterNames = lRequest.getParameterMap().keySet();
+
+        for (Entry<String, String[]> entry : lRequest.getParameterMap().entrySet()) {
+            String name = entry.getKey();
+            if (name.substring(0, 3).equals("qtd")) {
+                int idProduto = Integer.parseInt(name.substring(3));
+                try {
+                    int quantidade = Integer.parseInt(lRequest.getParameter(name));
+                    if (quantidade != 0) {
+                        pvItem.setIdProduto(idProduto);
+                        pvItem.setQuantidade(quantidade);
+                        pedidoVenda.addItem(pvItem);
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        }
+
+    }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
