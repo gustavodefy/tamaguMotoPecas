@@ -40,7 +40,7 @@
                         <th>Remover</th>
                     </tr>
                 </thead>
-                <tbody>            
+                <tbody id="tabelaItens">            
                     <c:forEach var="linProduto" items="${tabProduto}">
                         <tr id="<c:out value="${linProduto.produto.idProduto}"/>" name="<c:out value="${linProduto.produto.idProduto}"/>">
                             <td> <a class="btoAlterar" href="./ServletCarrinho?action=consulta&idProduto=<c:out value="${linProduto.produto.idProduto}"/>"><c:out value="${linProduto.produto.idProduto}"/></a></td>
@@ -55,7 +55,7 @@
                     </c:forEach>
                     <tr>
                         <td colspan="6">Total Pedido</td>
-                        <td> <c:out value="${totalPedido}"/></td>
+                        <td id="totalPedido"> <c:out value="${totalPedido}"/></td>
                         <td></td>
                     </tr>
                 </tbody>

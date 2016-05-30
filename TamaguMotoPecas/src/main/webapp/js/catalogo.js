@@ -7,14 +7,24 @@
 
 function calcularTotal(id) {
 
+//    var tabela = document.getElementById("tabelaItens");
+//    var linhas = tabela.getElementsByTagNameNS("tr");
+    
+
     var linha = document.getElementById(id);
     var coluna = linha.getElementsByTagName("td");
 
     var unit = coluna[4].firstChild.nodeValue;
     var qtd = coluna[5].firstElementChild.value;
+    var aux = coluna[6].firstChild.nodeValue;
     var total = unit * qtd;
-
     coluna[6].innerHTML = total;
+    
+    
+    
+    var totalPedido = document.getElementById("totalPedido");
+    var totGeral = totalPedido.firstChild.nodeValue - aux + total;
+    totalPedido.innerHTML = totGeral;
 
 }
 
