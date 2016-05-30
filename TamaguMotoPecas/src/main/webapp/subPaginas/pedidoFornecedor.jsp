@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,14 +14,14 @@
 
         <title>Cadastro de Clientes</title>
 
-        <link rel="stylesheet" href="../css/cadastro.css" type= "text/css">
-        <link rel="stylesheet" href="../css/botoes.css" type= "text/css">
-        <link rel="stylesheet" href="../css/lista.css" type="text/css">
+        <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
+        <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
+        <link rel="stylesheet" href="./css/lista.css" type="text/css">
 
     </head>
     <body>
         <br><h1 class="titulo" align="center">Pedidos</h1>
-        <form action="ServletCliente" method="post">
+        <form action="ServletPedidos" method="post">
             <div class="mensagem">
                 <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
             </div>
@@ -29,20 +30,20 @@
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="idCliente">Codigo</label>
-                        <input type="text" id="idCliente" name="idCliente" readonly="readonly" style="width: 5em" value="<c:out value="${linCliente.idCliente}" />" />
+                        <input type="text" id="idPedido" name="idPedido" readonly="readonly" style="width: 5em" value="<c:out value="${linPedidos.idPedido}" />" />
                     </div>
                     <div class="campo">
                         <label for="cidade">Data*</label>
-                        <input type="text" id="cidade" name="cidade" required="required" style="width: 10em" value="<c:out value="${linCliente.cidade}" />">
+                        <input type="text" id="data" name="data" required="required" style="width: 10em" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${linPedidos.data}" />">
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="nome">Fornecedor*</label>
-                        <select name="estado" id="estado" required="required" style="width: 35em">
-                            <c:forEach items="${fornecedor}" var="fornecedor">
+                        <select name="fornecedor" id="fornecedor" required="required" style="width: 44em">
+                            <c:forEach items="${tabForn}" var="fornecedor">
                                 <option value="<c:out value="${fornecedor.codigo}"/>" 
-                                        ${fornecedor.codigo ==  pi.pedido.cliente.codigo ? 'selected' : ''}>
+                                        ${fornecedor.codigo ==  pedido.fornecedor.codigo ? 'selected' : ''}>
                                     <c:out value="${fornecedor.nome}"/>
                                 </option >
                             </c:forEach>
@@ -52,21 +53,22 @@
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="logradouro">Produtos</label>
-                        <select name="estado" id="estado" required="required" style="width: 25em">
-                            <option value="-" ${linCliente.estado ==  "-" ? 'selected' : ''} >-</option> 
-                            <option value="AC" ${linCliente.estado ==  "AC" ? 'selected' : ''} >Acre</option> 
-                            <option value="AL" ${linCliente.estado ==  "AL" ? 'selected' : ''} >Alagoas</option> 
-                            <option value="AP" ${linCliente.estado ==  "AP" ? 'selected' : ''} >Amapá</option>                             
-                            <option value="AM" ${linCliente.estado ==  "AM" ? 'selected' : ''} >Amazonas</option> 
+                        <select name="fornecedor" id="fornecedor" required="required" style="width: 25em">
+                            <c:forEach items="${tabProd}" var="produtos">
+                                <option value="<c:out value="${produtos.codigo}"/>" 
+                                        ${produtos.codigo ==  pi.pedido.produtos.codigo ? 'selected' : ''}>
+                                    <c:out value="${produtos.nome}"/>
+                                </option >
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="campo">
                         <label for="numero">Quantidade</label>
-                        <input type="text" id="numero" name="numero" required="required" style="width: 5em" value="<c:out value="${linCliente.numero}" />" />
+                        <input type="text" id="quantidade" name="quantidade" required="required" style="width: 5em" value="<c:out value="${linPedidos.quantidade}" />" />
                     </div>
                     <div class="campo">
                         <label for="complemento">Valor Unitario*</label>
-                        <input type="text" id="complemento" name="complemento" required="required" style="width: 10em" value="<c:out value="${linCliente.complemento}" />" />
+                        <input type="text" id="valorUnit" name="valorUnit" required="required" style="width: 10em" value="<c:out value="${linPedidos.valorUnit}" />" />
                     </div>
                 </fieldset>
 
