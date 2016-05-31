@@ -11,7 +11,9 @@ import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
 import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.PersistirProduto;
+import br.com.tmgmotopeca.persistir.PersistirVenda;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
+import br.com.tmgmotopeca.persistir.SelecionaPersistir.ListaPersistir;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -163,9 +165,17 @@ public class ServletCarrinho extends HttpServlet {
 
                 try {
 
+                    pedidoVenda = new PedidoVenda();
                     montaPVHeader();
                     montaPVItem();
-
+                    
+                    PersistirVenda persistirVenda = (PersistirVenda) SelecionaPersistir.Selecionar(ListaPersistir.PVenda,pedidoVenda);                    
+                    int idpedido = persistirVenda.gravar();      
+                    sessao.setAttribute("listaCarrinho", null);
+                    sessao.setAttribute("qtdItCar", 0);                    
+                    lRequest.setAttribute("mensagem", "Pedido "+ idpedido +" criado com sucesso!");
+                    destino = PRINCIPAL;
+                    
                 } catch (Exception e) {
                     lRequest.setAttribute("mensagem", "Nenhum item no carrinho!");
                     destino = PRINCIPAL;
@@ -214,12 +224,14 @@ public class ServletCarrinho extends HttpServlet {
                 try {
                     int quantidade = Integer.parseInt(lRequest.getParameter(name));
                     if (quantidade != 0) {
+                        pvItem = new PVItem();
                         pvItem.setIdProduto(idProduto);
                         pvItem.setQuantidade(quantidade);
                         pedidoVenda.addItem(pvItem);
                     }
                 } catch (Exception e) {
-
+                    lRequest.setAttribute("mensagem", "Erro ao adicionar o produto " + idProduto);
+                    destino = PRINCIPAL;
                 }
             }
         }

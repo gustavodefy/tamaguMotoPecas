@@ -17,6 +17,8 @@ public class PedidoVenda {
     private ArrayList<PVItem> item;
 
     public PedidoVenda() {
+        header = new PVHeader();
+        item = new ArrayList<PVItem>();
     }
 
     public PVHeader getHeader() {
