@@ -43,7 +43,7 @@ public class DaoPVHeader implements Dao {
             ps.setInt(nx, obj.getCliente().getIdCliente());
 
             nx++;
-            ps.setDate(nx, (java.sql.Date) obj.getDtLcto());
+            ps.setDate(nx, (java.sql.Date) new java.sql.Date(obj.getDtLcto().getTime()));
 
             nx++;
             ps.setDouble(nx, obj.getTotalPedido());
@@ -87,7 +87,7 @@ public class DaoPVHeader implements Dao {
         try {
 
             sql = "insert into pvHeader (";
-            sql += "cliente,";
+            sql += "idCliente,";
             sql += "dtLcto,";
             sql += "totalPedido,";
             sql += "status";
@@ -124,7 +124,7 @@ public class DaoPVHeader implements Dao {
 
         try {
             sql = "update pvHeader set ";
-            sql += "cliente=?,";
+            sql += "idCliente=?,";
             sql += "dtLcto=?,";
             sql += "totalPedido=?,";
             sql += "status=?,";
