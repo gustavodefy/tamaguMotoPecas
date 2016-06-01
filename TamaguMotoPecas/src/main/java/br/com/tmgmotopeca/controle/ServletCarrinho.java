@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -215,18 +216,19 @@ public class ServletCarrinho extends HttpServlet {
 
     private void montaPVItem() {
 
-        //Set<String> parameterNames = lRequest.getParameterMap().keySet();
+        Set<String> parameterNames = lRequest.getParameterMap().keySet();
 
         for (Entry<String, String[]> entry : lRequest.getParameterMap().entrySet()) {
             String name = entry.getKey();
             if (name.substring(0, 3).equals("qtd")) {
                 int idProduto = Integer.parseInt(name.substring(3));
                 try {
-                    int quantidade = Integer.parseInt(lRequest.getParameter(name));
+                    String sQuantidade = lRequest.getParameter(name);
+                    double quantidade = Double.parseDouble(sQuantidade);
                     if (quantidade != 0) {
                         pvItem = new PVItem();
                         pvItem.setIdProduto(idProduto);
-                        pvItem.setQuantidade(quantidade);
+                        pvItem.setQuantidade((int)quantidade);
                         pedidoVenda.addItem(pvItem);
                     }
                 } catch (Exception e) {
