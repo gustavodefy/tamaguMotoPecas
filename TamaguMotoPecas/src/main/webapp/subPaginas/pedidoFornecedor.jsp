@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
         <link rel="stylesheet" href="./css/lista.css" type="text/css">
+        <script type="text/javascript" src="./js/mascaras.js"></script>
 
     </head>
     <body>
@@ -34,7 +35,7 @@
                     </div>
                     <div class="campo">
                         <label for="cidade">Data*</label>
-                        <input type="text" id="data" name="data" required="required" style="width: 10em" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${linPedidos.data}" />">
+                        <input type="text" id="data" name="data" required="required" style="width: 10em" onload="time()">
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
@@ -42,10 +43,7 @@
                         <label for="nome">Fornecedor*</label>
                         <select name="fornecedor" id="fornecedor" required="required" style="width: 44em">
                             <c:forEach items="${tabForn}" var="fornecedor">
-                                <option value="<c:out value="${fornecedor.codigo}"/>" 
-                                        ${fornecedor.codigo ==  pedido.fornecedor.codigo ? 'selected' : ''}>
-                                    <c:out value="${fornecedor.nome}"/>
-                                </option >
+                                <option value="${fornecedor.idFornecedor}">${fornecedor.nome}</option >
                             </c:forEach>
                         </select>
                     </div>
@@ -53,12 +51,11 @@
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="logradouro">Produtos</label>
-                        <select name="fornecedor" id="fornecedor" required="required" style="width: 25em">
-                            <c:forEach items="${tabProd}" var="produtos">
-                                <option value="<c:out value="${produtos.codigo}"/>" 
-                                        ${produtos.codigo ==  pi.pedido.produtos.codigo ? 'selected' : ''}>
-                                    <c:out value="${produtos.nome}"/>
-                                </option >
+                        <select name="produto" id="produto" required="required" style="width: 25em">
+                            <c:forEach items="${tabProd}" var="produto">
+                                <c:forEach items="${tabProd}" var="produto">
+                                    <option value="${produto.idProduto}">${produto.descricao}</option >
+                                </c:forEach>
                             </c:forEach>
                         </select>
                     </div>
