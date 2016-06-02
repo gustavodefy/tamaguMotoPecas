@@ -7,6 +7,7 @@ package br.com.tmgmotopeca.controle;
 
 import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.PVHeader;
+import br.com.tmgmotopeca.modelo.PVHeader.eForma;
 import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
 import br.com.tmgmotopeca.modelo.Produto;
@@ -41,8 +42,8 @@ public class ServletCarrinho extends HttpServlet {
     private Cliente cliente;
 
     private String destino = "";
-    private static String PRODUTO = "./subPaginas/cadastroProdutos.jsp";
-    private static String CARRINHO = "./subPaginas/carrinho.jsp";
+    private static String PRODUTO   = "./subPaginas/cadastroProdutos.jsp";
+    private static String CARRINHO  = "./subPaginas/carrinho.jsp";
     private static String PRINCIPAL = "./index.jsp";
 
     private String tabela = "tabProduto";
@@ -205,12 +206,13 @@ public class ServletCarrinho extends HttpServlet {
     }
 
     private void montaPVHeader() {
+        eForma formapgto = PVHeader.eForma.valueOf(lRequest.getParameter("formaPgto"));
         pvHeader = new PVHeader();
         pvHeader.setCliente(cliente);
         pvHeader.setDtLcto(new Date());
         pvHeader.setStatus(PVHeader.eStatus.ABERTO);
         pvHeader.setTotalPedido(0);
-        
+        pvHeader.setFormaPgto(formapgto);
         pedidoVenda.setHeader(pvHeader);
     }
 
