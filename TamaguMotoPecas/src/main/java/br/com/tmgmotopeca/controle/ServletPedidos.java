@@ -81,6 +81,13 @@ public class ServletPedidos extends HttpServlet {
             }
             destino = UNICO;
         }
+        
+        if(action.equals("adicionar")){
+            try {
+                
+            } catch (Exception e) {
+            }
+        }
 
         RequestDispatcher view = request.getRequestDispatcher(destino);
         view.forward(request, response);
@@ -111,6 +118,8 @@ public class ServletPedidos extends HttpServlet {
             throw new Exception(e.getMessage());
         }
     }
+    
+    
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

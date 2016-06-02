@@ -35,7 +35,7 @@
                     </div>
                     <div class="campo">
                         <label for="cidade">Data*</label>
-                        <input type="text" id="data" name="data" required="required" style="width: 10em" onload="time()">
+                        <input type="text" id="data" name="data" required="required" style="width: 10em" onclick="time()">
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
