@@ -8,6 +8,7 @@ package br.com.tmgmotopeca.controle;
 import br.com.tmgmotopeca.modelo.Fornecedor;
 import br.com.tmgmotopeca.modelo.PCHeader;
 import br.com.tmgmotopeca.modelo.PCItem;
+import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
@@ -34,6 +35,8 @@ public class ServletPedidos extends HttpServlet {
     private Persistir pesistirPCompra;
     private Persistir pesistirFornecedor;
     private Persistir pesistirProdutos;
+    private Fornecedor fornecedor;
+    private Produto produto;
 
     private String destino = "";
     private static String UNICO = "./subPaginas/pedidoFornecedor.jsp";
@@ -55,6 +58,11 @@ public class ServletPedidos extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        fornecedor = new Fornecedor();
+        pesistirFornecedor = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PFornecedor, fornecedor);
+        produto = new Produto();
+        pesistirProdutos = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, produto);
 
         String action;
 
@@ -87,6 +95,12 @@ public class ServletPedidos extends HttpServlet {
             throw new Exception(e.getMessage());
         }
     }
+    
+    private String getDateTime() {
+	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	Date date = new Date();
+	return dateFormat.format(date);
+}
 
     private void setListaProduto(HttpServletRequest request) throws Exception {
         try {
