@@ -6,6 +6,7 @@
 package br.com.tmgmotopeca.modelo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -30,12 +31,12 @@ public class PedidoCompra {
         this.pcHeader = pcHeader;
     }
 
-    public ArrayList<PCItem> getArrayPCItem() {
-        return arrayPCItem;
+    public Iterator<PCItem> getItens() {
+        return arrayPCItem.iterator();
     }
 
-    public void setArrayPCItem(ArrayList<PCItem> arrayPCItem) {
-        this.arrayPCItem = arrayPCItem;
+    public void setItens(ArrayList<PCItem> item) {
+        this.arrayPCItem = item;
     }
         
     public void addPCItem(PCItem pcItem){
