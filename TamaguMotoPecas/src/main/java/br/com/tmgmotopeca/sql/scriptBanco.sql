@@ -107,6 +107,7 @@ CREATE TABLE IF NOT EXISTS tamagu.PVHeader(
   dtLcto           DATE NOT NULL,
   totalPedido      DOUBLE(15,2),
   status           VARCHAR(15),
+  formaPgto        VARCHAR(15),
   PRIMARY KEY (idpedido),
   FOREIGN KEY(idcliente) REFERENCES cliente (idcliente))
 ENGINE = InnoDB

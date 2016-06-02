@@ -18,11 +18,17 @@ public class PVHeader {
     private Date dtLcto;
     private double totalPedido;
     private eStatus status;
+    private eForma formaPgto;
 
     public static enum eStatus {
         ABERTO,
         CANCELADO,
         CONCLUIDO;
+    }
+    
+    public static enum eForma{
+        BOLETO,
+        CARTAO;        
     }
 
     public PVHeader() {
@@ -73,4 +79,12 @@ public class PVHeader {
         this.status = status;
     }
 
+    public eForma getFormaPgto() {
+        return formaPgto;
+    }
+
+    public void setFormaPgto(eForma formaPgto) {
+        this.formaPgto = formaPgto;
+    }
+    
 }

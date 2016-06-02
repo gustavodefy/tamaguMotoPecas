@@ -10,6 +10,7 @@ import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
+import br.com.tmgmotopeca.modelo.Produto;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -22,11 +23,13 @@ public class PersistirVenda implements Persistir {
     private PedidoVenda pedidoVenda;
     private Dao daoPVHeader;
     private Dao daoPVItem;
+    private Dao daoProduto;
 
     public PersistirVenda(PedidoVenda pedidoVenda) {
         this.pedidoVenda = pedidoVenda;
         this.daoPVHeader = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PVHEADER);
         this.daoPVItem = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PVITEM);
+        this.daoProduto = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PRODUTO);
     }
 
     @Override
@@ -56,8 +59,12 @@ public class PersistirVenda implements Persistir {
                     PVItem pvItem = listaItem.next();
                     pvItem.setIdPedido(id);
                     daoPVItem.inserir(pvItem);
+                    
+                    //Atualiza estoque do produto
+                    Produto produto = pvItem.getProduto();
+                    produto.consomeEstoque(pvItem.getQuantidade());
+                    daoProduto.alterar(produto);                    
                 }
-
                 
             } else {
                 //Se estiver alterando
@@ -68,6 +75,11 @@ public class PersistirVenda implements Persistir {
                 while (listaItem.hasNext()) {
                     PVItem pvItem = listaItem.next();
                     daoPVItem.alterar(pvItem);
+                    
+                    //Atualiza estoque do produto
+                    Produto produto = pvItem.getProduto();
+                    produto.consomeEstoque(pvItem.getQuantidade());
+                    daoProduto.alterar(produto);                    
                 }                
             }
 

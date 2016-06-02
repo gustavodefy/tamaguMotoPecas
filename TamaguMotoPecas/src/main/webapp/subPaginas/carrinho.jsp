@@ -53,10 +53,20 @@
                             <td> <a href="./ServletCarrinho?action=remover&idProduto=<c:out value="${linProduto.produto.idProduto}"/>"><img src="./img/x.png" width="25" height="23" alt="excluir"/></a></td>
                         </tr>
                     </c:forEach>
+
                     <tr>
                         <td colspan="6">Total Pedido</td>
                         <td id="totalPedido"> <c:out value="${totalPedido}"/></td>
                         <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label for="formaPgto">Forma de Pagamento</label></td>
+                        <td>
+                            <select name="formaPgto" id="formaPgto">
+                                <option value="BOLETO">Boleto</option>
+                                <option value="CARTAO">Cartão</option>
+                            </select>
+                        </td>
                     </tr>
                 </tbody>
             </table>

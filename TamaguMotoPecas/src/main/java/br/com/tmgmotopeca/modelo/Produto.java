@@ -93,5 +93,13 @@ public class Produto {
     public void setEstoque(double estoque) {
         this.estoque = estoque;
     }
+    
+    public void consomeEstoque(double quantidade){
+        this.estoque = this.estoque - quantidade;
+    }
+    
+    public void somaEstoque(double quantidade){
+        this.estoque = this.estoque + quantidade;
+    }
         
 }

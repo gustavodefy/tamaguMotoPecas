@@ -51,6 +51,9 @@ public class DaoPVHeader implements Dao {
             nx++;
             ps.setString(nx, String.valueOf(obj.getStatus()));
 
+            nx++;
+            ps.setString(nx, String.valueOf(obj.getFormaPgto()));
+            
             if (comId == 1) {
                 //o id deve ser sempre o ultimo
                 nx++;
@@ -72,6 +75,7 @@ public class DaoPVHeader implements Dao {
             obj.setDtLcto(rs.getDate("dtLcto"));
             obj.setTotalPedido(rs.getDouble("totalPedido"));
             obj.setStatus(PVHeader.eStatus.valueOf(rs.getString("status")));
+            obj.setFormaPgto(PVHeader.eForma.valueOf(rs.getString("formapgto")));
             
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -90,8 +94,9 @@ public class DaoPVHeader implements Dao {
             sql += "idCliente,";
             sql += "dtLcto,";
             sql += "totalPedido,";
-            sql += "status";
-            sql += ") values (?,?,?,?)";
+            sql += "status,";
+            sql += "formapgto";
+            sql += ") values (?,?,?,?,?)";
 
             ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             setDadosQuery(0);
@@ -128,6 +133,7 @@ public class DaoPVHeader implements Dao {
             sql += "dtLcto=?,";
             sql += "totalPedido=?,";
             sql += "status=?,";
+            sql += "formapgto=?";
             sql += " where idPedido=?";
 
             ps = connection.prepareStatement(sql);
