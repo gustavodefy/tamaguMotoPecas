@@ -12,6 +12,7 @@ import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.PCHeader;
 import br.com.tmgmotopeca.modelo.PCItem;
 import br.com.tmgmotopeca.modelo.PedidoCompra;
+import br.com.tmgmotopeca.modelo.Produto;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -63,6 +64,11 @@ public class PesistirPCompra implements Persistir {
                     PCItem pcItem = listaItem.next();
                     pcItem.setIdPedido(id);
                     daoItem.inserir(pcItem);
+                    
+                    //Atualiza estoque do produto
+                    Produto produto = pcItem.getProduto();
+                    produto.somaEstoque(pcItem.getQuantidade());
+                    daoProduto.alterar(produto);                    
                 }
 
             } else {
@@ -74,6 +80,11 @@ public class PesistirPCompra implements Persistir {
                 while (listaItem.hasNext()) {
                     PCItem pcItem = listaItem.next();
                     daoItem.alterar(pcItem);
+                    
+                    //Atualiza estoque do produto
+                    Produto produto = pcItem.getProduto();
+                    produto.somaEstoque(pcItem.getQuantidade());
+                    daoProduto.alterar(produto);                                        
                 }
 
             }
