@@ -6,11 +6,12 @@
 package br.com.tmgmotopeca.persistir;
 
 import br.com.tmgmotopeca.biblioteca.Range;
+import br.com.tmgmotopeca.biblioteca.Range.tpRelacao;
 import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.dao.SelecionaDao;
+import br.com.tmgmotopeca.modelo.PVHeader;
 import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
-import br.com.tmgmotopeca.modelo.Produto;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -24,6 +25,8 @@ public class PersistirVenda implements Persistir {
     private Dao daoPVHeader;
     private Dao daoPVItem;
     private Dao daoProduto;
+    private PVHeader header;
+    private PVItem item;
 
     public PersistirVenda(PedidoVenda pedidoVenda) {
         this.pedidoVenda = pedidoVenda;
@@ -58,12 +61,7 @@ public class PersistirVenda implements Persistir {
                 while (listaItem.hasNext()) {
                     PVItem pvItem = listaItem.next();
                     pvItem.setIdPedido(id);
-                    daoPVItem.inserir(pvItem);
-                    
-                    //Atualiza estoque do produto
-                    Produto produto = pvItem.getProduto();
-                    produto.consomeEstoque(pvItem.getQuantidade());
-                    daoProduto.alterar(produto);                    
+                    daoPVItem.inserir(pvItem);                                       
                 }
                 
             } else {
@@ -74,12 +72,7 @@ public class PersistirVenda implements Persistir {
                 Iterator<PVItem> listaItem = pedidoVenda.getItens();
                 while (listaItem.hasNext()) {
                     PVItem pvItem = listaItem.next();
-                    daoPVItem.alterar(pvItem);
-                    
-                    //Atualiza estoque do produto
-                    Produto produto = pvItem.getProduto();
-                    produto.consomeEstoque(pvItem.getQuantidade());
-                    daoProduto.alterar(produto);                    
+                    daoPVItem.alterar(pvItem);                                       
                 }                
             }
 
@@ -107,7 +100,44 @@ public class PersistirVenda implements Persistir {
 
     @Override
     public Iterator buscarLista(ArrayList<Range> arrayRange) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        ArrayList<PedidoVenda> listaPedido = new ArrayList<PedidoVenda>();
+                
+        //Busca lista de header dos pedidos
+        Iterator listaHeader = daoPVHeader.getLista(arrayRange);
+        
+        if(!listaHeader.hasNext()){
+            throw new Exception("nenhum pedido encontrado!");
+        }
+        
+        while (listaHeader.hasNext()) {
+            
+            header = (PVHeader)listaHeader.next();
+            
+            //busca os itens do pedido
+            ArrayList where = new ArrayList();
+            Range range = new Range();
+            
+            range.setAtributo("idPedido");            
+            range.setRelacao(tpRelacao.IGUAL);
+            range.setConteudo(String.valueOf(header.getIdPedido()));
+            where.add(range);
+            
+            Iterator listaItens = daoPVItem.getLista(where);
+            
+            //Mota o pedido de venda
+            pedidoVenda = new PedidoVenda();
+            pedidoVenda.setHeader(header);
+            while (listaItens.hasNext()) {
+                item = (PVItem)listaItens.next();
+                pedidoVenda.addItem(item);                
+            }
+                                 
+            listaPedido.add(pedidoVenda);
+        }
+        
+        return listaPedido.iterator();
+        
     }
 
 }
