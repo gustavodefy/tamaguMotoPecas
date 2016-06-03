@@ -7,10 +7,12 @@ package br.com.tmgmotopeca.persistir;
 
 import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.dao.Dao;
+import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.PCHeader;
 import br.com.tmgmotopeca.modelo.PCItem;
 import br.com.tmgmotopeca.modelo.PedidoCompra;
+import br.com.tmgmotopeca.modelo.Produto;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,15 +26,15 @@ public class PesistirPCompra implements Persistir {
     private PedidoCompra pedidoCompra;
     private PCItem item;
     private PCHeader header;
-    private Dao DaoHeader;
-    private Dao DaoItem;
+    private Dao daoHeader;
+    private Dao daoItem;
+    private Dao daoProduto;
 
-    public PesistirPCompra() {
-        pedidoCompra = null;
-        item = null;
-        header = null;
-        DaoItem = null;
-        DaoHeader = null;
+    public PesistirPCompra(PedidoCompra pedidoCompra) {
+        this.pedidoCompra = pedidoCompra;
+        this.daoHeader = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PCHEADER);
+        this.daoItem = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PCITEM);
+        this.daoProduto = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.PRODUTO);
     }
 
     @Override
@@ -47,36 +49,64 @@ public class PesistirPCompra implements Persistir {
 
     @Override
     public int gravar() throws Exception {
-        int id = 0;
-
         try {
+
+            int id = 0;
+
+            validarInformacoes();
+
             if (pedidoCompra.getPCHeader().getIdPedido() == 0) {
-                id = DaoHeader.inserir(this.pedidoCompra.getPCHeader());
-                ArrayList<PCItem> listaPcitem = pedidoCompra.getArrayPCItem();
-                for (PCItem p : listaPcitem) {
-                    p.setIdPedido(id);
-                    DaoItem.inserir(p);
+
+                id = daoHeader.inserir(this.pedidoCompra.getPCHeader());
+
+                Iterator<PCItem> listaItem = pedidoCompra.getItens();
+                while (listaItem.hasNext()) {
+                    PCItem pcItem = listaItem.next();
+                    pcItem.setIdPedido(id);
+                    daoItem.inserir(pcItem);
+                    
+                    //Atualiza estoque do produto
+                    Produto produto = pcItem.getProduto();
+                    produto.somaEstoque(pcItem.getQuantidade());
+                    daoProduto.alterar(produto);                    
                 }
+
             } else {
-                DaoHeader.alterar(this.pedidoCompra.getPCHeader());
-                ArrayList<PCItem> listaPcitem = pedidoCompra.getArrayPCItem();
-                for (PCItem p : listaPcitem) {
-                    DaoItem.alterar(p);
-                }
+
                 id = pedidoCompra.getPCHeader().getIdPedido();
+                daoHeader.alterar(this.pedidoCompra.getPCHeader());
+
+                Iterator<PCItem> listaItem = pedidoCompra.getItens();
+                while (listaItem.hasNext()) {
+                    PCItem pcItem = listaItem.next();
+                    daoItem.alterar(pcItem);
+                    
+                    //Atualiza estoque do produto
+                    Produto produto = pcItem.getProduto();
+                    produto.somaEstoque(pcItem.getQuantidade());
+                    daoProduto.alterar(produto);                                        
+                }
+
             }
+
+            return id;
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-        return id;
+
     }
 
     @Override
     public void excluir() throws Exception {
         try {
-            DaoItem.deletar(this.item);
-            DaoHeader.deletar(this.header);
+            daoHeader.deletar(this.pedidoCompra.getPCHeader());
+            Iterator<PCItem> listaItem = pedidoCompra.getItens();
+            while (listaItem.hasNext()) {
+                PCItem listaItens = listaItem.next();
+                daoItem.deletar(listaItens);
+            }
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -96,10 +126,10 @@ public class PesistirPCompra implements Persistir {
 
             whereId.add(rangeId);
 
-            Iterator listheader = DaoHeader.getLista(whereId);
+            Iterator listheader = daoHeader.getLista(whereId);
 
             if (listheader.hasNext()) {
-                pedidoCompra.setPCHeader((PCHeader) listheader.next());                
+                pedidoCompra.setPCHeader((PCHeader) listheader.next());
                 buscaItens(pedidoCompra);
             }
 
@@ -110,7 +140,7 @@ public class PesistirPCompra implements Persistir {
 
     @Override
     public void validarInformacoes() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -119,21 +149,21 @@ public class PesistirPCompra implements Persistir {
 
             ArrayList<PedidoCompra> listapedido = new ArrayList<PedidoCompra>();
 
-            Iterator listaHeader = DaoHeader.getLista(rangeCondicao);
+            Iterator listaHeader = daoHeader.getLista(rangeCondicao);
 
             while (listaHeader.hasNext()) {
-                
+
                 PedidoCompra pedidoCompra = new PedidoCompra();
                 pedidoCompra.setPCHeader((PCHeader) listaHeader.next());
-                
+
                 buscaItens(pedidoCompra);
-                
+
                 listapedido.add(pedidoCompra);
 
             }
-            
+
             return listapedido.iterator();
-            
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -149,8 +179,8 @@ public class PesistirPCompra implements Persistir {
         rangeId2.setConteudo(String.valueOf(pedidoCompra.getPCHeader().getIdPedido()));
         whereId2.add(rangeId2);
 
-        Iterator listaItens = DaoItem.getLista(whereId2);
-        
+        Iterator listaItens = daoItem.getLista(whereId2);
+
         while (listaItens.hasNext()) {
             pedidoCompra.addPCItem((PCItem) listaItens.next());
         }
