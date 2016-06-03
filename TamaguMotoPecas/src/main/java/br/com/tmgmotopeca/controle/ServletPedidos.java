@@ -81,10 +81,10 @@ public class ServletPedidos extends HttpServlet {
             }
             destino = UNICO;
         }
-        
-        if(action.equals("adicionar")){
+
+        if (action.equals("adicionar")) {
             try {
-                
+
             } catch (Exception e) {
             }
         }
@@ -102,12 +102,12 @@ public class ServletPedidos extends HttpServlet {
             throw new Exception(e.getMessage());
         }
     }
-    
+
     private String getDateTime() {
-	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	Date date = new Date();
-	return dateFormat.format(date);
-}
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 
     private void setListaProduto(HttpServletRequest request) throws Exception {
         try {
@@ -118,8 +118,16 @@ public class ServletPedidos extends HttpServlet {
             throw new Exception(e.getMessage());
         }
     }
-    
-    
+
+    private void adicionarProduto(HttpServletRequest request) throws Exception {
+        try {
+            //Busca todos os registros de Produtos
+            
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
