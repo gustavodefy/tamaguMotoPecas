@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
         <link rel="stylesheet" href="./css/lista.css" type="text/css">
         <script type="text/javascript" src="./js/mascaras.js"></script>
+        <script type="text/javascript" src="./js/pedidoFornecedor.js"></script>
 
     </head>
     <body>
@@ -29,10 +30,6 @@
 
             <fieldset class="grupo">
                 <fieldset class="grupo">
-                    <div class="campo">
-                        <label for="idCliente">Codigo</label>
-                        <input type="text" id="idPedido" name="idPedido" readonly="readonly" style="width: 5em" value="<c:out value="${linPedidos.idPedido}" />" />
-                    </div>
                     <div class="campo">
                         <label for="cidade">Data*</label>
                         <input type="text" id="data" name="data" required="required" style="width: 10em" onclick="time()">
@@ -74,13 +71,12 @@
                     <label class="obg">Todos os Campos (*) Obrigatórios</label>
                 </p>
                 <p align="center">                    
-                    <input class="btoGravar"   type="submit" value="Adicionar"   id="gravar" name="gravar" onclick="validarAcao('gravar');" />
+                    <a class="btoGravar" href="javascript:void(0);" onclick="adicionarPedido()">Adicionar</a>
                 </p>
 
-                <br><br><table align="center" border="1">
+                <br><br><table id="tabelaPedido" align="center" border="1">
                     <thead>
                         <tr>
-                            <th>Nº Pedido</th>
                             <th>Cod. Produto</th>
                             <th>Descrição</th>
                             <th>Quantidade</th>
@@ -88,16 +84,7 @@
                             <th>Valor Total</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
+
                 </table>
                 <br><br><input class="btoCancelar" type="submit" value="Fechar Pedido" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
             </fieldset>

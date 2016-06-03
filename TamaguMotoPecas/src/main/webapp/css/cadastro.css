@@ -95,3 +95,8 @@ fieldset.grupo .campo {
 .campo input:focus, .campo select:focus, .campo textarea:focus {
     background: #FFC;
 }
+
+.valorTotal{
+    background-color:cadetblue;
+    color: white;
+}

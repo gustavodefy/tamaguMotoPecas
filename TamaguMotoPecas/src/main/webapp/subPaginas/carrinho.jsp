@@ -54,7 +54,7 @@
                         </tr>
                     </c:forEach>
 
-                    <tr>
+                    <tr class="valorTotal">
                         <td colspan="6">Total Pedido</td>
                         <td id="totalPedido"> <c:out value="${totalPedido}"/></td>
                         <td></td>
