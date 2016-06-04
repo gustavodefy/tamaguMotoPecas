@@ -43,7 +43,9 @@ public class ServletMeusPedidos extends HttpServlet {
 
     private String destino = "";
     private static String PEDIDOS = "./subPaginas/meusPedidos.jsp";
+    private static String ITENS = "./subPaginas/meusPedidosItens.jsp";
     private static String HOME = "./subPaginas/home.jsp";
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -69,7 +71,7 @@ public class ServletMeusPedidos extends HttpServlet {
             String action;
             action = lRequest.getParameter("action");
 
-            if (action.equals("listar")) {
+            if (action.equals("listar") || action.equals("voltar")) {
                 try {
                     pedidoVenda = new PedidoVenda();
                     PersistirVenda = SelecionaPersistir.Selecionar(ListaPersistir.PVenda, pedidoVenda);
@@ -96,7 +98,7 @@ public class ServletMeusPedidos extends HttpServlet {
             } else if (action.equals("itens")) {
                 
                 try {
-                    String pedido = lRequest.getParameter("ipPedido");
+                    String pedido = lRequest.getParameter("idPedido");
                     
                     pedidoVenda = new PedidoVenda();
                     PersistirVenda = SelecionaPersistir.Selecionar(ListaPersistir.PVenda, pedidoVenda);
@@ -113,14 +115,16 @@ public class ServletMeusPedidos extends HttpServlet {
 
                     //Monta tabHeader para exibir na tela
                     pedidoVenda = (PedidoVenda) pedidos.next();
+                    lRequest.setAttribute("idPedido", pedido);
                     lRequest.setAttribute("tabItens", pedidoVenda.getItens());
-                    destino = PEDIDOS;                                       
+                    lRequest.setAttribute("totalPedido", pedidoVenda.getHeader().getTotalPedido());
+                    destino = ITENS;                                       
                     
                 } catch (Exception e) {
                     lRequest.setAttribute("mensagem", e.getMessage());
                     destino = PEDIDOS;
                 }
-
+            
             }
 
         } else {

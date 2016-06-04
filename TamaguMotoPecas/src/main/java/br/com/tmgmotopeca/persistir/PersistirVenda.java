@@ -113,6 +113,7 @@ public class PersistirVenda implements Persistir {
         while (listaHeader.hasNext()) {
             
             header = (PVHeader)listaHeader.next();
+            header.setTotalPedido(0);
             
             //busca os itens do pedido
             ArrayList where = new ArrayList();
