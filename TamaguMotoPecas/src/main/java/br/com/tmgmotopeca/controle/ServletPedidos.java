@@ -47,6 +47,9 @@ public class ServletPedidos extends HttpServlet {
     private String tabelaProduto = "tabProd";
 
     private String linha = "linPedidos";
+    
+    private HttpServletRequest lRequest;
+    private HttpServletResponse lResponse;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -103,12 +106,6 @@ public class ServletPedidos extends HttpServlet {
         }
     }
 
-    private String getDateTime() {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
-
     private void setListaProduto(HttpServletRequest request) throws Exception {
         try {
             //Busca todos os registros de Produtos
@@ -118,15 +115,16 @@ public class ServletPedidos extends HttpServlet {
             throw new Exception(e.getMessage());
         }
     }
-
-    private void adicionarProduto(HttpServletRequest request) throws Exception {
-        try {
-            //Busca todos os registros de Produtos
-            
-
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+    
+        private void montaPCHeader() {
+        pedidoCompra = new PCHeader();
+        pedidoCompraItem = new PCItem();
+        pedidoCompra.setDtLcto(pedidoCompra.getDtLcto());
+        pedidoCompra.setFornecedor(fornecedor);
+        pedidoCompraItem.setProduto(produto);
+        pedidoCompraItem.setVlrUnitario(0);
+        pedidoCompraItem.setQuantidade(0);
+        
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

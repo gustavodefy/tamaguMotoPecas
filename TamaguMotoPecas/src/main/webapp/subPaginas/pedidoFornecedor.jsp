@@ -82,6 +82,7 @@
                             <th>Quantidade</th>
                             <th>Valor Unit.</th>
                             <th>Valor Total</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
 
