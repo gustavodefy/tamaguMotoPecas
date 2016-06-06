@@ -10,6 +10,7 @@ import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.PVHeader;
 import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
+import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir.ListaPersistir;
@@ -38,6 +39,10 @@ public class ServletMeusPedidos extends HttpServlet {
     private PVItem item;
     private Persistir PersistirVenda;
 
+    private Produto produto;
+    private Persistir persistirProduto;
+    private String linha = "linProduto";
+    
     private HttpServletRequest lRequest;
     private HttpServletResponse lResponse;
 
@@ -45,7 +50,7 @@ public class ServletMeusPedidos extends HttpServlet {
     private static String PEDIDOS = "./subPaginas/meusPedidos.jsp";
     private static String ITENS = "./subPaginas/meusPedidosItens.jsp";
     private static String HOME = "./subPaginas/home.jsp";
-    
+    private static String PRODUTO = "./subPaginas/cadastroProdutos.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -94,12 +99,12 @@ public class ServletMeusPedidos extends HttpServlet {
                     lRequest.setAttribute("mensagem", e.getMessage());
                     destino = PEDIDOS;
                 }
-                
+
             } else if (action.equals("itens")) {
-                
+
                 try {
                     String pedido = lRequest.getParameter("idPedido");
-                    
+
                     pedidoVenda = new PedidoVenda();
                     PersistirVenda = SelecionaPersistir.Selecionar(ListaPersistir.PVenda, pedidoVenda);
 
@@ -118,13 +123,36 @@ public class ServletMeusPedidos extends HttpServlet {
                     lRequest.setAttribute("idPedido", pedido);
                     lRequest.setAttribute("tabItens", pedidoVenda.getItens());
                     lRequest.setAttribute("totalPedido", pedidoVenda.getHeader().getTotalPedido());
-                    destino = ITENS;                                       
-                    
+                    destino = ITENS;
+
                 } catch (Exception e) {
                     lRequest.setAttribute("mensagem", e.getMessage());
                     destino = PEDIDOS;
                 }
-            
+
+            } else if (action.equals("consultar")) {
+                try {
+                    //Busca o codigo do produto na tela
+                    produto = new Produto();
+                    persistirProduto = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, produto);                    
+                    int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+
+                    //Busca o registro selecionado no banco
+                    persistirProduto.buscar(idProduto);
+                    produto = (Produto) persistirProduto.getEntidade();
+
+                    //Seta atributo na tela
+                    request.setAttribute(linha, produto);
+
+                    //Direciona para alterar o registro
+                    request.setAttribute("gravar", "false");
+                    request.setAttribute("excluir", "false");
+                    destino = PRODUTO;
+
+                } catch (Exception e) {
+                    request.setAttribute("mensagem", e.getMessage());
+                    destino = HOME;
+                }
             }
 
         } else {

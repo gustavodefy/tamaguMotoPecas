@@ -39,7 +39,7 @@
                 <tbody id="tabelaItens">            
                     <c:forEach var="linItens" items="${tabItens}">
                         <tr id="<c:out value="${linItens.produto.idProduto}"/>" name="<c:out value="${linItens.produto.idProduto}"/>">
-                            <td> <a class="btoAlterar" href="./ServletMeusPedidos?action=consulta&idProduto=<c:out value="${linItens.produto.idProduto}"/>"><c:out value="${linItens.produto.idProduto}"/></a></td>
+                            <td> <a class="btoAlterar" href="./ServletMeusPedidos?action=consultar&idProduto=<c:out value="${linItens.produto.idProduto}"/>"><c:out value="${linItens.produto.idProduto}"/></a></td>
                             <td> <c:out value="${linItens.produto.descricao}"/>  </td>
                             <td> <c:out value="${linItens.vlrUnitario}"/>      </td>
                             <td> <c:out value="${linItens.quantidade}"/>     </td>
