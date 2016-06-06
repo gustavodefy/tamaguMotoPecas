@@ -89,7 +89,7 @@
                             <li><a href="#">Catalogo</a>
                                 <ul>
                                     <li><a href="./ServletCatalogo?action=listar" target="InlineFrame1">Produtos</a></li>
-                                    <li><a href="./ServletCatalogo?action=listar" target="InlineFrame1">Meus Pedidos</a></li>
+                                    <li><a href="./ServletMeusPedidos?action=listar" target="InlineFrame1">Meus Pedidos</a></li>
                                 </ul>
                             </li>
                         </c:if>

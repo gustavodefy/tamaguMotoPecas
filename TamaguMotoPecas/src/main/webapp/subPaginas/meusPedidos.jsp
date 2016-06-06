@@ -25,35 +25,29 @@
         <div class="mensagem">
             <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
         </div>
-
-        <form action="./ServletMeusPedidos" target="_parent" method="POST">            
-            <br><table border=1 align="center" >
-                <thead>
-                    <tr>
-                        <th>Codigo</th>
-                        <th>Descrição</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Valor Unitario</th>
-                        <th>Quantidade</th>
-                        <th>Valor Total</th>
+        <br>
+        <table border=1 align="CENTER" >
+            <thead>
+                <tr>
+                    <th>Pedido</th>
+                    <th>Data Pedido</th>
+                    <th>Total Pedido</th>
+                    <th>Pagamento</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>            
+                <c:forEach var="linHeader" items="${tabHeader}">
+                    <tr id="<c:out value="${linHeader.header.idPedido}"/>" name="<c:out value="${linHeader.header.idPedido}"/>">
+                        <td> <a class="btoAlterar" href="./ServletMeusPedidos?action=itens&idPedido=<c:out value="${linHeader.header.idPedido}"/>"><c:out value="${linHeader.header.idPedido}"/></a></td>
+                        <td> <c:out value="${linHeader.header.dtLcto}"/>      </td>
+                        <td> <c:out value="${linHeader.header.totalPedido}"/> </td>
+                        <td> <c:out value="${linHeader.header.formaPgto}"/>   </td>
+                        <td> <c:out value="${linHeader.header.status}"/>      </td>
                     </tr>
-                </thead>
-                <tbody>            
-                    <c:forEach var="linProduto" items="${tabProduto}">
-                        <tr id="<c:out value="${linProduto.idProduto}"/>" name="<c:out value="${linProduto.idProduto}"/>">
-                            <td> <a class="btoAlterar" href="./ServletCatalogo?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
-                            <td> <c:out value="${linProduto.descricao}"/>  </td>
-                            <td> <c:out value="${linProduto.marca}"/>      </td>
-                            <td> <c:out value="${linProduto.modelo}"/>     </td>
-                            <td> <c:out value="${linProduto.precoVenda}"/> </td>
-                            <td> <input type="number" name="qtd<c:out value="${linProduto.idProduto}"/>" id="qtd<c:out value="${linProduto.idProduto}"/>"  value="" style="width: 5em" min="0" onchange="calcularTotal(<c:out value="${linProduto.idProduto}"/>)"/></td>
-                            <td> </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-            <br><br><input class="btoIncluir" type="submit" value="Adicionar">
-        </form>    
+                </c:forEach>
+            </tbody>
+        </table>
+
     </body>
 </html>

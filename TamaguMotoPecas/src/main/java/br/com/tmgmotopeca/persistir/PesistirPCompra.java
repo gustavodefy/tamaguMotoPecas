@@ -8,14 +8,12 @@ package br.com.tmgmotopeca.persistir;
 import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.dao.SelecionaDao;
-import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.PCHeader;
 import br.com.tmgmotopeca.modelo.PCItem;
 import br.com.tmgmotopeca.modelo.PedidoCompra;
 import br.com.tmgmotopeca.modelo.Produto;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  *
@@ -64,11 +62,11 @@ public class PesistirPCompra implements Persistir {
                     PCItem pcItem = listaItem.next();
                     pcItem.setIdPedido(id);
                     daoItem.inserir(pcItem);
-                    
+
                     //Atualiza estoque do produto
                     Produto produto = pcItem.getProduto();
                     produto.somaEstoque(pcItem.getQuantidade());
-                    daoProduto.alterar(produto);                    
+                    daoProduto.alterar(produto);
                 }
 
             } else {
@@ -80,11 +78,11 @@ public class PesistirPCompra implements Persistir {
                 while (listaItem.hasNext()) {
                     PCItem pcItem = listaItem.next();
                     daoItem.alterar(pcItem);
-                    
+
                     //Atualiza estoque do produto
                     Produto produto = pcItem.getProduto();
                     produto.somaEstoque(pcItem.getQuantidade());
-                    daoProduto.alterar(produto);                                        
+                    daoProduto.alterar(produto);
                 }
 
             }
@@ -103,8 +101,13 @@ public class PesistirPCompra implements Persistir {
             daoHeader.deletar(this.pedidoCompra.getPCHeader());
             Iterator<PCItem> listaItem = pedidoCompra.getItens();
             while (listaItem.hasNext()) {
-                PCItem listaItens = listaItem.next();
-                daoItem.deletar(listaItens);
+                PCItem pcItem = listaItem.next();
+                daoItem.deletar(pcItem);
+
+                //Atualiza estoque do produto
+                Produto produto = pcItem.getProduto();
+                produto.consomeEstoque(pcItem.getQuantidade());
+                daoProduto.alterar(produto);
             }
 
         } catch (Exception e) {

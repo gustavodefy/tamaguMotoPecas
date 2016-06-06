@@ -71,7 +71,7 @@ public class DaoPVHeader implements Dao {
             DaoCliente daocliente = new DaoCliente();
 
             obj.setIdPedido(rs.getInt("idPedido"));
-            obj.setCliente((Cliente) daocliente.buscaUnica(rs.getInt("idFornecedor")));
+            obj.setCliente((Cliente) daocliente.buscaUnica(rs.getInt("idCliente")));
             obj.setDtLcto(rs.getDate("dtLcto"));
             obj.setTotalPedido(rs.getDouble("totalPedido"));
             obj.setStatus(PVHeader.eStatus.valueOf(rs.getString("status")));
