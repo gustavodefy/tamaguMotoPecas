@@ -19,11 +19,51 @@ function adicionarPedido() {
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
-    
+    var cell6 = row.insertCell(5);
+
+
+    var img = document.createElement("IMG");  
+    img.src = "../img/x.png";  
+    img.width="25"; 
+    img.height="23"; 
+    img.alt="excluir";    
+
+
     cell1.innerHTML = idProduto;
     cell2.innerHTML = descProduto;
     cell3.innerHTML = qtde;
     cell4.innerHTML = vlorUnit;
-    cell5.innerHTML = vlotTotalItens;
+    cell5.innerHTML = vlotTotalItens;    
+    
 
+}
+
+window.onload = function (){
+    
+    var dt = new Date();
+    var month = (dt.getMonth() + 1);
+    var day = dt.getDate();
+    var year = dt.getFullYear();
+    
+    month = zeroaesquerda(month,2);
+    day   = zeroaesquerda(day,2);
+
+    
+    var data = window.document.getElementById('data').value = (day + '/' + month + '/' + year);
+    
+};
+
+function zeroaesquerda(valor,tamanho) {
+    
+  var valorStr = valor.toString();
+  
+  var adicionar = tamanho - valorStr.length;
+  
+  
+  for (var i = 0; i < adicionar; i++){      
+      valorStr = '0' + valorStr;
+  } 
+  
+  return valorStr;
+  
 }

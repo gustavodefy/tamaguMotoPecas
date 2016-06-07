@@ -32,7 +32,7 @@
                 <fieldset class="grupo">
                     <div class="campo">
                         <label for="cidade">Data*</label>
-                        <input type="text" id="data" name="data" required="required" style="width: 10em" onclick="time()">
+                        <input type="text" id="data" name="data" readonly="readonly" style="width: 10em">
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
@@ -82,6 +82,7 @@
                             <th>Quantidade</th>
                             <th>Valor Unit.</th>
                             <th>Valor Total</th>
+                            <th>Remover</th>
                         </tr>
                     </thead>
 
