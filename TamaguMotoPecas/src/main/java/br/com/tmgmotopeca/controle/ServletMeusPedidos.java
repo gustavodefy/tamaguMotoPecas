@@ -42,7 +42,7 @@ public class ServletMeusPedidos extends HttpServlet {
     private Produto produto;
     private Persistir persistirProduto;
     private String linha = "linProduto";
-    
+
     private HttpServletRequest lRequest;
     private HttpServletResponse lResponse;
 
@@ -74,7 +74,13 @@ public class ServletMeusPedidos extends HttpServlet {
         if (cliente != null && cliente.getPerfil().equals("C")) {
 
             String action;
-            action = lRequest.getParameter("action");
+            boolean bCancelar = request.getParameter("cancelar") != null;
+
+            if (bCancelar) {
+                action = "cancelar";
+            } else {
+                action = request.getParameter("action");
+            }
 
             if (action.equals("listar") || action.equals("voltar")) {
                 try {
@@ -103,6 +109,7 @@ public class ServletMeusPedidos extends HttpServlet {
             } else if (action.equals("itens")) {
 
                 try {
+
                     String pedido = lRequest.getParameter("idPedido");
 
                     pedidoVenda = new PedidoVenda();
@@ -132,9 +139,10 @@ public class ServletMeusPedidos extends HttpServlet {
 
             } else if (action.equals("consultar")) {
                 try {
+                    request.setAttribute("toservlet", "ServletMeusPedidos");
                     //Busca o codigo do produto na tela
                     produto = new Produto();
-                    persistirProduto = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, produto);                    
+                    persistirProduto = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, produto);
                     int idProduto = Integer.parseInt(request.getParameter("idProduto"));
 
                     //Busca o registro selecionado no banco
@@ -153,6 +161,11 @@ public class ServletMeusPedidos extends HttpServlet {
                     request.setAttribute("mensagem", e.getMessage());
                     destino = HOME;
                 }
+            } else if (action.equals("cancelar")) {
+                lRequest.setAttribute("idPedido", pedidoVenda.getHeader().getIdPedido());
+                lRequest.setAttribute("tabItens", pedidoVenda.getItens());
+                lRequest.setAttribute("totalPedido", pedidoVenda.getHeader().getTotalPedido());
+                destino = ITENS;
             }
 
         } else {

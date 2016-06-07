@@ -85,12 +85,6 @@ public class ServletPedidos extends HttpServlet {
             destino = UNICO;
         }
 
-        if (action.equals("adicionar")) {
-            try {
-
-            } catch (Exception e) {
-            }
-        }
 
         RequestDispatcher view = request.getRequestDispatcher(destino);
         view.forward(request, response);
