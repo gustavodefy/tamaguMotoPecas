@@ -11,7 +11,16 @@ and open the template in the editor.
 *{
     margin: auto;
     padding: auto;
+    scrollbar-face-color:#FF69B4;
+    scrollbar-highlight-color:#FF69B4;
+    scrollbar-3dlight-color:#343434;
+    scrollbar-darkshadow-color:#343434;
+    scrollbar-shadow-color:#FF69B4;
+    scrollbar-arrow-color:#343434;
+    scrollbar-track-color:#343434;
 }
+::-webkit-scrollbar {width: 20px; height: 4px; background:#000000 ; }
+::-webkit-scrollbar-thumb { background: #343434; }
 
 .logo{
     margin: auto;
@@ -155,8 +164,8 @@ div.logado a:link, a:visited, a:active {
     text-decoration: none;
 }
 div.logado a:hover {text-decoration: none;  
-    color: #FFFFFF; 
-    font-size:150%; 
+                    color: #FFFFFF; 
+                    font-size:150%; 
 }
 
 div.topoLogar a.textoQtd:link, a.textoQtd:visited, a.textoQtd:active {
@@ -164,8 +173,8 @@ div.topoLogar a.textoQtd:link, a.textoQtd:visited, a.textoQtd:active {
     text-decoration: none;
 }
 div.topoLogar a.textoQtd:hover {text-decoration: none;  
-    color: #1570cd; 
-    font-size:150%; 
+                                color: #1570cd; 
+                                font-size:150%; 
 }
 
 .logarEntrar {

@@ -91,7 +91,11 @@
                             <th>Quantidade</th>
                             <th>Valor Unit.</th>
                             <th>Valor Total</th>
+<<<<<<< HEAD
+                            <th>Ações</th>
+=======
                             <th>Remover</th>
+>>>>>>> origin/master
                         </tr>
                     </thead>
                     <tbody id="tabelaPedido">

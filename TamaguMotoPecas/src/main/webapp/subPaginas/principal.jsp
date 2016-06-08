@@ -15,6 +15,7 @@
         <title>TAMAGU Moto Peças</title>
         <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
         <link rel = "stylesheet" href="css/principal.css" type= "text/css" >
+        <link rel = "stylesheet" href="./css/principal.css" type= "text/css" >
         <script src="./js/login.js"></script>
     </head>
     <body>
@@ -73,8 +74,18 @@
                         <a href="./index.jsp"><img src="img/logoNova.png" width="757" height="154" alt="logoNova"/></a>
                     </div>
                     <div align="center" class="menu">
-                        <li><a href="subPaginas/home.jsp" target="InlineFrame1">Home</a></li>
-                        <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Sobre</a></li>
+                        <c:if test="${funcionario=='false'}">
+                            <li><a href="subPaginas/home.jsp" target="InlineFrame1">Home</a></li>
+                            <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Sobre</a></li>
+                            </c:if>
+                            <c:if test="${funcionario=='true'}">
+                            <li><a href="subPaginas/home.jsp" target="InlineFrame1">Consultar</a>
+                                <ul>
+                                    <li><a href="./ServletTodosPedidos?action=listar" target="InlineFrame1">Pedidos</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Status</a></li>
+                            </c:if>
                             <c:if test="${funcionario=='true'}">
                             <li><a href="#">Cadastro</a>
                                 <ul>
@@ -89,7 +100,12 @@
                             <li><a href="#">Catalogo</a>
                                 <ul>
                                     <li><a href="./ServletCatalogo?action=listar" target="InlineFrame1">Produtos</a></li>
-                                    <li><a href="./ServletMeusPedidos?action=listar" target="InlineFrame1">Meus Pedidos</a></li>
+                                        <c:if test="${logado=='true'}">
+                                        <li><a href="./ServletMeusPedidos?action=listar" target="InlineFrame1">Meus Pedidos</a></li>
+                                        </c:if>
+                                        <c:if test="${logado=='false'}">
+                                        <li><a href="subPaginas/home.jsp" target="InlineFrame1">Meus Pedidos</a></li>
+                                        </c:if>
                                 </ul>
                             </li>
                         </c:if>
