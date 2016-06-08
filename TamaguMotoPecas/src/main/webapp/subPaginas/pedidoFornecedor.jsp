@@ -1,5 +1,5 @@
 <%-- 
-    Document   : cadastroClientes
+    Document   : pedido de compra
     Created on : 15/03/2016, 14:02:08
     Author     : Thayro
 --%>
@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <title>Cadastro de Clientes</title>
+        <title>Pedido de Compra</title>
 
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
@@ -25,8 +25,8 @@
 
     </head>
     <body>
-        <br><h1 class="titulo" align="center">Pedidos</h1>
-        <form action="ServletPedidos" method="post">
+        <br><h1 class="titulo" align="center">Pedido de Compra</h1>
+        <form action="ServletPedidos?action=fechar" method="post">
             <div class="mensagem">
                 <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
             </div>
@@ -91,11 +91,7 @@
                             <th>Quantidade</th>
                             <th>Valor Unit.</th>
                             <th>Valor Total</th>
-<<<<<<< HEAD
-                            <th>Ações</th>
-=======
                             <th>Remover</th>
->>>>>>> origin/master
                         </tr>
                     </thead>
                     <tbody id="tabelaPedido">
@@ -103,7 +99,7 @@
                     </tbody>
 
                 </table>
-                <br><br><input class="btoCancelar" type="submit" value="Fechar Pedido" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
+                <br><br><input class="btoIncluir" type="submit" value="Fechar Pedido" id="fechar" name="fechar"/>
             </fieldset>
         </form>
     </body>

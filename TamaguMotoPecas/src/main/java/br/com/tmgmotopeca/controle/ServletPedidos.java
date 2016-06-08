@@ -8,14 +8,12 @@ package br.com.tmgmotopeca.controle;
 import br.com.tmgmotopeca.modelo.Fornecedor;
 import br.com.tmgmotopeca.modelo.PCHeader;
 import br.com.tmgmotopeca.modelo.PCItem;
+import br.com.tmgmotopeca.modelo.PedidoCompra;
 import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,8 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ServletPedidos", urlPatterns = {"/ServletPedidos"})
 public class ServletPedidos extends HttpServlet {
 
-    private PCHeader pedidoCompra;
-    private PCItem pedidoCompraItem;
+    private PedidoCompra pedidoCompra;
+    private PCHeader headerCompra;
+    private PCItem  itensCompra;
     private Persistir pesistirPCompra;
     private Persistir pesistirFornecedor;
     private Persistir pesistirProdutos;
@@ -47,7 +46,7 @@ public class ServletPedidos extends HttpServlet {
     private String tabelaProduto = "tabProd";
 
     private String linha = "linPedidos";
-    
+
     private HttpServletRequest lRequest;
     private HttpServletResponse lResponse;
 
@@ -72,6 +71,7 @@ public class ServletPedidos extends HttpServlet {
         action = request.getParameter("action");
 
         if (action.equals("inicio")) {
+
             try {
                 setListaFornecedor(request);
             } catch (Exception e) {
@@ -82,9 +82,22 @@ public class ServletPedidos extends HttpServlet {
             } catch (Exception e) {
                 request.setAttribute("mensagem", "Nenhum Produto encontrado");
             }
-            destino = UNICO;
-        }
 
+            destino = UNICO;
+
+        } else if (action.equals("fechar")) {
+            
+            pedidoCompra = new PedidoCompra();
+            
+            try {
+                montaHeaderCompra();    
+            } catch (Exception e) {
+                request.setAttribute("mensagem", "Erro ao montar o Header do Pedido");
+            }
+            
+                        
+            
+        }
 
         RequestDispatcher view = request.getRequestDispatcher(destino);
         view.forward(request, response);
@@ -110,14 +123,19 @@ public class ServletPedidos extends HttpServlet {
         }
     }
     
-        private void montaPCHeader() {
-        pedidoCompra = new PCHeader();
-        pedidoCompraItem = new PCItem();
-        pedidoCompra.setDtLcto(pedidoCompra.getDtLcto());
-        pedidoCompra.setFornecedor(fornecedor);
-        pedidoCompraItem.setProduto(produto);
-        pedidoCompraItem.setVlrUnitario(0);
-        pedidoCompraItem.setQuantidade(0);
+    private void montaHeaderCompra() throws Exception{
+            
+        headerCompra = new PCHeader();
+        
+        
+        String idFornecedor = lRequest.getParameter("fornecedor");
+        String strData = lRequest.getParameter("data");
+        Date dtLcto = Date.valueOf(strData);
+        
+        headerCompra.setFornecedor(Integer.parseInt(idFornecedor));
+        headerCompra.setDtLcto(dtLcto);
+        headerCompra.setStatus(PCHeader.eStatus.ABERTO);
+        
         
     }
 
