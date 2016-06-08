@@ -17,6 +17,9 @@
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
         <link rel="stylesheet" href="./css/lista.css" type="text/css">
+        <script type="text/javascript" src="./jquery/jquery.js"></script>
+        <script type="text/javascript" src="./jquery/jquery.maskedinput.js"></script>          
+        <script type="text/javascript" src="./jquery/jquery.maskMoney.js"></script>        
         <script type="text/javascript" src="./js/mascaras.js"></script>
         <script type="text/javascript" src="./js/pedidoFornecedor.js"></script>
 
@@ -31,13 +34,13 @@
             <fieldset class="grupo">
                 <fieldset class="grupo">
                     <div class="campo">
-                        <label for="cidade">Data*</label>
+                        <label for="data">Data*</label>
                         <input type="text" id="data" name="data" readonly="readonly" style="width: 10em">
                     </div>
                 </fieldset>
                 <fieldset class="grupo">
                     <div class="campo">
-                        <label for="nome">Fornecedor*</label>
+                        <label for="fornecedor">Fornecedor*</label>
                         <select name="fornecedor" id="fornecedor" required="required" style="width: 44em">
                             <c:forEach items="${tabForn}" var="fornecedor">
                                 <option value="${fornecedor.idFornecedor}">${fornecedor.nome}</option >
@@ -47,7 +50,7 @@
                 </fieldset>
                 <fieldset class="grupo">
                     <div class="campo">
-                        <label for="logradouro">Produtos</label>
+                        <label for="produto">Produtos</label>
                         <select name="produto" id="produto" required="required" style="width: 25em">
                             <c:forEach items="${tabProd}" var="produto">
                                 <c:forEach items="${tabProd}" var="produto">
@@ -56,14 +59,20 @@
                             </c:forEach>
                         </select>
                     </div>
+                </fieldset>
+                <fieldset>
                     <div class="campo">
-                        <label for="numero">Quantidade</label>
-                        <input type="text" id="quantidade" name="quantidade" required="required" style="width: 5em" value="<c:out value="${linPedidos.quantidade}" />" />
+                        <label for="quantidade">Quantidade*</label>
+                        <input type="text" id="quantidade" name="quantidade" required="required" style="width: 5em" value="<c:out value="${linPedidos.quantidade}" />" onblur="calculaTotal()"/>
                     </div>
                     <div class="campo">
-                        <label for="complemento">Valor Unitario*</label>
-                        <input type="text" id="valorUnit" name="valorUnit" required="required" style="width: 10em" value="<c:out value="${linPedidos.valorUnit}" />" />
+                        <label for="unitario">Valor Unitario*</label>
+                        <input type="text" id="unitario" name="unitario" required="required" style="width: 10em" value="<c:out value="${linPedidos.valorUnit}" />" onblur="calculaTotal()"/>
                     </div>
+                    <div class="campo">
+                        <label for="total">Valor Total</label>
+                        <input type="text" id="total" name="total" readonly="readonly" style="width: 10em" value="<c:out value="${linPedidos.valorUnit}" />" />
+                    </div>                    
                 </fieldset>
 
 
@@ -71,10 +80,10 @@
                     <label class="obg">Todos os Campos (*) Obrigatórios</label>
                 </p>
                 <p align="center">                    
-                    <a class="btoGravar" href="javascript:void(0);" onclick="adicionarPedido()">Adicionar</a>
+                    <a class="btoGravar" href="javascript:void(0);" onclick="adicionarItem()">Adicionar</a>
                 </p>
 
-                <br><br><table id="tabelaPedido" align="center" border="1">
+                <br><br><table align="center" border="1">
                     <thead>
                         <tr>
                             <th>Cod. Produto</th>
@@ -85,6 +94,9 @@
                             <th>Remover</th>
                         </tr>
                     </thead>
+                    <tbody id="tabelaPedido">
+                        
+                    </tbody>
 
                 </table>
                 <br><br><input class="btoCancelar" type="submit" value="Fechar Pedido" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
