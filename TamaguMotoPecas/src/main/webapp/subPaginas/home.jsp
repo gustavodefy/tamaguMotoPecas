@@ -5,6 +5,7 @@
         <title>Documento sem título</title>
         <link rel = "stylesheet" href="../css/home.css" type= "text/css"></link>
         <link rel="stylesheet" href="../css/banner.css" type="text/css"></link>
+        <link rel="stylesheet" href="../css/imgInicio.css" type="text/css"></link>
         <script src="../js/banner.js"></script>
     </head>
 
@@ -31,10 +32,10 @@
                     </div></td>
             </tr>
             <tr>
-                <td width="161" height="211" class="motor"><img src="../img/cat1.png" width="154" height="200" /></td>
-                <td width="165"><img src="../img/cat2.png" width="154" height="200" /></td>
-                <td width="162" class="motor"><img src="../img/cat3.png" width="154" height="200" /></td>
-                <td width="159"><img src="../img/cat4.png" width="154" height="200" /></td>
+                <td width="161" height="211" class="motor"><img class="imgCat" src="../img/cat1.png" width="154" height="200" /></td>
+                <td width="165"><img class="imgCat" src="../img/cat2.png" width="154" height="200" /></td>
+                <td width="162" class="motor"><img class="imgCat" src="../img/cat3.png" width="154" height="200" /></td>
+                <td width="159"><img class="imgCat" src="../img/cat4.png" width="154" height="200" /></td>
             </tr>
             <tr>
                 <td height="28" colspan="4" class="motor"><img src="../img/assista.png" width="860" height="31" /></td>
