@@ -40,11 +40,11 @@
                 <tbody>  
                     <c:forEach var="linHeader" items="${tabHeader}">
                         <tr>
-                            <td> <a class="btoAlterar" href="./ServletMeusPedidos?action=itens&idPedido=<c:out value="${linHeader.header.idPedido}"/>"><c:out value="${linHeader.header.idPedido}"/></a></td>
+                            <td> <a class="btoAlterar" href="./ServletTodosPedidos?action=itens&idPedido=<c:out value="${linHeader.header.idPedido}"/>"><c:out value="${linHeader.header.idPedido}"/></a></td>
                             <td> <c:out value="${linHeader.header.dtLcto}"/>      </td>
                             <td> <c:out value="${linHeader.header.totalPedido}"/> </td>
                             <td> <c:out value="${linHeader.header.formaPgto}"/>   </td>
-                            <td> <c:out value="${linHeader.header.status}"/>      </td>
+                            <td><c:out value="${linHeader.header.status}"/></td>
                         </tr>
                     </c:forEach>
                 </tbody>

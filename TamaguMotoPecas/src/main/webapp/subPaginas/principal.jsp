@@ -82,6 +82,9 @@
                             <li><a href="subPaginas/home.jsp" target="InlineFrame1">Consultar</a>
                                 <ul>
                                     <li><a href="./ServletTodosPedidos?action=listar" target="InlineFrame1">Pedidos</a></li>
+                                    <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
+                                    <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
+                                    <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedor</a></li>
                                 </ul>
                             </li>
                             <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Status</a></li>
@@ -89,9 +92,9 @@
                             <c:if test="${funcionario=='true'}">
                             <li><a href="#">Cadastro</a>
                                 <ul>
-                                    <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
-                                    <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedores</a></li>
-                                    <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
+                                    <li><a href="./ServletCliente?action=inserir" target="InlineFrame1">Clientes</a></li>
+                                    <li><a href="./ServletFornecedor?action=inserir" target="InlineFrame1">Fornecedores</a></li>
+                                    <li><a href="./ServletProduto?action=inserir" target="InlineFrame1">Produtos</a></li>
                                     <li><a href="./ServletPedidos?action=inicio" target="InlineFrame1">Pedidos</a></li>
                                 </ul>
                             </li>

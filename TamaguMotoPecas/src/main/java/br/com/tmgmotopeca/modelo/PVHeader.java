@@ -23,6 +23,7 @@ public class PVHeader {
     public static enum eStatus {
         ABERTO,
         CANCELADO,
+        ENVIADO,
         CONCLUIDO;
     }
     

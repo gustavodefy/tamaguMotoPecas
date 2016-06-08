@@ -12,11 +12,13 @@ import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
 import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
+import br.com.tmgmotopeca.persistir.PersistirCliente;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,9 +40,8 @@ public class ServletTodosPedidos extends HttpServlet {
     private PVHeader header;
     private PVItem item;
     private Persistir PersistirVenda;
+    private Persistir persistirCliente;
 
-    private Produto produto;
-    private Persistir persistirProduto;
     private String linha = "linProduto";
 
     private HttpServletRequest lRequest;
@@ -48,7 +49,7 @@ public class ServletTodosPedidos extends HttpServlet {
 
     private String destino = "";
     private static String PEDIDOS = "./subPaginas/todosOsPedidos.jsp";
-    private static String ITENS = "./subPaginas/meusPedidosItens.jsp";
+    private static String ITENS = "./subPaginas/detalhePedidos.jsp";
     private static String HOME = "./subPaginas/home.jsp";
     private static String PRODUTO = "./subPaginas/cadastroProdutos.jsp";
 
@@ -77,11 +78,6 @@ public class ServletTodosPedidos extends HttpServlet {
 
                 //seta condição para buscar todos os pedidos do cliente logado
                 ArrayList where = new ArrayList();
-//                    Range range = new Range();
-//                    range.setAtributo("idCliente");
-//                    range.setRelacao(Range.tpRelacao.IGUAL);
-//                    range.setConteudo(String.valueOf(cliente.getIdCliente()));
-//                    where.add(range);
 
                 Iterator pedidos = PersistirVenda.buscarLista(where);
 
@@ -115,6 +111,7 @@ public class ServletTodosPedidos extends HttpServlet {
                 //Monta tabHeader para exibir na tela
                 pedidoVenda = (PedidoVenda) pedidos.next();
                 lRequest.setAttribute("idPedido", pedido);
+                lRequest.setAttribute("linHeader", pedidoVenda.getHeader());
                 lRequest.setAttribute("tabItens", pedidoVenda.getItens());
                 lRequest.setAttribute("totalPedido", pedidoVenda.getHeader().getTotalPedido());
                 destino = ITENS;
@@ -124,33 +121,48 @@ public class ServletTodosPedidos extends HttpServlet {
                 destino = PEDIDOS;
             }
 
-        } else if (action.equals("consultar")) {
+        } else if (action.equals("gravar")) {
+
             try {
-                //Busca o codigo do produto na tela
-                produto = new Produto();
-                persistirProduto = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, produto);
-                int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+                
+                 //busca os dados da tela
+                getDadosTela(request);
 
-                //Busca o registro selecionado no banco
-                persistirProduto.buscar(idProduto);
-                produto = (Produto) persistirProduto.getEntidade();
-
-                //Seta atributo na tela
-                request.setAttribute(linha, produto);
-
-                //Direciona para alterar o registro
-                request.setAttribute("gravar", "false");
-                request.setAttribute("excluir", "false");
-                destino = PRODUTO;
+                //gravar os dados no banco
+                PersistirVenda.gravar();
+                                 
+                destino = PEDIDOS;
 
             } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
-                destino = HOME;
+
+                destino = PEDIDOS;
             }
+
         }
 
         RequestDispatcher view = request.getRequestDispatcher(destino);
         view.forward(request, response);
+    }
+
+    private void getDadosTela(HttpServletRequest request) throws Exception {
+        try {
+
+            header = new PVHeader();
+
+            String idPedido = request.getParameter("idPedido");
+
+            if (idPedido != null && !idPedido.isEmpty()) {
+                header.setIdPedido(Integer.parseInt(idPedido));
+            }
+
+            PVHeader.eStatus status = PVHeader.eStatus.valueOf(lRequest.getParameter("statusPedido"));
+
+            PersistirVenda.setEntidade(status);
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
