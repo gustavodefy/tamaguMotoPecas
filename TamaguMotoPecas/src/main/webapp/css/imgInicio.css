@@ -21,6 +21,16 @@ and open the template in the editor.
 }
 .imgCat:hover{
     /*rotação*/
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+
+}
+/*
+.imgCat:hover{
+    rotação
     -moz-transform: scale(1.1) rotate(360deg) translateX(1px) translateY(1px) skewX(1deg) skewY(1deg);
     -webkit-transform: scale(1.1) rotate(360deg) translateX(1px) translateY(1px) skewX(1deg) skewY(1deg);
     -o-transform: scale(1.1) rotate(360deg) translateX(1px) translateY(1px) skewX(1deg) skewY(1deg);
@@ -28,3 +38,4 @@ and open the template in the editor.
     transform: scale(1.1) rotate(360deg) translateX(1px) translateY(1px) skewX(1deg) skewY(1deg);
 
 }
+*/

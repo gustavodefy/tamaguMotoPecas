@@ -41,15 +41,15 @@
                     <div class="campo">
                         <label for="statusPedido">Status Pedido</label>
                         <select name="statusPedido" id="statusPedido" required="required" style="width: 10.5em">
-                            <option value="ABERTO">ABERTO</option>
-                            <option value="CANCELADO">CANCELADO</option>
-                            <option value="ENVIADO">ENVIADO</option>
-                            <option value="CONCLUIDO">CONCLUIDO</option>
+                            <option value="ABERTO" ${linHeader.status ==  "ABERTO" ? 'selected' : ''} >ABERTO</option>
+                            <option value="CANCELADO" ${linHeader.status ==  "CANCELADO" ? 'selected' : ''} >CANCELADO</option>
+                            <option value="ENVIADO" ${linHeader.status ==  "ENVIADO" ? 'selected' : ''} >ENVIADO</option>
+                            <option value="CONCLUIDO" ${linHeader.status ==  "CONCLUIDO" ? 'selected' : ''} >CONCLUIDO</option>
                         </select>
                     </div>
                     <div class="campo">
                         <label for="nome">Forma de Pagamento</label>
-                        <input type="text" id="quantidade" readonly="readonly" name="quantidade" required="required" style="width: 12em" value="<c:out value="${linHeader.formaPgto}" />" />
+                        <input type="text" id="formaPgto" readonly="readonly" name="formaPgto" required="required" style="width: 12em" value="<c:out value="${linHeader.formaPgto}" />" />
                     </div>
                 </fieldset>
             </fieldset>
@@ -84,8 +84,8 @@
                 <br><br>
             </div> 
             <div align="center">
-                <a class="btoIncluir" href="./ServletTodosPedidos?action=voltar">Voltar</a> 
-                <a class="btoIncluir" href="./ServletTodosPedidos?action=gravar">Gravar</a>   
+                <a class="btoExcluir" href="./ServletTodosPedidos?action=voltar">Voltar</a>
+                <input class="btoAlterar"   type="submit" value="Gravar"/>
             </div>
         </form>    
     </body>

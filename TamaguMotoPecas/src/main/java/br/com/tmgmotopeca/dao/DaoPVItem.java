@@ -115,7 +115,7 @@ public class DaoPVItem implements Dao {
         try {
             sql = "update pvItem set ";
             sql += "quantidade=?,";
-            sql += "vltUnitario=?,";
+            sql += "vlrUnitario=?,";
             sql += "vlrTotal=?";
             sql += " where idPedido=?";
             sql += "   and idProduto=?";
