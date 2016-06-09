@@ -84,14 +84,14 @@
                                     <li><a href="./ServletCliente?action=inserir" target="InlineFrame1">Clientes</a></li>
                                     <li><a href="./ServletFornecedor?action=inserir" target="InlineFrame1">Fornecedores</a></li>
                                     <li><a href="./ServletProduto?action=inserir" target="InlineFrame1">Produtos</a></li>
-                                    <li><a href="./ServletPedidos?action=inicio" target="InlineFrame1">Pedidos Compras</a></li>
+                                    <li><a href="./ServletPedidos?action=inicio" target="InlineFrame1">Pedido Compra</a></li>
                                 </ul>
                             </li>
                         </c:if>
                         <c:if test="${funcionario=='true'}">
                             <li><a href="subPaginas/home.jsp" target="InlineFrame1">Consultar</a>
                                 <ul>
-                                    <li><a href="./ServletTodosPedidos?action=listar" target="InlineFrame1">Pedidos Vendas</a></li>
+                                    <li><a href="./ServletTodosPedidos?action=listar" target="InlineFrame1">Pedido Venda</a></li>
                                     <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
                                     <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
                                     <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedor</a></li>

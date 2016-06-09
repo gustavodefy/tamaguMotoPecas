@@ -10,15 +10,10 @@ import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.PVHeader;
 import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
-import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
-import br.com.tmgmotopeca.persistir.PersistirCliente;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,7 +21,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -132,10 +126,9 @@ public class ServletTodosPedidos extends HttpServlet {
                 PersistirVenda.gravar();
                                  
                 destino = PEDIDOS;
-
+                
             } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
-
                 destino = PEDIDOS;
             }
 
@@ -147,18 +140,12 @@ public class ServletTodosPedidos extends HttpServlet {
 
     private void getDadosTela(HttpServletRequest request) throws Exception {
         try {
+           
+            pedidoVenda.getHeader().setStatus(PVHeader.eStatus.valueOf(lRequest.getParameter("statusPedido")));
 
-            header = new PVHeader();
+            //PVHeader.eStatus status = PVHeader.eStatus.valueOf(lRequest.getParameter("statusPedido"));
 
-            String idPedido = request.getParameter("idPedido");
-
-            if (idPedido != null && !idPedido.isEmpty()) {
-                header.setIdPedido(Integer.parseInt(idPedido));
-            }
-
-            PVHeader.eStatus status = PVHeader.eStatus.valueOf(lRequest.getParameter("statusPedido"));
-
-            PersistirVenda.setEntidade(status);
+            PersistirVenda.setEntidade(pedidoVenda);
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
