@@ -5,6 +5,9 @@
  */
 package br.com.tmgmotopeca.modelo;
 
+import br.com.tmgmotopeca.dao.Dao;
+import br.com.tmgmotopeca.dao.SelecionaDao;
+import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
 import java.util.Date;
 
 /**
@@ -48,6 +51,17 @@ public class PCHeader {
 
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
+    }
+    
+    public void setFornecedor(int idFornecedor) throws Exception{
+        
+        try {
+            Dao daoFornecedor = SelecionaDao.Selecionar(ListaDaos.FORNECEDOR);
+            this.fornecedor = (Fornecedor) daoFornecedor.buscaUnica((Integer)idFornecedor);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }        
+    
     }
 
     public Date getDtLcto() {
