@@ -14,6 +14,8 @@ import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Map.Entry;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,6 +63,9 @@ public class ServletPedidos extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        lRequest = request;
+        lResponse = response;
+        
         fornecedor = new Fornecedor();
         pesistirFornecedor = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PFornecedor, fornecedor);
         produto = new Produto();
@@ -87,6 +92,7 @@ public class ServletPedidos extends HttpServlet {
 
         } else if (action.equals("fechar")) {
             
+            Set<String> parameterNames = lRequest.getParameterMap().keySet();            
             pedidoCompra = new PedidoCompra();
             
             try {
@@ -95,6 +101,11 @@ public class ServletPedidos extends HttpServlet {
                 request.setAttribute("mensagem", "Erro ao montar o Header do Pedido");
             }
             
+            try {
+                montaItensCompra();
+            } catch (Exception e) {
+                request.setAttribute("mensagem", "Erro ao montar os Itens do Pedido");
+            }
                         
             
         }
@@ -126,8 +137,7 @@ public class ServletPedidos extends HttpServlet {
     private void montaHeaderCompra() throws Exception{
             
         headerCompra = new PCHeader();
-        
-        
+                
         String idFornecedor = lRequest.getParameter("fornecedor");
         String strData = lRequest.getParameter("data");
         Date dtLcto = Date.valueOf(strData);
@@ -136,9 +146,25 @@ public class ServletPedidos extends HttpServlet {
         headerCompra.setDtLcto(dtLcto);
         headerCompra.setStatus(PCHeader.eStatus.ABERTO);
         
-        
+        pedidoCompra.setPCHeader(headerCompra);
     }
 
+    private void montaItensCompra() throws Exception{
+        
+        for (Entry<String, String[]> entry : lRequest.getParameterMap().entrySet()) {
+            String name = entry.getKey();
+            if (name.substring(0, 10).equals("itemPedido")) {
+                
+                try {
+ 
+                } catch (Exception e) {
+                    lRequest.setAttribute("mensagem", "Erro ao adicionar o produto " );
+                }
+            }
+        }        
+        
+        
+    }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

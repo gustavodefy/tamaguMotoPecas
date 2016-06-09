@@ -38,14 +38,15 @@ function adicionarItem() {
     var vlrUnit = document.getElementById("unitario").value;
     var vlrTotal = document.getElementById("total").value;
 
+    var idRow = "itemPedido"+idProduto;
 
-    var linha = document.getElementById(idProduto);
+    var linha = document.getElementById(idRow);
     if (linha == null) {
 
 //Cria linha na tabela
         var table = document.getElementById("tabelaPedido");
         var row = table.insertRow(-1);
-        row.id = idProduto;
+        row.id = idRow;
 
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
@@ -60,7 +61,7 @@ function adicionarItem() {
         img.width = "25";
         img.height = "23";
         img.onclick = function () {
-            removerItem(idProduto);
+            removerItem(idRow);
         };
 
 //insere as colunas na linha
