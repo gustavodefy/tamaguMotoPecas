@@ -12,13 +12,13 @@ function calculaTotal() {
     if (qtde !== "" && vlrUnit !== "") {
 
         var qtdReal = qtde;
-        qtdReal = qtdReal.replace(".", "");
-        qtdReal = qtdReal.replace(",", ".");
+//        qtdReal = qtdReal.replace(".", "");
+//        qtdReal = qtdReal.replace(",", ".");
         qtdReal = parseInt(qtdReal);
 
         var vlrReal = vlrUnit;
-        vlrReal = vlrReal.replace(".", "");
-        vlrReal = vlrReal.replace(",", ".");
+//        vlrReal = vlrReal.replace(".", "");
+//        vlrReal = vlrReal.replace(",", ".");
         vlrReal = parseFloat(vlrReal);
 
         var vlrTotal = qtdReal * vlrReal;
@@ -55,6 +55,59 @@ function adicionarItem() {
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell();
 
+
+//insere as colunas na linha
+        
+//Adiciona o id do produto        
+        var putRow = document.createElement("INPUT");
+        putRow.type     = "text";
+        putRow.id       = "row"+idProduto;
+        putRow.name     = "row"+idProduto;
+        putRow.readOnly = "true";
+        putRow.size     = 5;
+        putRow.value    = idProduto;        
+        cell1.appendChild(putRow);
+        
+//Adiciona a descrição do produto
+        var putRow = document.createElement("INPUT");
+        putRow.type     = "text";
+        putRow.id       = "row"+idProduto;
+        putRow.name     = "row"+idProduto;
+        putRow.readOnly = "true";
+        putRow.size     = 30;
+        putRow.value    = descProduto;        
+        cell2.appendChild(putRow);
+
+//Adiciona a quantidade
+        var putRow = document.createElement("INPUT");
+        putRow.type     = "text";
+        putRow.id       = "row"+idProduto;
+        putRow.name     = "row"+idProduto;
+        putRow.readOnly = "true";
+        putRow.size     = 5;
+        putRow.value    = qtde;        
+        cell3.appendChild(putRow);        
+        
+//Adiciona a valor unitario
+        var putRow = document.createElement("INPUT");
+        putRow.type     = "text";
+        putRow.id       = "row"+idProduto;
+        putRow.name     = "row"+idProduto;
+        putRow.readOnly = "true";
+        putRow.size     = 5;
+        putRow.value    = vlrUnit;        
+        cell4.appendChild(putRow);        
+
+//Adiciona a valor total
+        var putRow = document.createElement("INPUT");
+        putRow.type     = "text";
+        putRow.id       = "row"+idProduto;
+        putRow.name     = "row"+idProduto;
+        putRow.readOnly = "true";
+        putRow.size     = 5;
+        putRow.value    = vlrTotal;        
+        cell5.appendChild(putRow);        
+        
 //Adiciona a imagem de remover
         var img = document.createElement("IMG");
         img.src = "./img/x.png";
@@ -62,14 +115,7 @@ function adicionarItem() {
         img.height = "23";
         img.onclick = function () {
             removerItem(idRow);
-        };
-
-//insere as colunas na linha
-        cell1.innerHTML = idProduto;
-        cell2.innerHTML = descProduto;
-        cell3.innerHTML = qtde;
-        cell4.innerHTML = vlrUnit;
-        cell5.innerHTML = vlrTotal;
+        };        
         cell6.appendChild(img);
         
     } else {
@@ -112,8 +158,8 @@ function zeroaesquerda(valor, tamanho) {
 
 
 jQuery(function ($) {
-    $("#quantidade").maskMoney({symbol: 'R$ ', precision: 0, thousands: '.', decimal: ',', symbolStay: true});
-    $("#unitario").maskMoney({symbol: 'R$ ', thousands: '.', decimal: ',', symbolStay: true});
-    $("#total").maskMoney({symbol: 'R$ ', thousands: '.', decimal: ',', symbolStay: true});
+    $("#quantidade").maskMoney({symbol: 'R$ ', precision: 0, thousands: ',', decimal: '.', symbolStay: true});
+    $("#unitario").maskMoney({symbol: 'R$ ', thousands: ',', decimal: '.', symbolStay: true});
+    $("#total").maskMoney({symbol: 'R$ ', thousands: ',', decimal: '.', symbolStay: true});
 
 });

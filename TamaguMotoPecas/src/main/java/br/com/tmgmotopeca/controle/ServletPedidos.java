@@ -13,7 +13,8 @@ import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.Map.Entry;
 import java.util.Set;
 import javax.servlet.RequestDispatcher;
@@ -32,7 +33,7 @@ public class ServletPedidos extends HttpServlet {
 
     private PedidoCompra pedidoCompra;
     private PCHeader headerCompra;
-    private PCItem  itensCompra;
+    private PCItem itensCompra;
     private Persistir pesistirPCompra;
     private Persistir pesistirFornecedor;
     private Persistir pesistirProdutos;
@@ -65,7 +66,7 @@ public class ServletPedidos extends HttpServlet {
 
         lRequest = request;
         lResponse = response;
-        
+
         fornecedor = new Fornecedor();
         pesistirFornecedor = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PFornecedor, fornecedor);
         produto = new Produto();
@@ -91,23 +92,22 @@ public class ServletPedidos extends HttpServlet {
             destino = UNICO;
 
         } else if (action.equals("fechar")) {
-            
-            Set<String> parameterNames = lRequest.getParameterMap().keySet();            
+
+            Set<String> parameterNames = lRequest.getParameterMap().keySet();
             pedidoCompra = new PedidoCompra();
-            
+
             try {
-                montaHeaderCompra();    
+                montaHeaderCompra();
             } catch (Exception e) {
                 request.setAttribute("mensagem", "Erro ao montar o Header do Pedido");
             }
-            
+
             try {
                 montaItensCompra();
             } catch (Exception e) {
                 request.setAttribute("mensagem", "Erro ao montar os Itens do Pedido");
             }
-                        
-            
+
         }
 
         RequestDispatcher view = request.getRequestDispatcher(destino);
@@ -133,39 +133,50 @@ public class ServletPedidos extends HttpServlet {
             throw new Exception(e.getMessage());
         }
     }
-    
-    private void montaHeaderCompra() throws Exception{
-            
+
+    private void montaHeaderCompra() throws Exception {
+        
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        
         headerCompra = new PCHeader();
-                
+
         String idFornecedor = lRequest.getParameter("fornecedor");
         String strData = lRequest.getParameter("data");
-        Date dtLcto = Date.valueOf(strData);
-        
+        Date dtLcto = formato.parse(strData);
+
         headerCompra.setFornecedor(Integer.parseInt(idFornecedor));
         headerCompra.setDtLcto(dtLcto);
         headerCompra.setStatus(PCHeader.eStatus.ABERTO);
-        
+
         pedidoCompra.setPCHeader(headerCompra);
     }
 
-    private void montaItensCompra() throws Exception{
-        
+    private void montaItensCompra() throws Exception {
+
         for (Entry<String, String[]> entry : lRequest.getParameterMap().entrySet()) {
             String name = entry.getKey();
-            if (name.substring(0, 10).equals("itemPedido")) {
-                
+            if (name.substring(0, 3).equals("row")) {
+
+                String[] valores = lRequest.getParameterValues(name);
+
                 try {
- 
+                    itensCompra = new PCItem();
+                    
+                    itensCompra.setProduto(Integer.parseInt(valores[0]));
+                    itensCompra.setQuantidade(Double.parseDouble(valores[2]));
+                    itensCompra.setVlrUnitario(Double.parseDouble(valores[3]));
+                    itensCompra.setVlrTotal(Double.parseDouble(valores[4]));                    
+                    
+                    pedidoCompra.addPCItem(itensCompra);
+                    
                 } catch (Exception e) {
-                    lRequest.setAttribute("mensagem", "Erro ao adicionar o produto " );
+                    lRequest.setAttribute("mensagem", "Erro ao adicionar o produto ");
                 }
             }
-        }        
-        
-        
+        }
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
