@@ -8,7 +8,7 @@ package br.com.tmgmotopeca.persistir;
 import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.biblioteca.Range.tpRelacao;
 import br.com.tmgmotopeca.dao.Dao;
-import br.com.tmgmotopeca.dao.DaoProduto;
+import br.com.tmgmotopeca.dao.mysql.DaoProduto;
 import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.modelo.Produto;
 import java.util.ArrayList;

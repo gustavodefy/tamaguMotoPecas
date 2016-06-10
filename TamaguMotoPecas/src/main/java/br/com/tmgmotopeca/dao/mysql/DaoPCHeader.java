@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.tmgmotopeca.dao;
+package br.com.tmgmotopeca.dao.mysql;
 
 import br.com.tmgmotopeca.biblioteca.Conexao;
 import br.com.tmgmotopeca.biblioteca.Range;
+import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.modelo.Fornecedor;
+import br.com.tmgmotopeca.modelo.PCHeader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,62 +22,40 @@ import java.util.List;
  *
  * @author ResVUT42
  */
-public class DaoFornecedor implements Dao {
+public class DaoPCHeader implements Dao {
 
     private Connection connection;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
-    private Fornecedor obj;
+    private PCHeader obj;
     private int newId;
 
-    public DaoFornecedor() {
+    public DaoPCHeader() {
         this.connection = Conexao.conectar();
     }
 
     private void setDadosQuery(int comId) throws Exception {
+
         int nx = 0;
+
         try {
             nx++;
-            ps.setString(nx, obj.getNome());
+            ps.setInt(nx, obj.getFornecedor().getIdFornecedor());
 
             nx++;
-            ps.setString(nx, obj.getCpf_cnpj());
+            ps.setDate(nx, (java.sql.Date) obj.getDtLcto());
 
             nx++;
-            ps.setString(nx, obj.getLogradouro());
+            ps.setDouble(nx, obj.getTotalPedido());
 
             nx++;
-            ps.setString(nx, obj.getNumero());
+            ps.setString(nx, String.valueOf(obj.getStatus()));
 
-            nx++;
-            ps.setString(nx, obj.getComplemento());
-
-            nx++;
-            ps.setString(nx, obj.getCep());
-
-            nx++;
-            ps.setString(nx, obj.getBairro());
-
-            nx++;
-            ps.setString(nx, obj.getCidade());
-
-            nx++;
-            ps.setString(nx, obj.getEstado());
-
-            nx++;
-            ps.setString(nx, obj.getTelefone());
-
-            nx++;
-            ps.setString(nx, obj.getEmail());
-
-            nx++;
-            ps.setString(nx, obj.getContato());
-
-            //o id deve ser sempre o ultimo
             if (comId == 1) {
+                //o id deve ser sempre o ultimo
                 nx++;
-                ps.setInt(nx, obj.getIdFornecedor());
+                ps.setInt(nx, obj.getIdPedido());
             }
 
         } catch (Exception e) {
@@ -84,20 +64,16 @@ public class DaoFornecedor implements Dao {
     }
 
     private void getDadosQuery() throws Exception {
+
         try {
-            obj.setIdFornecedor(rs.getInt("idFornecedor"));
-            obj.setNome(rs.getString("nome"));
-            obj.setCpf_cnpj(rs.getString("cpf_cnpj"));
-            obj.setLogradouro(rs.getString("logradouro"));
-            obj.setNumero(rs.getString("numero"));
-            obj.setComplemento(rs.getString("complemento"));
-            obj.setCep(rs.getString("cep"));
-            obj.setBairro(rs.getString("bairro"));
-            obj.setCidade(rs.getString("cidade"));
-            obj.setEstado(rs.getString("estado"));
-            obj.setTelefone(rs.getString("telefone"));
-            obj.setEmail(rs.getString("email"));
-            obj.setContato(rs.getString("contato"));
+            DaoFornecedor daofornecedor = new DaoFornecedor();
+
+            obj.setIdPedido(rs.getInt("idPedido"));
+            obj.setFornecedor((Fornecedor) daofornecedor.buscaUnica(rs.getInt("idFornecedor")));
+            obj.setDtLcto(rs.getDate("dtLcto"));
+            obj.setTotalPedido(rs.getDouble("totalPedido"));
+            obj.setStatus(PCHeader.eStatus.valueOf(rs.getString("status")));
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -106,24 +82,17 @@ public class DaoFornecedor implements Dao {
     @Override
     public int inserir(Object entidade) throws Exception {
 
-        this.obj = (Fornecedor) entidade;
+        this.obj = (PCHeader) entidade;
         this.newId = 0;
+        
         try {
-
-            sql = "insert into fornecedor (";
-            sql += "nome,";
-            sql += "cpf_cnpj,";
-            sql += "logradouro,";
-            sql += "numero,";
-            sql += "complemento,";
-            sql += "cep,";
-            sql += "bairro,";
-            sql += "cidade,";
-            sql += "estado,";
-            sql += "telefone,";
-            sql += "email,";
-            sql += "contato";
-            sql += ") values (?,?,?,?,?,?,?,?,?,?,?,?)";
+            
+            sql = "insert into PCHeader (";
+            sql += "fornecedor,";
+            sql += "dtLcto,";
+            sql += "totalPedido,";
+            sql += "status";
+            sql += ") values (?,?,?,?)";
 
             ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             setDadosQuery(0);
@@ -147,29 +116,20 @@ public class DaoFornecedor implements Dao {
 
         ps.close();
         return newId;
-
     }
 
     @Override
     public void alterar(Object entidade) throws Exception {
-        
-        this.obj = (Fornecedor) entidade;
+
+        this.obj = (PCHeader) entidade;
 
         try {
-            sql = "update fornecedor set ";
-            sql += "nome=?,";
-            sql += "cpf_cnpj=?,";
-            sql += "logradouro=?,";
-            sql += "numero=?,";
-            sql += "complemento=?,";
-            sql += "cep=?,";
-            sql += "bairro=?,";
-            sql += "cidade=?,";
-            sql += "estado=?,";
-            sql += "telefone=?,";
-            sql += "email=?,";
-            sql += "contato=?";
-            sql += " where idfornecedor=?";
+            sql = "update PCHeader set ";
+            sql += "fornecedor=?,";
+            sql += "dtLcto=?,";
+            sql += "totalPedido=?,";
+            sql += "status=?";
+            sql += " where idPedido=?";
 
             ps = connection.prepareStatement(sql);
             setDadosQuery(1);
@@ -184,13 +144,13 @@ public class DaoFornecedor implements Dao {
     @Override
     public void deletar(Object entidade) throws Exception {
 
-        this.obj = (Fornecedor) entidade;
+        this.obj = (PCHeader) entidade;
 
         try {
 
-            sql = "delete from fornecedor where idFornecedor = ?";
+            sql = "delete from pcHeader where idPedido = ?";
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, this.obj.getIdFornecedor());
+            ps.setInt(1, this.obj.getIdPedido());
             ps.execute();
             ps.close();
 
@@ -201,47 +161,47 @@ public class DaoFornecedor implements Dao {
 
     @Override
     public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
-        
-        List<Fornecedor> lista = new ArrayList();
+
+        List<PCHeader> lista = new ArrayList();
 
         try {
 
             String condicao = Range.RangeToString(arrayRange);
 
-            sql = "select * from fornecedor " + condicao;
+            sql = "select * from pcHeader " + condicao;
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                obj = new Fornecedor();
+                obj = new PCHeader();
                 getDadosQuery();
                 lista.add(obj);
             }
             return lista.iterator();
-            
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-        }   
+        }
     }
 
     @Override
     public Object buscaUnica(Integer id) throws Exception {
         try {
 
-            sql = "select * from fornecedor where idFornecedor = ?";
+            sql = "select * from pcHeader where idPedido = ?";
 
             ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                obj = new Fornecedor();
+                obj = new PCHeader();
                 getDadosQuery();
             }
             return obj;
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-        }        
+        }
     }
 }

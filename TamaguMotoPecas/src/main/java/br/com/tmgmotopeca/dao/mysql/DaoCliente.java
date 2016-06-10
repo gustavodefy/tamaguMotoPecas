@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor. 42
  */
-package br.com.tmgmotopeca.dao;
+package br.com.tmgmotopeca.dao.mysql;
 
 import br.com.tmgmotopeca.biblioteca.Conexao;
 import br.com.tmgmotopeca.biblioteca.Range;
+import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.modelo.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

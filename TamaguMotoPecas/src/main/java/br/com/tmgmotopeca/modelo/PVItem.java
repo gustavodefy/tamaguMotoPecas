@@ -6,7 +6,7 @@
 package br.com.tmgmotopeca.modelo;
 
 import br.com.tmgmotopeca.dao.Dao;
-import br.com.tmgmotopeca.dao.DaoProduto;
+import br.com.tmgmotopeca.dao.mysql.DaoProduto;
 import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
 
