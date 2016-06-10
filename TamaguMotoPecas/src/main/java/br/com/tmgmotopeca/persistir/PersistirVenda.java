@@ -12,6 +12,7 @@ import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.modelo.PVHeader;
 import br.com.tmgmotopeca.modelo.PVItem;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
+import br.com.tmgmotopeca.modelo.Produto;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -52,7 +53,6 @@ public class PersistirVenda implements Persistir {
 
             validarInformacoes();
 
-            
             if (pedidoVenda.getHeader().getIdPedido() == 0) {
                 //Se estiver incluindo
                 id = daoPVHeader.inserir(pedidoVenda.getHeader());
@@ -61,19 +61,25 @@ public class PersistirVenda implements Persistir {
                 while (listaItem.hasNext()) {
                     PVItem pvItem = listaItem.next();
                     pvItem.setIdPedido(id);
-                    daoPVItem.inserir(pvItem);                                       
+                    daoPVItem.inserir(pvItem);
                 }
-                
+
             } else {
                 //Se estiver alterando
                 id = pedidoVenda.getHeader().getIdPedido();
                 daoPVHeader.alterar(pedidoVenda.getHeader());
-                
+
                 Iterator<PVItem> listaItem = pedidoVenda.getItens();
                 while (listaItem.hasNext()) {
                     PVItem pvItem = listaItem.next();
-                    daoPVItem.alterar(pvItem);                                       
-                }                
+                    daoPVItem.alterar(pvItem);
+
+                    if (pedidoVenda.getHeader().getStatus() == PVHeader.eStatus.CONCLUIDO) {
+                        Produto produto = pvItem.getProduto();
+                        produto.consomeEstoque(pvItem.getQuantidade());
+                        daoProduto.alterar(produto);
+                    }
+                }
             }
 
             return id;
@@ -100,45 +106,45 @@ public class PersistirVenda implements Persistir {
 
     @Override
     public Iterator buscarLista(ArrayList<Range> arrayRange) throws Exception {
-        
+
         ArrayList<PedidoVenda> listaPedido = new ArrayList<PedidoVenda>();
-                
+
         //Busca lista de header dos pedidos
         Iterator listaHeader = daoPVHeader.getLista(arrayRange);
-        
-        if(!listaHeader.hasNext()){
+
+        if (!listaHeader.hasNext()) {
             throw new Exception("nenhum pedido encontrado!");
         }
-        
+
         while (listaHeader.hasNext()) {
-            
-            header = (PVHeader)listaHeader.next();
+
+            header = (PVHeader) listaHeader.next();
             header.setTotalPedido(0);
-            
+
             //busca os itens do pedido
             ArrayList where = new ArrayList();
             Range range = new Range();
-            
-            range.setAtributo("idPedido");            
+
+            range.setAtributo("idPedido");
             range.setRelacao(tpRelacao.IGUAL);
             range.setConteudo(String.valueOf(header.getIdPedido()));
             where.add(range);
-            
+
             Iterator listaItens = daoPVItem.getLista(where);
-            
+
             //Mota o pedido de venda
             pedidoVenda = new PedidoVenda();
             pedidoVenda.setHeader(header);
             while (listaItens.hasNext()) {
-                item = (PVItem)listaItens.next();
-                pedidoVenda.addItem(item);                
+                item = (PVItem) listaItens.next();
+                pedidoVenda.addItem(item);
             }
-                                 
+
             listaPedido.add(pedidoVenda);
         }
-        
+
         return listaPedido.iterator();
-        
+
     }
 
 }

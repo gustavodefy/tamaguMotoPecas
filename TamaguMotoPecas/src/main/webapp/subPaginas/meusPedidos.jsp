@@ -25,37 +25,50 @@
             <h1 align="center">Meus Pedidos</h1>
 
             <br>
-            <table border=1 width="855" align="CENTER" >
-                <thead>
-                    <tr>
-                        <th>Pedido</th>
-                        <th>Data Pedido</th>
-                        <th>Total Pedido</th>
-                        <th>Pagamento</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>            
-                    <c:forEach var="linHeader" items="${tabHeader}">
-                        <tr id="<c:out value="${linHeader.header.idPedido}"/>" name="<c:out value="${linHeader.header.idPedido}"/>">
-                            <td> <a class="btoAlterar" href="./ServletMeusPedidos?action=itens&idPedido=<c:out value="${linHeader.header.idPedido}"/>"><c:out value="${linHeader.header.idPedido}"/></a></td>
-                            <td> <c:out value="${linHeader.header.dtLcto}"/>      </td>
-                            <td> <c:out value="${linHeader.header.totalPedido}"/> </td>
-                            <td> <c:out value="${linHeader.header.formaPgto}"/>   </td>
-                            <td><c:out value="${linHeader.header.status}"/></td>
-                        </tr>
+            <div align="center" class="dv_pedidos">
+                <table border=1 width="855" align="CENTER" >
+                    <thead>
                         <tr>
-                            <td colspan="5">
-                                <table width="800" align="center" class="tgl">
-                                    <thead>
-                                        <td class="tgl2"><img src="./img/st1.png" width="799" height="74" alt="st1"/></td>
-                                    </thead>
-                                </table>
-                            </td>
+                            <th>Pedido</th>
+                            <th>Data Pedido</th>
+                            <th>Total Pedido</th>
+                            <th>Pagamento</th>
+                            <th>Status</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>            
+                        <c:forEach var="linHeader" items="${tabHeader}">
+                            <tr id="<c:out value="${linHeader.header.idPedido}"/>" name="<c:out value="${linHeader.header.idPedido}"/>">
+                                <td> <a class="btoAlterar" href="./ServletMeusPedidos?action=itens&idPedido=<c:out value="${linHeader.header.idPedido}"/>"><c:out value="${linHeader.header.idPedido}"/></a></td>
+                                <td> <c:out value="${linHeader.header.dtLcto}"/>      </td>
+                                <td> <c:out value="${linHeader.header.totalPedido}"/> </td>
+                                <td> <c:out value="${linHeader.header.formaPgto}"/>   </td>
+                                <td><c:out value="${linHeader.header.status}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <table width="800" align="center" class="tgl">
+                                        <thead>
+                                            <c:if test="${linHeader.header.status =='CONCLUIDO'}">
+                                            <td class="tgl2"><img src="./img/st3.png" width="799" height="100" alt="st3"/></td>
+                                            </c:if>
+                                            <c:if test="${linHeader.header.status =='ABERTO'}">
+                                            <td class="tgl2"><img src="./img/st1.png" width="799" height="100" alt="st1"/></td>
+                                            </c:if>
+                                            <c:if test="${linHeader.header.status =='CANCELADO'}">
+                                            <td class="tgl2"><img src="./img/st4.png" width="799" height="100" alt="st1"/></td>
+                                            </c:if>
+                                            <c:if test="${linHeader.header.status =='ENVIADO'}">
+                                            <td class="tgl2"><img src="./img/st2.png" width="799" height="100" alt="st1"/></td>
+                                            </c:if>
+                                        </thead>
+                                    </table>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </body>
 </html>

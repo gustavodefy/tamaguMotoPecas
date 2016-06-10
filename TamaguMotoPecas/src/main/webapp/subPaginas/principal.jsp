@@ -97,7 +97,7 @@
                                     <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedor</a></li>
                                 </ul>
                             </li>
-                            <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Status</a></li>
+                            <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Relatorio</a></li>
                             </c:if>
                             <c:if test="${funcionario=='false'}">
                             <li><a href="#">Catalogo</a>

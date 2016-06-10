@@ -18,30 +18,32 @@
     </head>
     <body>
         <h1 class="titulo" align="center" >Lista de Fornecedores</h1>
-        <table border=1 width="800px" align="center">
-            <thead>
-                <tr>
-                    <th>Codigo</th>
-                    <th>Nome</th>
-                    <th>CPF/CNPJ</th>
-                    <th>Telefone</th>
-                    <th>Contato</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="linFornecedor" items="${tabFornecedor}">
+        <div align="center" class="dv_pedidos">
+            <table border=1 width="800px" align="center">
+                <thead>
                     <tr>
-                        <td><a class="btoAlterar" href="./ServletFornecedor?action=editar&idFornecedor=<c:out value="${linFornecedor.idFornecedor}"/>"><c:out value="${linFornecedor.idFornecedor}"/></a></td>
-                        <td><c:out value="${linFornecedor.nome}" /></td>
-                        <td><c:out value="${linFornecedor.cpf_cnpj}" /></td>
-                        <td><c:out value="${linFornecedor.telefone}" /></td>
-                        <td><c:out value="${linFornecedor.contato}" /></td>
-                        <td><c:out value="${linFornecedor.email}" /></td>
+                        <th>Codigo</th>
+                        <th>Nome</th>
+                        <th>CPF/CNPJ</th>
+                        <th>Telefone</th>
+                        <th>Contato</th>
+                        <th>Email</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach var="linFornecedor" items="${tabFornecedor}">
+                        <tr>
+                            <td><a class="btoAlterar" href="./ServletFornecedor?action=editar&idFornecedor=<c:out value="${linFornecedor.idFornecedor}"/>"><c:out value="${linFornecedor.idFornecedor}"/></a></td>
+                            <td><c:out value="${linFornecedor.nome}" /></td>
+                            <td><c:out value="${linFornecedor.cpf_cnpj}" /></td>
+                            <td><c:out value="${linFornecedor.telefone}" /></td>
+                            <td><c:out value="${linFornecedor.contato}" /></td>
+                            <td><c:out value="${linFornecedor.email}" /></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
         <p><a class="btoIncluir" href="./ServletFornecedor?action=inserir">Incluir</a></p>
     </body>
 </html>

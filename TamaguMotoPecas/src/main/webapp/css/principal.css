@@ -63,9 +63,9 @@ div.mensagem input{
 .menu li{
     position: relative;
     float: left;
-    border-right: 1px solid white ;
-    padding-left: 80px;
-    padding-right: 80px;
+    border-right: 0px solid white ;
+    padding-left: 75px;
+    padding-right: 75px;
     background-color: black;
     height: 30px;
     line-height: 30px;
