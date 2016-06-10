@@ -5,12 +5,16 @@
  */
 package br.com.tmgmotopeca.modelo;
 
+import br.com.tmgmotopeca.dao.Dao;
+import br.com.tmgmotopeca.dao.SelecionaDao;
+import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
+
 /**
  *
  * @author ResVUT42
  */
 public class PCItem {
-    
+
     private int idPedido;
     private Produto produto;
     private double quantidade;
@@ -41,6 +45,15 @@ public class PCItem {
         this.produto = produto;
     }
 
+    public void setProduto(int idProduto) throws Exception {
+        try {
+            Dao daoProduto = SelecionaDao.Selecionar(ListaDaos.PRODUTO);
+            this.produto = (Produto) daoProduto.buscaUnica((Integer) idProduto);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
     public double getQuantidade() {
         return quantidade;
     }
@@ -64,5 +77,5 @@ public class PCItem {
     public void setVlrTotal(double vlrTotal) {
         this.vlrTotal = vlrTotal;
     }
-          
+
 }

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.tmgmotopeca.dao;
+package br.com.tmgmotopeca.dao.mysql;
 
 import br.com.tmgmotopeca.biblioteca.Conexao;
 import br.com.tmgmotopeca.biblioteca.Range;
-import br.com.tmgmotopeca.modelo.Produto;
+import br.com.tmgmotopeca.dao.Dao;
+import br.com.tmgmotopeca.modelo.Fornecedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,16 +21,16 @@ import java.util.List;
  *
  * @author ResVUT42
  */
-public class DaoProduto implements Dao {
+public class DaoFornecedor implements Dao {
 
     private Connection connection;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
-    private Produto obj;
+    private Fornecedor obj;
     private int newId;
 
-    public DaoProduto() {
+    public DaoFornecedor() {
         this.connection = Conexao.conectar();
     }
 
@@ -37,30 +38,45 @@ public class DaoProduto implements Dao {
         int nx = 0;
         try {
             nx++;
-            ps.setString(nx, obj.getDescricao());
+            ps.setString(nx, obj.getNome());
 
             nx++;
-            ps.setString(nx, obj.getMarca());
+            ps.setString(nx, obj.getCpf_cnpj());
 
             nx++;
-            ps.setString(nx, obj.getModelo());
+            ps.setString(nx, obj.getLogradouro());
 
             nx++;
-            ps.setDouble(nx, obj.getPercentualVenda());
+            ps.setString(nx, obj.getNumero());
 
             nx++;
-            ps.setDouble(nx, obj.getPrecoCompra());
+            ps.setString(nx, obj.getComplemento());
 
             nx++;
-            ps.setDouble(nx, obj.getPrecoVenda());
-            
+            ps.setString(nx, obj.getCep());
+
             nx++;
-            ps.setDouble(nx, obj.getEstoque());
+            ps.setString(nx, obj.getBairro());
+
+            nx++;
+            ps.setString(nx, obj.getCidade());
+
+            nx++;
+            ps.setString(nx, obj.getEstado());
+
+            nx++;
+            ps.setString(nx, obj.getTelefone());
+
+            nx++;
+            ps.setString(nx, obj.getEmail());
+
+            nx++;
+            ps.setString(nx, obj.getContato());
 
             //o id deve ser sempre o ultimo
             if (comId == 1) {
                 nx++;
-                ps.setInt(nx, obj.getIdProduto());
+                ps.setInt(nx, obj.getIdFornecedor());
             }
 
         } catch (Exception e) {
@@ -70,15 +86,19 @@ public class DaoProduto implements Dao {
 
     private void getDadosQuery() throws Exception {
         try {
-            obj.setIdProduto(rs.getInt("idproduto"));
-            obj.setDescricao(rs.getString("descricao"));
-            obj.setMarca(rs.getString("marca"));
-            obj.setModelo(rs.getString("modelo"));
-            obj.setPercentualVenda(rs.getDouble("percentualvenda"));
-            obj.setPrecoCompra(rs.getDouble("precocompra"));
-            obj.setPrecoVenda(rs.getDouble("precovenda"));
-            obj.setEstoque(rs.getDouble("estoque"));
-
+            obj.setIdFornecedor(rs.getInt("idFornecedor"));
+            obj.setNome(rs.getString("nome"));
+            obj.setCpf_cnpj(rs.getString("cpf_cnpj"));
+            obj.setLogradouro(rs.getString("logradouro"));
+            obj.setNumero(rs.getString("numero"));
+            obj.setComplemento(rs.getString("complemento"));
+            obj.setCep(rs.getString("cep"));
+            obj.setBairro(rs.getString("bairro"));
+            obj.setCidade(rs.getString("cidade"));
+            obj.setEstado(rs.getString("estado"));
+            obj.setTelefone(rs.getString("telefone"));
+            obj.setEmail(rs.getString("email"));
+            obj.setContato(rs.getString("contato"));
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -87,20 +107,24 @@ public class DaoProduto implements Dao {
     @Override
     public int inserir(Object entidade) throws Exception {
 
-        this.obj = (Produto) entidade;
+        this.obj = (Fornecedor) entidade;
         this.newId = 0;
-
         try {
 
-            sql = "insert into produto (";
-            sql += "descricao,";
-            sql += "marca,";
-            sql += "modelo,";
-            sql += "percentualvenda,";
-            sql += "precocompra,";
-            sql += "precovenda,";
-            sql += "estoque";
-            sql += ") values (?,?,?,?,?,?,?)";
+            sql = "insert into fornecedor (";
+            sql += "nome,";
+            sql += "cpf_cnpj,";
+            sql += "logradouro,";
+            sql += "numero,";
+            sql += "complemento,";
+            sql += "cep,";
+            sql += "bairro,";
+            sql += "cidade,";
+            sql += "estado,";
+            sql += "telefone,";
+            sql += "email,";
+            sql += "contato";
+            sql += ") values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
             ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             setDadosQuery(0);
@@ -124,23 +148,29 @@ public class DaoProduto implements Dao {
 
         ps.close();
         return newId;
+
     }
 
     @Override
     public void alterar(Object entidade) throws Exception {
         
-        this.obj = (Produto) entidade;
+        this.obj = (Fornecedor) entidade;
 
         try {
-            sql = "update produto set ";
-            sql += "descricao=?,";
-            sql += "marca=?,";
-            sql += "modelo=?,";
-            sql += "percentualvenda=?,";
-            sql += "precocompra=?,";
-            sql += "precovenda=?,";
-            sql += "estoque=?";
-            sql += " where idproduto=?";
+            sql = "update fornecedor set ";
+            sql += "nome=?,";
+            sql += "cpf_cnpj=?,";
+            sql += "logradouro=?,";
+            sql += "numero=?,";
+            sql += "complemento=?,";
+            sql += "cep=?,";
+            sql += "bairro=?,";
+            sql += "cidade=?,";
+            sql += "estado=?,";
+            sql += "telefone=?,";
+            sql += "email=?,";
+            sql += "contato=?";
+            sql += " where idfornecedor=?";
 
             ps = connection.prepareStatement(sql);
             setDadosQuery(1);
@@ -154,14 +184,14 @@ public class DaoProduto implements Dao {
 
     @Override
     public void deletar(Object entidade) throws Exception {
-        
-        this.obj = (Produto) entidade;
+
+        this.obj = (Fornecedor) entidade;
 
         try {
 
-            sql = "delete from produto where idProduto = ?";
+            sql = "delete from fornecedor where idFornecedor = ?";
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, this.obj.getIdProduto());
+            ps.setInt(1, this.obj.getIdFornecedor());
             ps.execute();
             ps.close();
 
@@ -173,18 +203,18 @@ public class DaoProduto implements Dao {
     @Override
     public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
         
-        List<Produto> lista = new ArrayList();
+        List<Fornecedor> lista = new ArrayList();
 
         try {
 
             String condicao = Range.RangeToString(arrayRange);
 
-            sql = "select * from produto " + condicao;
+            sql = "select * from fornecedor " + condicao;
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                obj = new Produto();
+                obj = new Fornecedor();
                 getDadosQuery();
                 lista.add(obj);
             }
@@ -192,28 +222,27 @@ public class DaoProduto implements Dao {
             
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-        } 
+        }   
     }
 
     @Override
     public Object buscaUnica(Integer id) throws Exception {
         try {
 
-            sql = "select * from produto where idProduto = ?";
+            sql = "select * from fornecedor where idFornecedor = ?";
 
             ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                obj = new Produto();
+                obj = new Fornecedor();
                 getDadosQuery();
             }
             return obj;
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-        }
+        }        
     }
-
 }

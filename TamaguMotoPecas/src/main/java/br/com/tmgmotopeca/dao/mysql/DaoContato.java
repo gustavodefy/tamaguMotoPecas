@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.tmgmotopeca.dao;
+package br.com.tmgmotopeca.dao.mysql;
 
 import br.com.tmgmotopeca.biblioteca.Conexao;
 import br.com.tmgmotopeca.biblioteca.Range;
-import br.com.tmgmotopeca.modelo.Cliente;
-import br.com.tmgmotopeca.modelo.PVHeader;
+import br.com.tmgmotopeca.dao.Dao;
+import br.com.tmgmotopeca.modelo.Contato;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,62 +21,57 @@ import java.util.List;
  *
  * @author Gustavo
  */
-public class DaoPVHeader implements Dao {
-
+public class DaoContato implements Dao{
+    
     private Connection connection;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
-    private PVHeader obj;
+    private Contato obj;
     private int newId;
-
-    public DaoPVHeader() {
-        this.connection = Conexao.conectar();
-    }
-
-    private void setDadosQuery(int comId) throws Exception {
-
-        int nx = 0;
-
-        try {
+    
+        public DaoContato(){
+         this.connection = Conexao.conectar();
+        }
+    
+        private void setDadosQuery(int comId) throws Exception {
+            int nx = 0;
+         try {
             nx++;
-            ps.setInt(nx, obj.getCliente().getIdCliente());
+            ps.setString(nx, obj.getNome());
 
             nx++;
-            ps.setDate(nx, (java.sql.Date) new java.sql.Date(obj.getDtLcto().getTime()));
+            ps.setString(nx, obj.getEmail());
 
             nx++;
-            ps.setDouble(nx, obj.getTotalPedido());
-
-            nx++;
-            ps.setString(nx, String.valueOf(obj.getStatus()));
-
-            nx++;
-            ps.setString(nx, String.valueOf(obj.getFormaPgto()));
+            ps.setString(nx, obj.getAssunto());
             
+            nx++;
+            ps.setString(nx, obj.getTelefone());
+            
+            nx++;
+            ps.setString(nx, obj.getMensagem());
+
+            //o id deve ser sempre o ultimo
             if (comId == 1) {
-                //o id deve ser sempre o ultimo
                 nx++;
-                ps.setInt(nx, obj.getIdPedido());
+                ps.setInt(nx, obj.getIdContato());
             }
 
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            } catch (Exception e) {
+             throw new Exception(e.getMessage());
+            }
         }
-    }
-
-    private void getDadosQuery() throws Exception {
-
+        
+         private void getDadosQuery() throws Exception {
         try {
-            DaoCliente daocliente = new DaoCliente();
+            obj.setIdContato(rs.getInt("idContato"));
+            obj.setNome(rs.getString("nome"));
+            obj.setEmail(rs.getString("email"));
+            obj.setAssunto(rs.getString("assunto"));
+            obj.setTelefone(rs.getString("telefone"));
+            obj.setMensagem(rs.getString("mensagem"));
 
-            obj.setIdPedido(rs.getInt("idPedido"));
-            obj.setCliente((Cliente) daocliente.buscaUnica(rs.getInt("idCliente")));
-            obj.setDtLcto(rs.getDate("dtLcto"));
-            obj.setTotalPedido(rs.getDouble("totalPedido"));
-            obj.setStatus(PVHeader.eStatus.valueOf(rs.getString("status")));
-            obj.setFormaPgto(PVHeader.eForma.valueOf(rs.getString("formapgto")));
-            
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -85,17 +80,17 @@ public class DaoPVHeader implements Dao {
     @Override
     public int inserir(Object entidade) throws Exception {
 
-        this.obj = (PVHeader) entidade;
+        this.obj = (Contato) entidade;
         this.newId = 0;
-
+        
         try {
-
-            sql = "insert into pvHeader (";
-            sql += "idCliente,";
-            sql += "dtLcto,";
-            sql += "totalPedido,";
-            sql += "status,";
-            sql += "formapgto";
+            
+            sql = "insert into Contato (";
+            sql += "nome,";
+            sql += "email,";
+            sql += "assunto,";
+            sql += "telefone,";
+            sql += "mensagem";
             sql += ") values (?,?,?,?,?)";
 
             ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -125,16 +120,16 @@ public class DaoPVHeader implements Dao {
     @Override
     public void alterar(Object entidade) throws Exception {
 
-        this.obj = (PVHeader) entidade;
+        this.obj = (Contato) entidade;
 
         try {
-            sql = "update pvHeader set ";
-            sql += "idCliente=?,";
-            sql += "dtLcto=?,";
-            sql += "totalPedido=?,";
-            sql += "status=?,";
-            sql += "formapgto=?";
-            sql += " where idPedido=?";
+            sql = "update Contato set ";
+            sql += "nome=?,";
+            sql += "email=?,";
+            sql += "assunto=?,";
+            sql += "telefone=?";
+            sql += "mensagem=?";
+            sql += " where idContato=?";
 
             ps = connection.prepareStatement(sql);
             setDadosQuery(1);
@@ -149,13 +144,13 @@ public class DaoPVHeader implements Dao {
     @Override
     public void deletar(Object entidade) throws Exception {
 
-        this.obj = (PVHeader) entidade;
+        this.obj = (Contato) entidade;
 
         try {
 
-            sql = "delete from pvHeader where idPedido = ?";
+            sql = "delete from contato where idContato = ?";
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, this.obj.getIdPedido());
+            ps.setInt(1, this.obj.getIdContato());
             ps.execute();
             ps.close();
 
@@ -167,18 +162,18 @@ public class DaoPVHeader implements Dao {
     @Override
     public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
 
-        List<PVHeader> lista = new ArrayList();
+        List<Contato> lista = new ArrayList();
 
         try {
 
             String condicao = Range.RangeToString(arrayRange);
 
-            sql = "select * from pvHeader " + condicao;
+            sql = "select * from contato " + condicao;
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                obj = new PVHeader();
+                obj = new Contato();
                 getDadosQuery();
                 lista.add(obj);
             }
@@ -191,22 +186,6 @@ public class DaoPVHeader implements Dao {
 
     @Override
     public Object buscaUnica(Integer id) throws Exception {
-        try {
-
-            sql = "select * from pvHeader where idPedido = ?";
-
-            ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                obj = new PVHeader();
-                getDadosQuery();
-            }
-            return obj;
-
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

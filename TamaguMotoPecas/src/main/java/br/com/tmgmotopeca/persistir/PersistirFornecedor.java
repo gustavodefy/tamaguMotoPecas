@@ -9,7 +9,7 @@ import br.com.tmgmotopeca.biblioteca.Lib;
 import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.biblioteca.Range.tpRelacao;
 import br.com.tmgmotopeca.dao.Dao;
-import br.com.tmgmotopeca.dao.DaoFornecedor;
+import br.com.tmgmotopeca.dao.mysql.DaoFornecedor;
 import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
 import br.com.tmgmotopeca.modelo.Fornecedor;

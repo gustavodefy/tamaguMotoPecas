@@ -43,7 +43,7 @@
                         <label for="fornecedor">Fornecedor*</label>
                         <select name="fornecedor" id="fornecedor" required="required" style="width: 44em">
                             <c:forEach items="${tabForn}" var="fornecedor">
-                                <option value="${fornecedor.idFornecedor}">${fornecedor.nome}</option >
+                                <option value="${fornecedor.idFornecedor}">${fornecedor.idFornecedor} - ${fornecedor.nome}</option >
                             </c:forEach>
                         </select>
                     </div>
@@ -54,7 +54,7 @@
                         <select name="produto" id="produto" required="required" style="width: 25em">
                             <c:forEach items="${tabProd}" var="produto">
                                 <c:forEach items="${tabProd}" var="produto">
-                                    <option value="${produto.idProduto}">${produto.descricao}</option >
+                                    <option value="${produto.idProduto}">${produto.idProduto} - ${produto.descricao}</option >
                                 </c:forEach>
                             </c:forEach>
                         </select>
@@ -86,7 +86,7 @@
                 <br><br><table align="center" border="1">
                     <thead>
                         <tr>
-                            <th>Cod. Produto</th>
+                            <th>Código</th>
                             <th>Descrição</th>
                             <th>Quantidade</th>
                             <th>Valor Unit.</th>

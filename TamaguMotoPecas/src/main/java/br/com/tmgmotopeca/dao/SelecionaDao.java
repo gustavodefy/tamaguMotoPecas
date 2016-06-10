@@ -5,6 +5,15 @@
  */
 package br.com.tmgmotopeca.dao;
 
+import br.com.tmgmotopeca.dao.mysql.DaoProduto;
+import br.com.tmgmotopeca.dao.mysql.DaoContato;
+import br.com.tmgmotopeca.dao.mysql.DaoPVItem;
+import br.com.tmgmotopeca.dao.mysql.DaoCliente;
+import br.com.tmgmotopeca.dao.mysql.DaoPVHeader;
+import br.com.tmgmotopeca.dao.mysql.DaoPCHeader;
+import br.com.tmgmotopeca.dao.mysql.DaoFornecedor;
+import br.com.tmgmotopeca.dao.mysql.DaoPCItem;
+
 /**
  *
  * @author Gustavo

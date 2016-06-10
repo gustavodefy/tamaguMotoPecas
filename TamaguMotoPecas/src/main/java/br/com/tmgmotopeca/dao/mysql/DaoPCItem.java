@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.tmgmotopeca.dao;
+package br.com.tmgmotopeca.dao.mysql;
 
 import br.com.tmgmotopeca.biblioteca.Conexao;
 import br.com.tmgmotopeca.biblioteca.Range;
-import br.com.tmgmotopeca.modelo.PVItem;
+import br.com.tmgmotopeca.dao.Dao;
+import br.com.tmgmotopeca.modelo.PCItem;
 import br.com.tmgmotopeca.modelo.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,16 +21,16 @@ import java.util.List;
  *
  * @author ResVUT42
  */
-public class DaoPVItem implements Dao {
+public class DaoPCItem implements Dao {
 
     private Connection connection;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
-    private PVItem obj;
+    private PCItem obj;
     private int newId;
 
-    public DaoPVItem() {
+    public DaoPCItem() {
         this.connection = Conexao.conectar();
     }
 
@@ -79,12 +80,12 @@ public class DaoPVItem implements Dao {
     @Override
     public int inserir(Object entidade) throws Exception {
 
-        this.obj = (PVItem) entidade;
+        this.obj = (PCItem) entidade;
         this.newId = 0;
 
         try {
 
-            sql = "insert into pvItem (";
+            sql = "insert into pcItem (";
             sql += "quantidade,";
             sql += "vlrUnitario,";
             sql += "vlrTotal,";
@@ -110,12 +111,12 @@ public class DaoPVItem implements Dao {
     @Override
     public void alterar(Object entidade) throws Exception {
         
-        this.obj = (PVItem) entidade;
+        this.obj = (PCItem) entidade;
 
         try {
-            sql = "update pvItem set ";
+            sql = "update pcItem set ";
             sql += "quantidade=?,";
-            sql += "vlrUnitario=?,";
+            sql += "vltUnitario=?,";
             sql += "vlrTotal=?";
             sql += " where idPedido=?";
             sql += "   and idProduto=?";
@@ -133,11 +134,11 @@ public class DaoPVItem implements Dao {
     @Override
     public void deletar(Object entidade) throws Exception {
         
-        this.obj = (PVItem) entidade;
+        this.obj = (PCItem) entidade;
 
         try {
 
-            sql  = "delete from pvItem where idPedido  = ?";
+            sql  = "delete from pcItem where idPedido  = ?";
             sql += "                     and idProduto = ?";
             ps = connection.prepareStatement(sql);
             ps.setInt(1, this.obj.getIdPedido());
@@ -152,11 +153,11 @@ public class DaoPVItem implements Dao {
     
     public void deletarTodosItens(Object entidade) throws Exception {
         
-        this.obj = (PVItem) entidade;
+        this.obj = (PCItem) entidade;
 
         try {
 
-            sql  = "delete from pvItem where idPedido  = ?";
+            sql  = "delete from pcItem where idPedido  = ?";
             ps = connection.prepareStatement(sql);
             ps.setInt(1, this.obj.getIdPedido());
             ps.setInt(2, this.obj.getProduto().getIdProduto());
@@ -171,18 +172,18 @@ public class DaoPVItem implements Dao {
     @Override
     public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
         
-        List<PVItem> lista = new ArrayList();
+        List<PCItem> lista = new ArrayList();
 
         try {
 
             String condicao = Range.RangeToString(arrayRange);
 
-            sql = "select * from pvItem " + condicao;
+            sql = "select * from pcItem " + condicao;
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                obj = new PVItem();
+                obj = new PCItem();
                 getDadosQuery();
                 lista.add(obj);
             }

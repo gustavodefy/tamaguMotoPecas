@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.tmgmotopeca.dao;
+package br.com.tmgmotopeca.dao.mysql;
 
 import br.com.tmgmotopeca.biblioteca.Conexao;
 import br.com.tmgmotopeca.biblioteca.Range;
-import br.com.tmgmotopeca.modelo.Fornecedor;
-import br.com.tmgmotopeca.modelo.PCHeader;
+import br.com.tmgmotopeca.dao.Dao;
+import br.com.tmgmotopeca.modelo.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,40 +21,47 @@ import java.util.List;
  *
  * @author ResVUT42
  */
-public class DaoPCHeader implements Dao {
+public class DaoProduto implements Dao {
 
     private Connection connection;
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
-    private PCHeader obj;
+    private Produto obj;
     private int newId;
 
-    public DaoPCHeader() {
+    public DaoProduto() {
         this.connection = Conexao.conectar();
     }
 
     private void setDadosQuery(int comId) throws Exception {
-
         int nx = 0;
-
         try {
             nx++;
-            ps.setInt(nx, obj.getFornecedor().getIdFornecedor());
+            ps.setString(nx, obj.getDescricao());
 
             nx++;
-            ps.setDate(nx, (java.sql.Date) obj.getDtLcto());
+            ps.setString(nx, obj.getMarca());
 
             nx++;
-            ps.setDouble(nx, obj.getTotalPedido());
+            ps.setString(nx, obj.getModelo());
 
             nx++;
-            ps.setString(nx, String.valueOf(obj.getStatus()));
+            ps.setDouble(nx, obj.getPercentualVenda());
 
+            nx++;
+            ps.setDouble(nx, obj.getPrecoCompra());
+
+            nx++;
+            ps.setDouble(nx, obj.getPrecoVenda());
+            
+            nx++;
+            ps.setDouble(nx, obj.getEstoque());
+
+            //o id deve ser sempre o ultimo
             if (comId == 1) {
-                //o id deve ser sempre o ultimo
                 nx++;
-                ps.setInt(nx, obj.getIdPedido());
+                ps.setInt(nx, obj.getIdProduto());
             }
 
         } catch (Exception e) {
@@ -63,15 +70,15 @@ public class DaoPCHeader implements Dao {
     }
 
     private void getDadosQuery() throws Exception {
-
         try {
-            DaoFornecedor daofornecedor = new DaoFornecedor();
-
-            obj.setIdPedido(rs.getInt("idPedido"));
-            obj.setFornecedor((Fornecedor) daofornecedor.buscaUnica(rs.getInt("idFornecedor")));
-            obj.setDtLcto(rs.getDate("dtLcto"));
-            obj.setTotalPedido(rs.getDouble("totalPedido"));
-            obj.setStatus(PCHeader.eStatus.valueOf(rs.getString("status")));
+            obj.setIdProduto(rs.getInt("idproduto"));
+            obj.setDescricao(rs.getString("descricao"));
+            obj.setMarca(rs.getString("marca"));
+            obj.setModelo(rs.getString("modelo"));
+            obj.setPercentualVenda(rs.getDouble("percentualvenda"));
+            obj.setPrecoCompra(rs.getDouble("precocompra"));
+            obj.setPrecoVenda(rs.getDouble("precovenda"));
+            obj.setEstoque(rs.getDouble("estoque"));
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -81,17 +88,20 @@ public class DaoPCHeader implements Dao {
     @Override
     public int inserir(Object entidade) throws Exception {
 
-        this.obj = (PCHeader) entidade;
+        this.obj = (Produto) entidade;
         this.newId = 0;
-        
+
         try {
-            
-            sql = "insert into PCHeader (";
-            sql += "fornecedor,";
-            sql += "dtLcto,";
-            sql += "totalPedido,";
-            sql += "status";
-            sql += ") values (?,?,?,?)";
+
+            sql = "insert into produto (";
+            sql += "descricao,";
+            sql += "marca,";
+            sql += "modelo,";
+            sql += "percentualvenda,";
+            sql += "precocompra,";
+            sql += "precovenda,";
+            sql += "estoque";
+            sql += ") values (?,?,?,?,?,?,?)";
 
             ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             setDadosQuery(0);
@@ -119,16 +129,19 @@ public class DaoPCHeader implements Dao {
 
     @Override
     public void alterar(Object entidade) throws Exception {
-
-        this.obj = (PCHeader) entidade;
+        
+        this.obj = (Produto) entidade;
 
         try {
-            sql = "update PCHeader set ";
-            sql += "fornecedor=?,";
-            sql += "dtLcto=?,";
-            sql += "totalPedido=?,";
-            sql += "status=?";
-            sql += " where idPedido=?";
+            sql = "update produto set ";
+            sql += "descricao=?,";
+            sql += "marca=?,";
+            sql += "modelo=?,";
+            sql += "percentualvenda=?,";
+            sql += "precocompra=?,";
+            sql += "precovenda=?,";
+            sql += "estoque=?";
+            sql += " where idproduto=?";
 
             ps = connection.prepareStatement(sql);
             setDadosQuery(1);
@@ -142,14 +155,14 @@ public class DaoPCHeader implements Dao {
 
     @Override
     public void deletar(Object entidade) throws Exception {
-
-        this.obj = (PCHeader) entidade;
+        
+        this.obj = (Produto) entidade;
 
         try {
 
-            sql = "delete from pcHeader where idPedido = ?";
+            sql = "delete from produto where idProduto = ?";
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, this.obj.getIdPedido());
+            ps.setInt(1, this.obj.getIdProduto());
             ps.execute();
             ps.close();
 
@@ -160,41 +173,41 @@ public class DaoPCHeader implements Dao {
 
     @Override
     public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
-
-        List<PCHeader> lista = new ArrayList();
+        
+        List<Produto> lista = new ArrayList();
 
         try {
 
             String condicao = Range.RangeToString(arrayRange);
 
-            sql = "select * from pcHeader " + condicao;
+            sql = "select * from produto " + condicao;
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                obj = new PCHeader();
+                obj = new Produto();
                 getDadosQuery();
                 lista.add(obj);
             }
             return lista.iterator();
-
+            
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-        }
+        } 
     }
 
     @Override
     public Object buscaUnica(Integer id) throws Exception {
         try {
 
-            sql = "select * from pcHeader where idPedido = ?";
+            sql = "select * from produto where idProduto = ?";
 
             ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                obj = new PCHeader();
+                obj = new Produto();
                 getDadosQuery();
             }
             return obj;
@@ -203,4 +216,5 @@ public class DaoPCHeader implements Dao {
             throw new Exception(e.getMessage());
         }
     }
+
 }
