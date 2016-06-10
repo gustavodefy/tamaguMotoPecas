@@ -67,17 +67,10 @@ public class ServletTodosPedidos extends HttpServlet {
 
         if (action.equals("listar") || action.equals("voltar")) {
             try {
-                pedidoVenda = new PedidoVenda();
-                PersistirVenda = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PVenda, pedidoVenda);
+                
+                setLista(request);
 
-                //seta condição para buscar todos os pedidos do cliente logado
-                ArrayList where = new ArrayList();
-
-                Iterator pedidos = PersistirVenda.buscarLista(where);
-
-                //Monta tabHeader para exibir na tela
-                lRequest.setAttribute("tabHeader", pedidos);
-                destino = PEDIDOS;
+                //destino = PEDIDOS;
 
             } catch (Exception e) {
                 lRequest.setAttribute("mensagem", e.getMessage());
@@ -118,17 +111,17 @@ public class ServletTodosPedidos extends HttpServlet {
         } else if (action.equals("gravar")) {
 
             try {
-                
-                 //busca os dados da tela
+
+                //busca os dados da tela
                 getDadosTela(request);
 
                 //gravar os dados no banco
                 PersistirVenda.gravar();
-                                 
-                destino = PEDIDOS;
                 
+                setLista(request);
+
             } catch (Exception e) {
-                request.setAttribute("mensagem", e.getMessage());
+                lRequest.setAttribute("mensagem", e.getMessage());
                 destino = PEDIDOS;
             }
 
@@ -140,13 +133,34 @@ public class ServletTodosPedidos extends HttpServlet {
 
     private void getDadosTela(HttpServletRequest request) throws Exception {
         try {
-           
+
             pedidoVenda.getHeader().setStatus(PVHeader.eStatus.valueOf(lRequest.getParameter("statusPedido")));
 
             //PVHeader.eStatus status = PVHeader.eStatus.valueOf(lRequest.getParameter("statusPedido"));
-
             PersistirVenda.setEntidade(pedidoVenda);
 
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    private void setLista(HttpServletRequest request) throws Exception {
+        try {
+            
+            pedidoVenda = new PedidoVenda();
+            PersistirVenda = SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PVenda, pedidoVenda);
+
+            //seta condição para buscar todos os pedidos do cliente logado
+            ArrayList where = new ArrayList();
+
+            Iterator pedidos = PersistirVenda.buscarLista(where);
+
+            //Monta tabHeader para exibir na tela
+            lRequest.setAttribute("tabHeader", pedidos);
+            
+            destino = PEDIDOS;
+            
+            
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

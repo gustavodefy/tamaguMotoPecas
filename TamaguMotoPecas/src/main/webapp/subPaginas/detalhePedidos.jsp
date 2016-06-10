@@ -85,7 +85,7 @@
             </div> 
             <div align="center">
                 <a class="btoExcluir" href="./ServletTodosPedidos?action=voltar">Voltar</a>
-                <input class="btoAlterar"   type="submit" value="Gravar"/>
+                <input class="btoAlterar" type="submit" value="Gravar"/>
             </div>
         </form>    
     </body>
