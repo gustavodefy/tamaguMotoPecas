@@ -18,28 +18,32 @@
     </head>
     <body>
         <h1 class="titulo" align="center">Lista de Produtos</h1>
-        <table border=1 width="800px" align="center">
-            <thead>
-                <tr>
-                    <th>Codigo</th>
-                    <th>Descrição</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Valor Unitario</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="linProduto" items="${tabProduto}">
+        <div align="center" class="dv_pedidos">
+            <table border=1 width="800px" align="center">
+                <thead>
                     <tr>
-                        <td><a class="btoAlterar" href="./ServletProduto?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
-                        <td><c:out value="${linProduto.descricao}" /></td>
-                        <td><c:out value="${linProduto.marca}" /></td>
-                        <td><c:out value="${linProduto.modelo}" /></td>
-                        <td><c:out value="${linProduto.precoVenda}" /></td>
+                        <th>Codigo</th>
+                        <th>Descrição</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Valor Unitario</th>
+                        <th>Estoque</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach var="linProduto" items="${tabProduto}">
+                        <tr>
+                            <td><a class="btoAlterar" href="./ServletProduto?action=editar&idProduto=<c:out value="${linProduto.idProduto}"/>"><c:out value="${linProduto.idProduto}"/></a></td>
+                            <td><c:out value="${linProduto.descricao}" /></td>
+                            <td><c:out value="${linProduto.marca}" /></td>
+                            <td><c:out value="${linProduto.modelo}" /></td>
+                            <td><c:out value="${linProduto.precoVenda}" /></td>
+                            <td><c:out value="${linProduto.estoque}" /></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
         <p><a class="btoIncluir" href="./ServletProduto?action=inserir">Incluir</a></p>
     </body>
 </html>
