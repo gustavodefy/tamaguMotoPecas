@@ -5,6 +5,9 @@
  */
 package br.com.tmgmotopeca.modelo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author ResVUT42
@@ -28,6 +31,27 @@ public class Cliente {
     private String senha;
     private String perfil;
 
+   
+    public Cliente(Map<String,Object> values){
+        
+        this.setIdCliente(Integer.parseInt((String)values.get("idCliente")));
+        this.setNome((String) values.get("nome"));
+        this.setCpf_cnpj((String) values.get("cpf_cnpj"));
+        this.setLogradouro((String) values.get("logradouro"));
+        this.setNumero((String) values.get("numero"));
+        this.setComplemento((String) values.get("complemento"));
+        this.setCep((String) values.get("cep"));
+        this.setBairro((String) values.get("bairro"));
+        this.setCidade((String) values.get("cidade"));
+        this.setEstado((String) values.get("estado"));
+        this.setTelefone((String) values.get("telefone"));
+        this.setEmail((String) values.get("email"));
+        this.setContato((String) values.get("contato"));
+        this.setLimiteCredito(Double.valueOf((String)values.get("limiteCredito")));
+        this.setSenha((String) values.get("senha"));
+        this.setPerfil((String) values.get("perfil"));
+    }
+    
     public Cliente() {
         this.idCliente = 0;
         this.nome = "";

@@ -5,6 +5,7 @@
  */
 package br.com.tmgmotopeca.dao;
 
+import br.com.tmgmotopeca.dao.elastic.DaoEsCliente;
 import br.com.tmgmotopeca.dao.mysql.DaoProduto;
 import br.com.tmgmotopeca.dao.mysql.DaoContato;
 import br.com.tmgmotopeca.dao.mysql.DaoPVItem;
@@ -31,10 +32,11 @@ public class SelecionaDao {
         PRODUTO;
     }
 
-    public static Dao Selecionar(ListaDaos entidadeDao) {
+    public static Dao Selecionar(ListaDaos entidadeDao) throws Exception {
 
         if (entidadeDao == ListaDaos.CLIENTE) {
-            return new DaoCliente();
+            //return new DaoCliente();
+            return new DaoEsCliente();
         }
 
         if (entidadeDao == ListaDaos.FORNECEDOR) {
