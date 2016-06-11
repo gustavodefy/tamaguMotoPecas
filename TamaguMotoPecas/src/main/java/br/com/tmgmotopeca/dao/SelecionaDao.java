@@ -14,6 +14,8 @@ import br.com.tmgmotopeca.dao.mysql.DaoPVHeader;
 import br.com.tmgmotopeca.dao.mysql.DaoPCHeader;
 import br.com.tmgmotopeca.dao.mysql.DaoFornecedor;
 import br.com.tmgmotopeca.dao.mysql.DaoPCItem;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,11 +34,15 @@ public class SelecionaDao {
         PRODUTO;
     }
 
-    public static Dao Selecionar(ListaDaos entidadeDao) throws Exception {
+    public static Dao Selecionar(ListaDaos entidadeDao){
 
         if (entidadeDao == ListaDaos.CLIENTE) {
-            //return new DaoCliente();
-            return new DaoEsCliente();
+            try {
+                return new DaoCliente();
+                //return new DaoEsCliente();
+            } catch (Exception ex) {
+                Logger.getLogger(SelecionaDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (entidadeDao == ListaDaos.FORNECEDOR) {

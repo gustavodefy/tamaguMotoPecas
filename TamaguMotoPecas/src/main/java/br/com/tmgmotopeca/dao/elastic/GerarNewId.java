@@ -21,28 +21,34 @@ public class GerarNewId {
 
     private static GerarNewId instance = new GerarNewId();
 
-    private AtomicInteger count;
-    private ConexaoES conexaoES;
-    
+    private AtomicInteger count = null;
+    private ConexaoES conexaoES = null;
+
     private GerarNewId() {
         conexaoES = ConexaoES.getInstance();
-        
+
         try {
-            Map<String, Object> map = conexaoES.get("contador", "table", "1");
-            
-            this.count = new AtomicInteger(Integer.parseInt(map.get("lastValue").toString()));
+
+            Map<String, Object> map = conexaoES.get("contador", "tabela", "1");
+            if (map != null) {
+                this.count = new AtomicInteger(Integer.parseInt(map.get("lastValue").toString()));
+            } else {
+                this.count = new AtomicInteger(1);
+            }
         } catch (IOException ex) {
             Logger.getLogger(GerarNewId.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public synchronized int getNextNumber() {
-        int newValue = count.getAndIncrement();
-        Map<String, Object> map = new HashMap<String, Object>();
+       
+        int newValue = this.count.getAndIncrement();
         
+        Map<String, Object> map = new HashMap<String, Object>();
+
         map.put("lastValue", newValue);
         try {
-            conexaoES.add(map, "contador", "table", 1);
+            conexaoES.add(map, "contador", "tabela", "1");
         } catch (IOException ex) {
             Logger.getLogger(GerarNewId.class.getName()).log(Level.SEVERE, null, ex);
         }

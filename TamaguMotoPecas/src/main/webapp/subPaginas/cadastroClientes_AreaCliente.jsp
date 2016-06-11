@@ -127,12 +127,14 @@
                         <input type="email" id="email" placeholder="contato@mail.com" required="required" name="email" style="width: 21.5em" value="<c:out value="${linCliente.email}" />" />
                     </div>
                 </fieldset>
+<!--                    
                 <fieldset class="grupo" style="display: none">
                     <div class="campo">
                         <label for="limitecredito">Limite Credito*</label>
                         <input type="text" id="limitecredito" required="required" name="limitecredito" style="width: 10em" value="<c:out value="${linCliente.limiteCredito}" />" />
                     </div>
                 </fieldset>
+!-->                    
                 <fieldset class="grupo">                   
                     <div class="campo">
                         <label for="senha">Senha*</label>
@@ -150,7 +152,7 @@
 
                 </fieldset>
 
-                <fieldset class="grupo" style="display: none" >                   
+                <fieldset class="grupo">                   
                     <div id="perfilCliente" class="campo">
                         <label for="perfil">Tipo de Acesso*</label>
                         <select name="perfil" required="required">

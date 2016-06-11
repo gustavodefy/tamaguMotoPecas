@@ -33,23 +33,23 @@ public class Cliente {
 
    
     public Cliente(Map<String,Object> values){
-        
-        this.setIdCliente(Integer.parseInt((String)values.get("idCliente")));
-        this.setNome((String) values.get("nome"));
-        this.setCpf_cnpj((String) values.get("cpf_cnpj"));
-        this.setLogradouro((String) values.get("logradouro"));
-        this.setNumero((String) values.get("numero"));
-        this.setComplemento((String) values.get("complemento"));
-        this.setCep((String) values.get("cep"));
-        this.setBairro((String) values.get("bairro"));
-        this.setCidade((String) values.get("cidade"));
-        this.setEstado((String) values.get("estado"));
-        this.setTelefone((String) values.get("telefone"));
-        this.setEmail((String) values.get("email"));
-        this.setContato((String) values.get("contato"));
-        this.setLimiteCredito(Double.valueOf((String)values.get("limiteCredito")));
-        this.setSenha((String) values.get("senha"));
-        this.setPerfil((String) values.get("perfil"));
+                       
+        this.setIdCliente(Integer.parseInt(values.get("idCliente").toString()));
+        this.setNome( values.get("nome").toString());
+        this.setCpf_cnpj( values.get("cpf_cnpj").toString());
+        this.setLogradouro( values.get("logradouro").toString());
+        this.setNumero( values.get("numero").toString());
+        this.setComplemento( values.get("complemento").toString());
+        this.setCep( values.get("cep").toString());
+        this.setBairro( values.get("bairro").toString());
+        this.setCidade( values.get("cidade").toString());
+        this.setEstado( values.get("estado").toString());
+        this.setTelefone( values.get("telefone").toString());
+        this.setEmail( values.get("email").toString());
+        this.setContato( values.get("contato").toString());
+        this.setLimiteCredito(Double.valueOf(values.get("limiteCredito").toString()));
+        this.setSenha( values.get("senha").toString());
+        this.setPerfil( values.get("perfil").toString());
     }
     
     public Cliente() {

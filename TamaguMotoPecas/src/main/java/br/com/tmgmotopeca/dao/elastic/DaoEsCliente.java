@@ -22,27 +22,29 @@ import org.elasticsearch.search.SearchHits;
  * @author ResVUT42
  */
 public class DaoEsCliente implements Dao {
-    
+
     private ConexaoES conexaoES;
+    private GerarNewId gNewId;
     private Cliente obj;
     private Integer newId;
     private String indice = "cliente";
-    private String tabela = "cleinte";
-    
-    public DaoEsCliente() throws Exception {
+    private String tabela = "cliente";
+
+    public DaoEsCliente() {
         conexaoES = ConexaoES.getInstance();
     }
-    
+
     @Override
     public int inserir(Object entidade) throws Exception {
-        
-        GerarNewId gNewId = GerarNewId.getInstance();
-        
+
+        gNewId = GerarNewId.getInstance();
+
         this.obj = (Cliente) entidade;
         this.newId = gNewId.getNextNumber();
-        
+
         Map<String, Object> values = new HashMap<String, Object>();
-        
+
+        values.put("idCliente",newId);
         values.put("nome", this.obj.getNome());
         values.put("cpf_cnpj", this.obj.getCpf_cnpj());
         values.put("logradouro", this.obj.getLogradouro());
@@ -58,19 +60,20 @@ public class DaoEsCliente implements Dao {
         values.put("limiteCredito", this.obj.getLimiteCredito());
         values.put("senha", this.obj.getSenha());
         values.put("perfil", this.obj.getPerfil());
-        
-        conexaoES.add(values, indice, tabela, newId);
-        
+
+        conexaoES.add(values, indice, tabela, String.valueOf(newId));
+
         return newId;
     }
-    
+
     @Override
     public void alterar(Object entidade) throws Exception {
-        
+
         this.obj = (Cliente) entidade;
         this.newId = this.obj.getIdCliente();
         Map<String, Object> values = new HashMap<String, Object>();
-        
+
+        values.put("idCliente",this.obj.getIdCliente());
         values.put("nome", this.obj.getNome());
         values.put("cpf_cnpj", this.obj.getCpf_cnpj());
         values.put("logradouro", this.obj.getLogradouro());
@@ -86,38 +89,45 @@ public class DaoEsCliente implements Dao {
         values.put("limiteCredito", this.obj.getLimiteCredito());
         values.put("senha", this.obj.getSenha());
         values.put("perfil", this.obj.getPerfil());
-        
-        conexaoES.add(values, indice, tabela, newId);
-        
+
+        conexaoES.add(values, indice, tabela, String.valueOf(newId));
+
     }
-    
+
     @Override
     public void deletar(Object entidade) throws Exception {
         this.obj = (Cliente) entidade;
         conexaoES.delete(indice, tabela, String.valueOf(obj.getIdCliente()));
     }
-    
+
     @Override
-    public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
+    public Iterator getLista(ArrayList<Range> arrayRange) {
         List<Cliente> lista = new ArrayList();
-        
+
         SearchHits boolQuery = conexaoES.boolQuery(indice, tabela, arrayRange);
-        
-        for (SearchHit sh : boolQuery) {            
-            Cliente c = new Cliente(sh.sourceAsMap());            
-            lista.add(c);            
+
+        if (boolQuery != null) {
+            
+            for (SearchHit sh : boolQuery) {
+                Cliente c = new Cliente(sh.sourceAsMap());
+                lista.add(c);
+            }
+
+            return lista.iterator();
+            
+        } else {
+            return null;
         }
         
-        return lista.iterator();
     }
-    
+
     @Override
     public Object buscaUnica(Integer id) throws Exception {
-        
-        Map<String, Object> values = conexaoES.get(indice, tabela, id + "");        
-        obj = new Cliente(values);        
+
+        Map<String, Object> values = conexaoES.get(indice, tabela, id + "");
+        obj = new Cliente(values);
         return obj;
-        
+
     }
-    
+
 }

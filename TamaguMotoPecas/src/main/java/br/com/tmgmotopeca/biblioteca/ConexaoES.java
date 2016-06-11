@@ -5,6 +5,7 @@
  */
 package br.com.tmgmotopeca.biblioteca;
 
+import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -34,12 +35,13 @@ public class ConexaoES {
 
     private static ConexaoES instance = new ConexaoES();
 
-    private static Client client = null;
+    private Client client = null;
 
     private ConexaoES() {
 
-        Settings settings = Settings.settingsBuilder().put("cluster.name", "tamagu").build();
         try {
+
+            Settings settings = Settings.settingsBuilder().put("cluster.name", "tamagu").build();
 
             String ip = InetAddress.getLocalHost().getHostAddress();
 
@@ -47,7 +49,7 @@ public class ConexaoES {
                     .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 9300));
 
         } catch (UnknownHostException ex) {
-            //Logger.getLogger(ESQuery.class.getName()).log(Level.SEVERE, null, ex);
+            printStackTrace();
         }
 
     }
@@ -56,7 +58,7 @@ public class ConexaoES {
         return instance;
     }
 
-    public boolean add(Map<String, Object> values, String indice, String table, Integer id) throws IOException {
+    public boolean add(Map<String, Object> values, String indice, String table, String id) throws IOException {
 
         XContentBuilder startObject = jsonBuilder().startObject();
 
@@ -89,7 +91,7 @@ public class ConexaoES {
     }
 
     public boolean delete(String indice, String table, String id) {
-        DeleteRequest deleteRequest = new DeleteRequest(indice, table, id);                
+        DeleteRequest deleteRequest = new DeleteRequest(indice, table, id);
         client.delete(deleteRequest);
         return true;
     }
@@ -120,14 +122,19 @@ public class ConexaoES {
             }
 
         }
+        
+        try {
 
-        SearchResponse response = client.prepareSearch(indice).setTypes(table) //
-                .setQuery(boolQuery) // Query
-                .execute().actionGet();
+            SearchResponse response = client.prepareSearch(indice).setTypes(table) //
+                    .setQuery(boolQuery) // Query
+                    .execute().actionGet();
 
-        SearchHits hits = response.getHits();
-
-        return hits;
+            SearchHits hits = response.getHits();
+            
+            return hits;
+            
+        } catch (Exception e) {
+            return null;
+        }
     }
-
 }
