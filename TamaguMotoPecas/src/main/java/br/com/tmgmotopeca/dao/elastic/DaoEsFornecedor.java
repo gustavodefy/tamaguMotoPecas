@@ -8,7 +8,7 @@ package br.com.tmgmotopeca.dao.elastic;
 import br.com.tmgmotopeca.biblioteca.ConexaoES;
 import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.dao.Dao;
-import br.com.tmgmotopeca.modelo.Cliente;
+import br.com.tmgmotopeca.modelo.Fornecedor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,31 +21,31 @@ import org.elasticsearch.search.SearchHits;
  *
  * @author ResVUT42
  */
-public class DaoEsCliente implements Dao {
+public class DaoEsFornecedor implements Dao{
 
     private ConexaoES conexaoES;
     private GerarNewId gNewId;
-    private Cliente obj;
+    private Fornecedor obj;
     private Integer newId;
     private String indice = "motopeca";
-    private String tabela = "cliente";
+    private String tabela = "fornecedor";
 
-    public DaoEsCliente() {
+    public DaoEsFornecedor() {
         conexaoES = ConexaoES.getInstance();
     }
-
+    
     @Override
     public int inserir(Object entidade) throws Exception {
         try {
 
             gNewId = GerarNewId.getInstance();
 
-            this.obj = (Cliente) entidade;
+            this.obj = (Fornecedor) entidade;
             this.newId = gNewId.getNextNumber();
 
             Map<String, Object> values = new HashMap<String, Object>();
 
-            values.put("idCliente", newId);
+            values.put("idFornecedor", newId);
             values.put("nome", this.obj.getNome());
             values.put("cpf_cnpj", this.obj.getCpf_cnpj());
             values.put("logradouro", this.obj.getLogradouro());
@@ -58,9 +58,7 @@ public class DaoEsCliente implements Dao {
             values.put("telefone", this.obj.getTelefone());
             values.put("email", this.obj.getEmail());
             values.put("contato", this.obj.getContato());
-            values.put("limiteCredito", this.obj.getLimiteCredito());
-            values.put("senha", this.obj.getSenha());
-            values.put("perfil", this.obj.getPerfil());
+
 
             conexaoES.add(values, indice, tabela, String.valueOf(newId));
 
@@ -75,11 +73,11 @@ public class DaoEsCliente implements Dao {
     public void alterar(Object entidade) throws Exception {
         try {
 
-            this.obj = (Cliente) entidade;
-            this.newId = this.obj.getIdCliente();
+            this.obj = (Fornecedor) entidade;
+            this.newId = this.obj.getIdFornecedor();
             Map<String, Object> values = new HashMap<String, Object>();
 
-            values.put("idCliente", this.obj.getIdCliente());
+            values.put("idFornecedor", newId);
             values.put("nome", this.obj.getNome());
             values.put("cpf_cnpj", this.obj.getCpf_cnpj());
             values.put("logradouro", this.obj.getLogradouro());
@@ -92,9 +90,7 @@ public class DaoEsCliente implements Dao {
             values.put("telefone", this.obj.getTelefone());
             values.put("email", this.obj.getEmail());
             values.put("contato", this.obj.getContato());
-            values.put("limiteCredito", this.obj.getLimiteCredito());
-            values.put("senha", this.obj.getSenha());
-            values.put("perfil", this.obj.getPerfil());
+
 
             conexaoES.add(values, indice, tabela, String.valueOf(newId));
 
@@ -106,10 +102,8 @@ public class DaoEsCliente implements Dao {
     @Override
     public void deletar(Object entidade) throws Exception {
         try {
-
-            this.obj = (Cliente) entidade;
-            conexaoES.delete(indice, tabela, String.valueOf(obj.getIdCliente()));
-
+            this.obj = (Fornecedor) entidade;
+            conexaoES.delete(indice, tabela, String.valueOf(obj.getIdFornecedor()));
         } catch (Exception e) {
             throw new Exception("Erro ao deletar o registro");
         }
@@ -117,15 +111,14 @@ public class DaoEsCliente implements Dao {
 
     @Override
     public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
-
         try {
 
-            List<Cliente> lista = new ArrayList();
+            List<Fornecedor> lista = new ArrayList();
             SearchHits boolQuery = conexaoES.boolQuery(indice, tabela, arrayRange);
             if (boolQuery != null) {
 
                 for (SearchHit sh : boolQuery) {
-                    Cliente c = new Cliente(sh.sourceAsMap());
+                    Fornecedor c = new Fornecedor(sh.sourceAsMap());
                     lista.add(c);
                 }
 
@@ -138,7 +131,6 @@ public class DaoEsCliente implements Dao {
         } catch (Exception e) {
             throw new Exception("Erro ao listar o registro");
         }
-
     }
 
     @Override
@@ -146,12 +138,12 @@ public class DaoEsCliente implements Dao {
         try {
 
             Map<String, Object> values = conexaoES.get(indice, tabela, id + "");
-            obj = new Cliente(values);
+            obj = new Fornecedor(values);
             return obj;
 
         } catch (Exception e) {
             throw new Exception("Erro na busca do registro");
         }
     }
-
+    
 }

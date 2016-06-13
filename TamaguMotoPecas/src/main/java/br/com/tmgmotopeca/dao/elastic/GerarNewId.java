@@ -29,7 +29,7 @@ public class GerarNewId {
 
         try {
 
-            Map<String, Object> map = conexaoES.get("contador", "tabela", "1");
+            Map<String, Object> map = conexaoES.get("motopeca", "contador", "1");
             if (map != null) {
                 this.count = new AtomicInteger(Integer.parseInt(map.get("lastValue").toString()));
             } else {
@@ -48,7 +48,7 @@ public class GerarNewId {
 
         map.put("lastValue", newValue);
         try {
-            conexaoES.add(map, "contador", "tabela", "1");
+            conexaoES.add(map, "motopeca", "contador", "1");
         } catch (IOException ex) {
             Logger.getLogger(GerarNewId.class.getName()).log(Level.SEVERE, null, ex);
         }
