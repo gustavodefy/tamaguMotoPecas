@@ -38,8 +38,8 @@ public class SelecionaDao {
 
         if (entidadeDao == ListaDaos.CLIENTE) {
             try {
-                return new DaoCliente();
-                //return new DaoEsCliente();
+                //return new DaoCliente();
+                return new DaoEsCliente();
             } catch (Exception ex) {
                 Logger.getLogger(SelecionaDao.class.getName()).log(Level.SEVERE, null, ex);
             }

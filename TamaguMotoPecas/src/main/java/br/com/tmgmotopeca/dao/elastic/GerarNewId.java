@@ -42,7 +42,7 @@ public class GerarNewId {
 
     public synchronized int getNextNumber() {
        
-        int newValue = this.count.getAndIncrement();
+        int newValue = this.count.incrementAndGet();
         
         Map<String, Object> map = new HashMap<String, Object>();
 

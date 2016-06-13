@@ -11,7 +11,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.logging.Level;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
@@ -25,6 +24,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.SearchHits;
 
 /**
@@ -118,23 +118,19 @@ public class ConexaoES {
             ArrayList<String> conteudo = r.getConteudo();
 
             for (String c : conteudo) {
-                boolQuery = boolQuery.must(QueryBuilders.matchQuery(r.getAtributo(), c));
+                //boolQuery.must(QueryBuilders.matchQuery(r.getAtributo(), c));
+                boolQuery = boolQuery.must(new TermQueryBuilder(r.getAtributo(),c));
             }
 
         }
-        
-        try {
 
-            SearchResponse response = client.prepareSearch(indice).setTypes(table) //
-                    .setQuery(boolQuery) // Query
-                    .execute().actionGet();
+        SearchResponse response = client.prepareSearch(indice).setTypes(table) //
+                .setQuery(boolQuery) // Query
+                .execute().actionGet();
 
-            SearchHits hits = response.getHits();
-            
-            return hits;
-            
-        } catch (Exception e) {
-            return null;
-        }
+        SearchHits hits = response.getHits();
+
+        return hits;
+
     }
 }
