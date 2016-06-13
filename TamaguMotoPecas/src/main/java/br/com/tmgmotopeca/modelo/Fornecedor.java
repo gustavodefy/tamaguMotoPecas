@@ -5,6 +5,8 @@
  */
 package br.com.tmgmotopeca.modelo;
 
+import java.util.Map;
+
 /**
  *
  * @author ResVUT42
@@ -25,6 +27,25 @@ public class Fornecedor {
     private String email;
     private String contato;
 
+    
+    public Fornecedor(Map<String,Object> values){
+                       
+        this.setIdFornecedor(Integer.parseInt(values.get("idCliente").toString()));
+        this.setNome( values.get("nome").toString());
+        this.setCpf_cnpj( values.get("cpf_cnpj").toString());
+        this.setLogradouro( values.get("logradouro").toString());
+        this.setNumero( values.get("numero").toString());
+        this.setComplemento( values.get("complemento").toString());
+        this.setCep( values.get("cep").toString());
+        this.setBairro( values.get("bairro").toString());
+        this.setCidade( values.get("cidade").toString());
+        this.setEstado( values.get("estado").toString());
+        this.setTelefone( values.get("telefone").toString());
+        this.setEmail( values.get("email").toString());
+        this.setContato( values.get("contato").toString());
+        
+    }
+    
     public Fornecedor() {
         this.idFornecedor = 0;
         this.nome = "";
