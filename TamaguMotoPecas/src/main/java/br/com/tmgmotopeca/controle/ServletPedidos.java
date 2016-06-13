@@ -11,6 +11,7 @@ import br.com.tmgmotopeca.modelo.PCItem;
 import br.com.tmgmotopeca.modelo.PedidoCompra;
 import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
+import br.com.tmgmotopeca.persistir.PesistirPCompra;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
 import java.util.Date;
@@ -107,6 +108,17 @@ public class ServletPedidos extends HttpServlet {
             } catch (Exception e) {
                 request.setAttribute("mensagem", "Erro ao montar os Itens do Pedido");
             }
+            try {
+
+                PesistirPCompra pesistirPCompra = (PesistirPCompra) SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, pedidoCompra);
+                
+                pesistirPCompra.gravar();
+
+                destino = LISTA;
+
+            } catch (Exception e) {
+                request.setAttribute("mensagem", "Erro ao Gravar Pedido");
+            }
 
         }
 
@@ -118,6 +130,35 @@ public class ServletPedidos extends HttpServlet {
         try {
             //Busca todos os registros de fornecedores
             request.setAttribute(tabelaFornecedor, pesistirFornecedor.buscarLista(null));
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+    
+        private void getDadosTela(HttpServletRequest request) throws Exception {
+        try {
+            headerCompra = new PCHeader();
+
+
+
+            String idPedido = request.getParameter("idPedido");
+            if (idPedido != null && !idPedido.isEmpty()) {
+                headerCompra.setIdPedido(Integer.parseInt(idPedido));
+            }
+            
+            
+            headerCompra.setDtLcto((Date)request.getParameter("data"));
+
+            produto.setDescricao(request.getParameter("descricao"));
+            produto.setMarca(request.getParameter("marca"));
+            produto.setModelo(request.getParameter("modelo"));
+            produto.setPercentualVenda(Double.parseDouble(request.getParameter("percentualVenda")));
+            produto.setPrecoCompra(Double.parseDouble(request.getParameter("precoCompra")));
+            produto.setPrecoVenda(Double.parseDouble(request.getParameter("precoVenda")));
+            produto.setEstoque(Double.parseDouble(request.getParameter("estoque")));
+
+            persistirProduto.setEntidade(produto);
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -135,9 +176,9 @@ public class ServletPedidos extends HttpServlet {
     }
 
     private void montaHeaderCompra() throws Exception {
-        
+
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        
+
         headerCompra = new PCHeader();
 
         String idFornecedor = lRequest.getParameter("fornecedor");
@@ -161,14 +202,14 @@ public class ServletPedidos extends HttpServlet {
 
                 try {
                     itensCompra = new PCItem();
-                    
+
                     itensCompra.setProduto(Integer.parseInt(valores[0]));
                     itensCompra.setQuantidade(Double.parseDouble(valores[2]));
                     itensCompra.setVlrUnitario(Double.parseDouble(valores[3]));
-                    itensCompra.setVlrTotal(Double.parseDouble(valores[4]));                    
-                    
+                    itensCompra.setVlrTotal(Double.parseDouble(valores[4]));
+
                     pedidoCompra.addPCItem(itensCompra);
-                    
+
                 } catch (Exception e) {
                     lRequest.setAttribute("mensagem", "Erro ao adicionar o produto ");
                 }
