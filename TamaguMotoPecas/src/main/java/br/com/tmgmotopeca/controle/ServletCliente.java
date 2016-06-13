@@ -214,7 +214,7 @@ public class ServletCliente extends HttpServlet {
         try {
 
             Enumeration par = request.getParameterNames();
-            
+
             //Busca os dados da tela, e atualiza classe Cliente
             cliente = new Cliente();
 
@@ -234,10 +234,14 @@ public class ServletCliente extends HttpServlet {
             cliente.setTelefone(request.getParameter("telefone"));
             cliente.setEmail(request.getParameter("email"));
             cliente.setContato(request.getParameter("contato"));
-            cliente.setLimiteCredito(Double.parseDouble(request.getParameter("limitecredito")));
             cliente.setSenha(request.getParameter("senha"));
             cliente.setPerfil(request.getParameter("perfil"));
-
+                
+            try {
+                cliente.setLimiteCredito(Double.parseDouble(request.getParameter("limitecredito")));
+            } catch (Exception e) {
+            }
+            
             persistirCliente.setEntidade(cliente);
 
         } catch (Exception e) {

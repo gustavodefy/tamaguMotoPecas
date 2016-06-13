@@ -144,7 +144,7 @@ public class PersistirCliente implements Persistir {
 
             Iterator lista = daoCliente.getLista(whereId);
 
-            if (lista.hasNext()) {
+            if (lista != null && lista.hasNext()) {
                 return (Cliente) lista.next();                
             } else {
                 return null;
