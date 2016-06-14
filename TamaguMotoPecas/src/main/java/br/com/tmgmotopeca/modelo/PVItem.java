@@ -46,7 +46,7 @@ public class PVItem {
         this.produto = produto;
     }
 
-    public void setIdProduto(int idProduto) throws Exception {
+    public void setProduto(int idProduto) throws Exception {
         
         try {
             Dao daoProduto = SelecionaDao.Selecionar(ListaDaos.PRODUTO);

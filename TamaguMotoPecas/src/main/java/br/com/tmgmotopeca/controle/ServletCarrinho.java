@@ -229,7 +229,7 @@ public class ServletCarrinho extends HttpServlet {
                     double quantidade = Double.parseDouble(sQuantidade);
                     if (quantidade != 0) {
                         pvItem = new PVItem();
-                        pvItem.setIdProduto(idProduto);
+                        pvItem.setProduto(idProduto);
                         pvItem.setQuantidade((int)quantidade);
                         pedidoVenda.addItem(pvItem);
                     }

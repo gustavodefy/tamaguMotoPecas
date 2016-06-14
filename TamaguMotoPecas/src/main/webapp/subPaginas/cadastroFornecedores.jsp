@@ -15,10 +15,7 @@
 
         <link rel="stylesheet" href="./css/cadastro.css" type= "text/css">
         <link rel="stylesheet" href="./css/botoes.css" type= "text/css">
-
-        <script type="text/javascript" src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.0-utf8.js"></script>
         <script src="./js/cpf_cnpj.js"></script>        
-        <script src="./js/estados.js"></script>
         <script src="./js/validarFornecedor.js"></script>
         <script type="text/javascript" src="./jquery/jquery.js"></script>
         <script type="text/javascript" src="./jquery/jquery.maskedinput.js"></script>

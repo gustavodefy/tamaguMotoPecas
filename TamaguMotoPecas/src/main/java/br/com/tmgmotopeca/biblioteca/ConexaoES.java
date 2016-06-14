@@ -22,6 +22,7 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.TermQueryBuilder;
@@ -113,15 +114,21 @@ public class ConexaoES {
 
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 
-        for (Range r : arrayRange) {
+        if (arrayRange != null) {
+            
+            for (Range r : arrayRange) {
 
-            ArrayList<String> conteudo = r.getConteudo();
+                ArrayList<String> conteudo = r.getConteudo();
 
-            for (String c : conteudo) {
-                //boolQuery.must(QueryBuilders.matchQuery(r.getAtributo(), c));
-                boolQuery = boolQuery.must(new TermQueryBuilder(r.getAtributo(),c));
+                for (String c : conteudo) {
+                    //boolQuery.must(QueryBuilders.matchQuery(r.getAtributo(), c));
+                    boolQuery = boolQuery.must(new TermQueryBuilder(r.getAtributo(), c));
+                }
+                
             }
-
+            
+        } else {
+            boolQuery = boolQuery.must(new MatchAllQueryBuilder());
         }
 
         SearchResponse response = client.prepareSearch(indice).setTypes(table) //

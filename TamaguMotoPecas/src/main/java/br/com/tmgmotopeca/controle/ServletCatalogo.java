@@ -206,7 +206,7 @@ public class ServletCatalogo extends HttpServlet {
 
         if (!achou) {
             PVItem pvItem = new PVItem();
-            pvItem.setIdProduto(idProduto);
+            pvItem.setProduto(idProduto);
             pvItem.setQuantidade(quantidade);
             listaCarrinho.add(pvItem);
         }

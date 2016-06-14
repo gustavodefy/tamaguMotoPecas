@@ -19,7 +19,6 @@
         <script type="text/javascript" src="./jquery/jquery.maskedinput.js"></script>
         <script type="text/javascript" src="./js/mascaras.js"></script>
         <script src="./js/cpf_cnpj.js"></script>
-        <script src="./js/estados.js"></script>
         <script src="./js/validarCliente.js"></script>
         <script src="./js/login.js"></script>
 

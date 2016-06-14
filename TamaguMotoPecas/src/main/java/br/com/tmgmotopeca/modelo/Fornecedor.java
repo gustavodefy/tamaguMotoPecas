@@ -30,7 +30,7 @@ public class Fornecedor {
     
     public Fornecedor(Map<String,Object> values){
                        
-        this.setIdFornecedor(Integer.parseInt(values.get("idCliente").toString()));
+        this.setIdFornecedor(Integer.parseInt(values.get("idFornecedor").toString()));
         this.setNome( values.get("nome").toString());
         this.setCpf_cnpj( values.get("cpf_cnpj").toString());
         this.setLogradouro( values.get("logradouro").toString());
