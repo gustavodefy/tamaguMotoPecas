@@ -11,8 +11,10 @@ import br.com.tmgmotopeca.modelo.PCItem;
 import br.com.tmgmotopeca.modelo.PedidoCompra;
 import br.com.tmgmotopeca.modelo.Produto;
 import br.com.tmgmotopeca.persistir.Persistir;
+import br.com.tmgmotopeca.persistir.PesistirPCompra;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Map.Entry;
@@ -107,6 +109,17 @@ public class ServletPedidos extends HttpServlet {
             } catch (Exception e) {
                 request.setAttribute("mensagem", "Erro ao montar os Itens do Pedido");
             }
+            try {
+
+                pesistirPCompra = (PesistirPCompra) SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PCompra, pedidoCompra);
+
+                pesistirPCompra.gravar();
+
+                destino = LISTA;
+
+            } catch (Exception e) {
+                request.setAttribute("mensagem", "Erro ao Gravar Pedido");
+            }
 
         }
 
@@ -135,9 +148,9 @@ public class ServletPedidos extends HttpServlet {
     }
 
     private void montaHeaderCompra() throws Exception {
-        
+
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        
+
         headerCompra = new PCHeader();
 
         String idFornecedor = lRequest.getParameter("fornecedor");
@@ -161,14 +174,14 @@ public class ServletPedidos extends HttpServlet {
 
                 try {
                     itensCompra = new PCItem();
-                    
+
                     itensCompra.setProduto(Integer.parseInt(valores[0]));
                     itensCompra.setQuantidade(Double.parseDouble(valores[2]));
                     itensCompra.setVlrUnitario(Double.parseDouble(valores[3]));
-                    itensCompra.setVlrTotal(Double.parseDouble(valores[4]));                    
-                    
+                    itensCompra.setVlrTotal(Double.parseDouble(valores[4]));
+
                     pedidoCompra.addPCItem(itensCompra);
-                    
+
                 } catch (Exception e) {
                     lRequest.setAttribute("mensagem", "Erro ao adicionar o produto ");
                 }
