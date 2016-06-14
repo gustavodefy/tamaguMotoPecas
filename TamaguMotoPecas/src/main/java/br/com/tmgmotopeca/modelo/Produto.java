@@ -5,6 +5,8 @@
  */
 package br.com.tmgmotopeca.modelo;
 
+import java.util.Map;
+
 /**
  *
  * @author ResVUT42
@@ -20,6 +22,16 @@ public class Produto {
     private double precoVenda;
     private double estoque;
 
+    public Produto(Map<String,Object> values){
+        this.setIdProduto(Integer.parseInt(values.get("idProduto").toString()));
+        this.setDescricao(values.get("descricao").toString());
+        this.setMarca(values.get("marca").toString());
+        this.setModelo(values.get("modelo").toString());
+        this.setPercentualVenda(Double.parseDouble(values.get("percentualVenda").toString()));
+        this.setPrecoVenda(Double.parseDouble(values.get("precoVenda").toString()));
+        this.setEstoque(Double.parseDouble(values.get("estoque").toString()));        
+    }
+    
     public Produto() {
         this.idProduto = 0;
         this.descricao = "";

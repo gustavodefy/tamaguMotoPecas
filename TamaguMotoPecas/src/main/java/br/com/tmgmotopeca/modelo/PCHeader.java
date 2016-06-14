@@ -8,7 +8,9 @@ package br.com.tmgmotopeca.modelo;
 import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  *
@@ -21,14 +23,22 @@ public class PCHeader {
     private Date dtLcto;
     private double totalPedido;
     private eStatus status;
-
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     
     public static enum eStatus{
         ABERTO, 
         CANCELADO, 
         CONCLUIDO;
     }
-            
+     
+    public PCHeader(Map<String,Object> values) throws Exception{
+        this.setIdPedido(Integer.parseInt(values.get("idPedido").toString()));
+        this.setFornecedor(Integer.parseInt(values.get("idFornecedor").toString()));
+        this.setDtLcto(formato.parse(values.get("dtLcto").toString()));
+        this.setTotalPedido(Double.parseDouble(values.get("totalPedido").toString()));
+        this.setStatus(eStatus.valueOf(values.get("status").toString()));
+    }
+    
     public PCHeader() {
         idPedido = 0;
         fornecedor = null;

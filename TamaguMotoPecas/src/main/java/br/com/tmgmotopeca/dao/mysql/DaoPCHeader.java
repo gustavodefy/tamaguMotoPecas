@@ -66,10 +66,9 @@ public class DaoPCHeader implements Dao {
     private void getDadosQuery() throws Exception {
 
         try {
-            DaoFornecedor daofornecedor = new DaoFornecedor();
-
+            
             obj.setIdPedido(rs.getInt("idPedido"));
-            obj.setFornecedor((Fornecedor) daofornecedor.buscaUnica(rs.getInt("idFornecedor")));
+            obj.setFornecedor(rs.getInt("idFornecedor"));
             obj.setDtLcto(rs.getDate("dtLcto"));
             obj.setTotalPedido(rs.getDouble("totalPedido"));
             obj.setStatus(PCHeader.eStatus.valueOf(rs.getString("status")));
