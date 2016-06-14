@@ -14,6 +14,7 @@ import br.com.tmgmotopeca.persistir.Persistir;
 import br.com.tmgmotopeca.persistir.PesistirPCompra;
 import br.com.tmgmotopeca.persistir.SelecionaPersistir;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Map.Entry;
@@ -110,8 +111,8 @@ public class ServletPedidos extends HttpServlet {
             }
             try {
 
-                PesistirPCompra pesistirPCompra = (PesistirPCompra) SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PProduto, pedidoCompra);
-                
+                pesistirPCompra = (PesistirPCompra) SelecionaPersistir.Selecionar(SelecionaPersistir.ListaPersistir.PCompra, pedidoCompra);
+
                 pesistirPCompra.gravar();
 
                 destino = LISTA;
@@ -130,35 +131,6 @@ public class ServletPedidos extends HttpServlet {
         try {
             //Busca todos os registros de fornecedores
             request.setAttribute(tabelaFornecedor, pesistirFornecedor.buscarLista(null));
-
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-    }
-    
-        private void getDadosTela(HttpServletRequest request) throws Exception {
-        try {
-            headerCompra = new PCHeader();
-
-
-
-            String idPedido = request.getParameter("idPedido");
-            if (idPedido != null && !idPedido.isEmpty()) {
-                headerCompra.setIdPedido(Integer.parseInt(idPedido));
-            }
-            
-            
-            headerCompra.setDtLcto((Date)request.getParameter("data"));
-
-            produto.setDescricao(request.getParameter("descricao"));
-            produto.setMarca(request.getParameter("marca"));
-            produto.setModelo(request.getParameter("modelo"));
-            produto.setPercentualVenda(Double.parseDouble(request.getParameter("percentualVenda")));
-            produto.setPrecoCompra(Double.parseDouble(request.getParameter("precoCompra")));
-            produto.setPrecoVenda(Double.parseDouble(request.getParameter("precoVenda")));
-            produto.setEstoque(Double.parseDouble(request.getParameter("estoque")));
-
-            persistirProduto.setEntidade(produto);
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());

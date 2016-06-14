@@ -8,6 +8,7 @@ package br.com.tmgmotopeca.persistir;
 import br.com.tmgmotopeca.modelo.Cliente;
 import br.com.tmgmotopeca.modelo.Contato;
 import br.com.tmgmotopeca.modelo.Fornecedor;
+import br.com.tmgmotopeca.modelo.PedidoCompra;
 import br.com.tmgmotopeca.modelo.PedidoVenda;
 import br.com.tmgmotopeca.modelo.Produto;
 
@@ -22,7 +23,8 @@ public class SelecionaPersistir {
         PFornecedor,
         PProduto,
         PContato,
-        PVenda;
+        PVenda,
+        PCompra;
     }
     
     public static Persistir Selecionar(ListaPersistir persistir ,Object entidade){
@@ -41,6 +43,9 @@ public class SelecionaPersistir {
         }
         if(persistir == ListaPersistir.PVenda){
             return new PersistirVenda((PedidoVenda)entidade);
+        }
+         if(persistir == ListaPersistir.PCompra){
+            return new PesistirPCompra((PedidoCompra)entidade);
         }
         
         return null;
