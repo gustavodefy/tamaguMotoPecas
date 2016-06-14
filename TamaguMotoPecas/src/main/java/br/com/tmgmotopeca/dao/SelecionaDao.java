@@ -6,6 +6,7 @@
 package br.com.tmgmotopeca.dao;
 
 import br.com.tmgmotopeca.dao.elastic.DaoEsCliente;
+import br.com.tmgmotopeca.dao.elastic.DaoEsContato;
 import br.com.tmgmotopeca.dao.elastic.DaoEsFornecedor;
 import br.com.tmgmotopeca.dao.mysql.DaoProduto;
 import br.com.tmgmotopeca.dao.mysql.DaoContato;
@@ -48,8 +49,8 @@ public class SelecionaDao {
 
         if (entidadeDao == ListaDaos.FORNECEDOR) {
             try {
-                //return new DaoFornecedor();
-                return new DaoEsFornecedor();
+                return new DaoFornecedor();
+                //return new DaoEsFornecedor();
             } catch (Exception ex) {
                 Logger.getLogger(SelecionaDao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -73,7 +74,12 @@ public class SelecionaDao {
         }
 
         if (entidadeDao == ListaDaos.CONTATO) {
-            return new DaoContato();
+            try {
+                return new DaoContato();                
+                //return new DaoEsContato();
+            } catch (Exception ex) {
+                Logger.getLogger(SelecionaDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         if (entidadeDao == ListaDaos.PRODUTO) {
