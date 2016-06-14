@@ -22,11 +22,15 @@ public class PCItem {
     private double vlrUnitario;
     private double vlrTotal;
 
-    public PCItem(){
-    
+    public PCItem(Map<String,Object> values) throws Exception{
+        this.setIdPedido(Integer.parseInt(values.get("idPedido").toString()));
+        this.setProduto(Integer.parseInt(values.get("produto").toString()));
+        this.setQuantidade(Double.parseDouble(values.get("quantidade").toString()));
+        this.setVlrUnitario(Double.parseDouble(values.get("vlrUnitario").toString()));
+        this.setVlrTotal(Double.parseDouble(values.get("vlrTotal").toString()));
     }
     
-    public PCItem(Map<String,Object> values) {
+    public PCItem() {
         idPedido = 0;
         produto = null;
         quantidade = 0;

@@ -64,8 +64,6 @@ public class DaoEsPCHeader implements Dao{
     public void alterar(Object entidade) throws Exception {
         try {
 
-            gNewId = GerarNewId.getInstance();
-
             this.obj = (PCHeader) entidade;
             this.newId = obj.getIdPedido();
 
@@ -81,7 +79,7 @@ public class DaoEsPCHeader implements Dao{
 
 
         } catch (Exception e) {
-            throw new Exception("Erro ao inserir o registro");
+            throw new Exception("Erro ao alterar o registro");
         }        
     }
 
