@@ -5,7 +5,11 @@
  */
 package br.com.tmgmotopeca.modelo;
 
+import br.com.tmgmotopeca.dao.Dao;
+import br.com.tmgmotopeca.dao.SelecionaDao;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  *
@@ -19,7 +23,17 @@ public class PVHeader {
     private double totalPedido;
     private eStatus status;
     private eForma formaPgto;
-
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    
+     public PVHeader(Map<String,Object> values) throws Exception{
+        this.setIdPedido(Integer.parseInt(values.get("idPedido").toString()));
+        this.setCliente(Integer.parseInt(values.get("idCliente").toString()));
+        this.setDtLcto(formato.parse(values.get("dtLcto").toString()));
+        this.setTotalPedido(Double.parseDouble(values.get("totalPedido").toString()));
+        this.setStatus(PVHeader.eStatus.valueOf(values.get("status").toString()));
+        this.setFormaPgto(PVHeader.eForma.valueOf(values.get("formaPgto").toString()));
+    }
+    
     public static enum eStatus {
         ABERTO,
         CANCELADO,
@@ -55,7 +69,18 @@ public class PVHeader {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
+    
+     public void setCliente(int idCliente) throws Exception{
+        
+        try {
+            Dao daoCliente = SelecionaDao.Selecionar(SelecionaDao.ListaDaos.CLIENTE);
+            this.cliente = (Cliente) daoCliente.buscaUnica((Integer)idCliente);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }        
+    
+    }
+     
     public Date getDtLcto() {
         return dtLcto;
     }

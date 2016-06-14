@@ -6,9 +6,9 @@
 package br.com.tmgmotopeca.modelo;
 
 import br.com.tmgmotopeca.dao.Dao;
-import br.com.tmgmotopeca.dao.mysql.DaoProduto;
 import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
+import java.util.Map;
 
 /**
  *
@@ -21,6 +21,14 @@ public class PVItem {
     private double quantidade;
     private double vlrUnitario;
     private double vlrTotal;
+    
+     public PVItem(Map<String,Object> values) throws Exception{
+        this.setIdPedido(Integer.parseInt(values.get("idPedido").toString()));
+        this.setProduto(Integer.parseInt(values.get("produto").toString()));
+        this.setQuantidade(Double.parseDouble(values.get("quantidade").toString()));
+        this.setVlrUnitario(Double.parseDouble(values.get("vlrUnitario").toString()));
+        this.setVlrTotal(Double.parseDouble(values.get("vlrTotal").toString()));
+    }
 
     public PVItem() {
         idPedido = 0;
