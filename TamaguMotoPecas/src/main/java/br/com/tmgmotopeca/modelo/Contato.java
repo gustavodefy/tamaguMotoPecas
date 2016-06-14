@@ -5,6 +5,8 @@
  */
 package br.com.tmgmotopeca.modelo;
 
+import java.util.Map;
+
 /**
  *
  * @author Gustavo
@@ -17,6 +19,17 @@ public class Contato {
     private String assunto;
     private String telefone;
     private String mensagem;
+    
+    public Contato(Map<String,Object> values){
+
+        this.setIdContato(Integer.parseInt(values.get("idContato").toString()));
+        this.setNome( values.get("nome").toString());
+        this.setEmail( values.get("email").toString());
+        this.setAssunto(values.get("assunto").toString());
+        this.setTelefone( values.get("telefone").toString());
+        this.setMensagem(values.get("mensagem").toString());
+    }    
+       
     
     public Contato(){
         idContato = 0;
