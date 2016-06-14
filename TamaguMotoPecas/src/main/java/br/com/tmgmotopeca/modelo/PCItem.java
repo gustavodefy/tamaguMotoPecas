@@ -8,6 +8,7 @@ package br.com.tmgmotopeca.modelo;
 import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.dao.SelecionaDao;
 import br.com.tmgmotopeca.dao.SelecionaDao.ListaDaos;
+import java.util.Map;
 
 /**
  *
@@ -21,7 +22,11 @@ public class PCItem {
     private double vlrUnitario;
     private double vlrTotal;
 
-    public PCItem() {
+    public PCItem(){
+    
+    }
+    
+    public PCItem(Map<String,Object> values) {
         idPedido = 0;
         produto = null;
         quantidade = 0;

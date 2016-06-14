@@ -12,7 +12,10 @@ import br.com.tmgmotopeca.modelo.PCHeader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 
 /**
  *
@@ -45,9 +48,8 @@ public class DaoEsPCHeader implements Dao{
             values.put("idPedido", newId);
             values.put("fornecedor",obj.getFornecedor().getIdFornecedor());
             values.put("dtLcto", obj.getDtLcto());
-            
-
-
+            values.put("totalPedido", obj.getTotalPedido());
+            values.put("status", obj.getStatus());
 
             conexaoES.add(values, indice, tabela, String.valueOf(newId));
 
@@ -60,22 +62,74 @@ public class DaoEsPCHeader implements Dao{
 
     @Override
     public void alterar(Object entidade) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+
+            gNewId = GerarNewId.getInstance();
+
+            this.obj = (PCHeader) entidade;
+            this.newId = obj.getIdPedido();
+
+            Map<String, Object> values = new HashMap<String, Object>();
+
+            values.put("idPedido", newId);
+            values.put("fornecedor",obj.getFornecedor().getIdFornecedor());
+            values.put("dtLcto", obj.getDtLcto());
+            values.put("totalPedido", obj.getTotalPedido());
+            values.put("status", obj.getStatus());
+
+            conexaoES.add(values, indice, tabela, String.valueOf(newId));
+
+
+        } catch (Exception e) {
+            throw new Exception("Erro ao inserir o registro");
+        }        
     }
 
     @Override
     public void deletar(Object entidade) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            this.obj = (PCHeader) entidade;
+            conexaoES.delete(indice, tabela, String.valueOf(obj.getIdPedido()));
+        } catch (Exception e) {
+            throw new Exception("Erro ao deletar o registro");
+        }
     }
 
     @Override
     public Iterator getLista(ArrayList<Range> arrayRange) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+
+            List<PCHeader> lista = new ArrayList();
+            SearchHits boolQuery = conexaoES.boolQuery(indice, tabela, arrayRange);
+            if (boolQuery != null) {
+
+                for (SearchHit sh : boolQuery) {
+                    PCHeader c = new PCHeader(sh.sourceAsMap());
+                    lista.add(c);
+                }
+
+                return lista.iterator();
+
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Erro ao listar o registro");
+        }
     }
 
     @Override
     public Object buscaUnica(Integer id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+
+            Map<String, Object> values = conexaoES.get(indice, tabela, id + "");
+            obj = new PCHeader(values);
+            return obj;
+
+        } catch (Exception e) {
+            throw new Exception("Erro na busca do registro");
+        }
     }
     
 }

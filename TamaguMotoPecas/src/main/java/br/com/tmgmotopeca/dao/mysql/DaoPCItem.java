@@ -64,10 +64,9 @@ public class DaoPCItem implements Dao {
     private void getDadosQuery() throws Exception {
 
         try {
-            DaoProduto daoproduto = new DaoProduto();
 
             obj.setIdPedido(rs.getInt("idPedido"));
-            obj.setProduto((Produto) daoproduto.buscaUnica(rs.getInt("idProduto")));
+            obj.setProduto(rs.getInt("idProduto"));
             obj.setQuantidade(rs.getDouble("quantidade"));
             obj.setVlrUnitario(rs.getDouble("vlrUnitario"));
             obj.setVlrTotal(rs.getDouble("vlrTotal"));
