@@ -26,14 +26,14 @@
     </head>
     <body>
         <h1 align="center">Cadastro de Clientes</h1>
-        <form action="ServletCliente" method="post">
+        <form action="ServletCliente" target="_parent" method="post">
             <div class="mensagem">
                 <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
             </div>
 
             <fieldset class="grupo">
                 <fieldset class="grupo">
-                    <div class="campo">
+                    <div class="campo" style="display: none">
                         <label for="idCliente">Codigo*</label>
                         <input type="text" id="idCliente" name="idCliente" readonly="readonly" style="width: 5em" value="<c:out value="${linCliente.idCliente}" />" />
                     </div>

@@ -10,7 +10,8 @@
     </head>
 
     <body>
-        <table align="center" width="665" border="0">
+        <div align="center">
+        <table width="665" border="0">
             <tr>
                 <td colspan="4"><div id="banner" class="banner">
 
@@ -32,10 +33,10 @@
                     </div></td>
             </tr>
             <tr>
-                <td width="161" height="211" class="motor"><img class="imgCat" src="../img/cat1.png" width="154" height="200" /></td>
-                <td width="165"><img class="imgCat" src="../img/cat2.png" width="154" height="200" /></td>
-                <td width="162" class="motor"><img class="imgCat" src="../img/cat3.png" width="154" height="200" /></td>
-                <td width="159"><img class="imgCat" src="../img/cat4.png" width="154" height="200" /></td>
+                <td width="161" height="211" class="motor"><a href="../ServletCatalogo?action=listar"</a><img class="imgCat" src="../img/cat1.png" width="154" height="200" /></td>
+                <td width="165"><a href="../ServletCatalogo?action=listar"</a><img class="imgCat" src="../img/cat2.png" width="154" height="200" /></td>
+                <td width="162" class="motor"><a href="../ServletCatalogo?action=listar"</a><img class="imgCat" src="../img/cat3.png" width="154" height="200" /></td>
+                <td width="159"><a href="../ServletCatalogo?action=listar"</a><img class="imgCat" src="../img/cat4.png" width="154" height="200" /></td>
             </tr>
             <tr>
                 <td height="28" colspan="4" class="motor"><img src="../img/assista.png" width="860" height="31" /></td>
@@ -49,6 +50,6 @@
                                 </div></td>
                                 </tr>
                                 </table>
-
+</div>
                                 </body>
                                 </html>

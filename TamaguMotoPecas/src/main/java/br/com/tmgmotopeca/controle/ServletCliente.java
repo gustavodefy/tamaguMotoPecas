@@ -172,7 +172,14 @@ public class ServletCliente extends HttpServlet {
                 persistirCliente.gravar();
 
                 //Lista os registros da entidade
-                setLista(request);
+                if (cliente.getPerfil().equals("F")) {
+                    setLista(request);
+
+                    destino = LISTA;
+
+                } else {
+                    destino = PRINCIPAL;
+                }
 
             } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
@@ -236,12 +243,12 @@ public class ServletCliente extends HttpServlet {
             cliente.setContato(request.getParameter("contato"));
             cliente.setSenha(request.getParameter("senha"));
             cliente.setPerfil(request.getParameter("perfil"));
-                
+
             try {
                 cliente.setLimiteCredito(Double.parseDouble(request.getParameter("limitecredito")));
             } catch (Exception e) {
             }
-            
+
             persistirCliente.setEntidade(cliente);
 
         } catch (Exception e) {
