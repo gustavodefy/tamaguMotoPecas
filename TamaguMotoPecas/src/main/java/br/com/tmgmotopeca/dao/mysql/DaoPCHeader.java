@@ -44,7 +44,7 @@ public class DaoPCHeader implements Dao {
             ps.setInt(nx, obj.getFornecedor().getIdFornecedor());
 
             nx++;
-            ps.setDate(nx, (java.sql.Date) obj.getDtLcto());
+            ps.setDate(nx, (java.sql.Date) new java.sql.Date(obj.getDtLcto().getTime()));
 
             nx++;
             ps.setDouble(nx, obj.getTotalPedido());
@@ -87,7 +87,7 @@ public class DaoPCHeader implements Dao {
         try {
             
             sql = "insert into PCHeader (";
-            sql += "fornecedor,";
+            sql += "idFornecedor,";
             sql += "dtLcto,";
             sql += "totalPedido,";
             sql += "status";
@@ -124,7 +124,7 @@ public class DaoPCHeader implements Dao {
 
         try {
             sql = "update PCHeader set ";
-            sql += "fornecedor=?,";
+            sql += "idFornecedor=?,";
             sql += "dtLcto=?,";
             sql += "totalPedido=?,";
             sql += "status=?";
