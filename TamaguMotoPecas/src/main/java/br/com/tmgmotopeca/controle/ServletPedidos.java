@@ -44,11 +44,12 @@ public class ServletPedidos extends HttpServlet {
 
     private String destino = "";
     private static String UNICO = "./subPaginas/pedidoFornecedor.jsp";
-    private static String LISTA = "./subPaginas/listaPedidoFornecedores.jsp";
+    private static String LISTA = "./subPaginas/todosOsPedidosCompras.jsp";
     private static String PRINCIPAL = "./subPaginas/principal.jsp";
 
     private String tabelaFornecedor = "tabForn";
     private String tabelaProduto = "tabProd";
+    private String tabelaPCompra = "tabProd";
 
     private String linha = "linPedidos";
 
@@ -121,6 +122,13 @@ public class ServletPedidos extends HttpServlet {
                 request.setAttribute("mensagem", "Erro ao Gravar Pedido");
             }
 
+        } else if (action.equals("listar")) {
+
+            try {
+                destino = LISTA;
+            } catch (Exception e) {
+                request.setAttribute("mensagem", "Nenhum Lista encontrada");
+            }
         }
 
         RequestDispatcher view = request.getRequestDispatcher(destino);

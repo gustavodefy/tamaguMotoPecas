@@ -152,7 +152,7 @@
 
                 </fieldset>
 
-                <fieldset class="grupo">                   
+                    <fieldset class="grupo" style="display: none">                   
                     <div id="perfilCliente" class="campo">
                         <label for="perfil">Tipo de Acesso*</label>
                         <select name="perfil" required="required">
