@@ -43,16 +43,16 @@ public class SelecionaDao {
 
     public static Dao Selecionar(ListaDaos entidadeDao) {
 
-        String baseDados = "MYSQL";
-        //String baseDados = "ES";
+        //String baseDados = "MYSQL";
+        String baseDados = "ES";
 
         if (entidadeDao == ListaDaos.CLIENTE) {
             try {
-                if (baseDados.equals("MYSQL")) {
+//                if (baseDados.equals("MYSQL")) {
                     return new DaoCliente();
-                } else {
-                    return new DaoEsCliente();
-                }
+//                } else {
+//                    return new DaoEsCliente();
+//                }
             } catch (Exception ex) {
                 Logger.getLogger(SelecionaDao.class.getName()).log(Level.SEVERE, null, ex);
             }
