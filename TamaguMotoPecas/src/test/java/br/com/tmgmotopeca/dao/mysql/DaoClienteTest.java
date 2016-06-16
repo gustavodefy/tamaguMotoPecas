@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * @author Thayro
  */
 public class DaoClienteTest {
-    
+
     public DaoClienteTest() {
     }
 
@@ -29,11 +29,10 @@ public class DaoClienteTest {
         System.out.println("inserir");
         Cliente cliente = new Cliente();
         DaoCliente instance = new DaoCliente();
-        int result = instance.inserir(cliente);      
-        if(cliente != null){
+        int result = instance.inserir(cliente);
+        if (cliente != null) {
             System.out.println(result);
         }
-        
 
     }
 
@@ -43,9 +42,15 @@ public class DaoClienteTest {
     @Test
     public void testAlterar() throws Exception {
         System.out.println("alterar");
-        Object entidade = null;
+        Cliente cliente = new Cliente();
         DaoCliente instance = new DaoCliente();
-        instance.alterar(entidade);
+        instance.alterar(cliente);
+
+        if (cliente == null) {
+            System.out.println("Erro alterar Registro");
+        } else {
+            System.out.println("Registro Alterado");
+        }
 
     }
 
@@ -55,11 +60,16 @@ public class DaoClienteTest {
     @Test
     public void testDeletar() throws Exception {
         System.out.println("deletar");
-        Object entidade = null;
+        Cliente cliente = new Cliente();
         DaoCliente instance = new DaoCliente();
-        instance.deletar(entidade);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.deletar(cliente);
+
+        if (cliente == null) {
+            System.out.println("Erro deletar Registro");
+        } else {
+            System.out.println("Registro deletado");
+        }
+
     }
 
     /**
@@ -72,9 +82,13 @@ public class DaoClienteTest {
         DaoCliente instance = new DaoCliente();
         Iterator expResult = null;
         Iterator result = instance.getLista(arrayRange);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        if (arrayRange != null) {
+            assertEquals(expResult, result);
+        } else {
+            System.out.println("Erro buscar a lista");
+        }
+
     }
 
     /**
@@ -83,13 +97,15 @@ public class DaoClienteTest {
     @Test
     public void testBuscaUnica() throws Exception {
         System.out.println("buscaUnica");
-        Integer id = null;
+        Cliente cliente = new Cliente();
         DaoCliente instance = new DaoCliente();
         Object expResult = null;
-        Object result = instance.buscaUnica(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Object result = instance.buscaUnica(cliente.getIdCliente());
+
+        if (result != null) {
+            assertEquals(expResult, result);
+        } else {
+            System.out.println("Erro buscar a lista");
+        }
     }
-    
 }
