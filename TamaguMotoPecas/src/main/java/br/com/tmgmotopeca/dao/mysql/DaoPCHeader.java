@@ -85,7 +85,7 @@ public class DaoPCHeader implements Dao {
         this.newId = 0;
         
         try {
-            
+            //Inserir
             sql = "insert into PCHeader (";
             sql += "idFornecedor,";
             sql += "dtLcto,";
