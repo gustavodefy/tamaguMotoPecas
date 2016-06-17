@@ -11,6 +11,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Map;
+import org.elasticsearch.action.admin.cluster.node.info.NodesInfoRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
@@ -43,19 +44,24 @@ public class ConexaoES {
         try {
 
             Settings settings = Settings.settingsBuilder().put("cluster.name", "tamagu").build();
+          
 
             String ip = InetAddress.getLocalHost().getHostAddress();
+            TransportClient.Builder builder = TransportClient.builder();
+            builder = builder.settings(settings);
+            TransportClient build = builder.build();
+            client = build.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 9300));
 
-            client = TransportClient.builder().settings(settings).build()
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 9300));
-
-        } catch (UnknownHostException ex) {
-            printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
     }
 
     public static ConexaoES getInstance() {
+        if(instance== null)
+            instance = new ConexaoES();
+        
         return instance;
     }
 
