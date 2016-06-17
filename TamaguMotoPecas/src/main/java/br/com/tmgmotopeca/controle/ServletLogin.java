@@ -85,8 +85,9 @@ public class ServletLogin extends HttpServlet {
             sessao.setAttribute("cliente", "false");
             sessao.setAttribute("logado", "false");
             sessao.setAttribute("listaCarrinho", null);
-            sessao.setAttribute("qtdItCar", 0);            
-            sessao.invalidate();
+            sessao.setAttribute("qtdItCar", 0);     
+            sessao.setAttribute("sessaoCliente", null);
+        //    sessao.invalidate();
             destino = PRINCIPAL;
 
         } else {
