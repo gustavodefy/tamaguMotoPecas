@@ -25,7 +25,7 @@
     </head>
     <body>
         <h1 align="center">Cadastro de Clientes</h1>
-        <form action="ServletCliente" method="post">
+        <form action="ServletCliente" target="_parent" method="post">
             <div class="mensagem">
                 <input type="text" id="mensagem" name="mensagem" readonly="readonly" style="width: 20em" value="<c:out value="${mensagem}" />" />
             </div>
@@ -158,15 +158,16 @@
                         </select>
                     </div>
                 </fieldset>
-                        <p align="right">
-                            <label class="obg">Todos os Campos (*) Obrigatórios</label>
-                        </p>
-                        <p align="center">                    
+                <p align="right">
+                    <label class="obg">Todos os Campos (*) Obrigatórios</label>
+                </p>
+                <p align="center">                    
                     <input class="btoGravar"   type="submit" value="Gravar"   id="gravar" name="gravar" onclick="validarAcao('gravar');" />
                     <c:if test="${excluir=='true'}">
-                        <input class="btoExcluir"  type="submit" value="Excluir"  id="excluir"  name="excluir"  onclick="validarAcao('excluir');" />
-                    </c:if>
-                    <input class="btoCancelar" type="submit" value="Cancelar" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
+                        <a target="_parent" href="index.jsp"><input class="btoCancelar" type="submit" value="Excluir" id="excluir" name="excluir"/></a>
+                            <%--<input class="btoExcluir"  type="submit" value="Excluir"  id="excluir"  name="excluir"  onclick="validarAcao('excluir');" /> --%>
+                        </c:if>
+                    <a target="InlineFrame1" href="ServletCliente?action=listar"><input class="btoCancelar" type="button" value="Cancelar" id="cancelar" name="cancelar"/></a>
                 </p>
             </fieldset>
         </form>

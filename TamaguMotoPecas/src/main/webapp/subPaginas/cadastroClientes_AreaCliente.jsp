@@ -167,7 +167,7 @@
 
                 <p align="center">                    
                     <input class="btoGravar"   type="submit" value="Gravar"   id="gravar" name="gravar" onclick="validarAcao('gravar');" />
-                    <input class="btoCancelar" type="submit" value="Cancelar" id="cancelar" name="cancelar" onclick="validarAcao('cancelar');"/>
+                    <a target="_parent" href="index.jsp"><input class="btoCancelar" type="button" value="Cancelar" id="cancelar" name="cancelar"/></a>
                 </p>
             </fieldset>
         </form>

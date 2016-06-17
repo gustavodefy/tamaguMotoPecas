@@ -66,7 +66,7 @@ public class PersistirContato  implements Persistir {
         try {
             daoContato.deletar(this.contato);
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Não foi possível excluir o registro !!!");
         }
     }
 

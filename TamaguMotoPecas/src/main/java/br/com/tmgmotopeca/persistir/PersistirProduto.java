@@ -67,7 +67,7 @@ public class PersistirProduto implements Persistir{
         try {
             daoProduto.deletar(this.produto);
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Não foi possível excluir o registro !!!");
         }
     }
 
