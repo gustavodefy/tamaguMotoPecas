@@ -43,8 +43,8 @@ public class SelecionaDao {
 
     public static Dao Selecionar(ListaDaos entidadeDao) {
 
-        String baseDados = "MYSQL";
-        //String baseDados = "ES";
+        //String baseDados = "MYSQL";
+        String baseDados = "ES";
 
         if (entidadeDao == ListaDaos.CLIENTE) {
             try {
