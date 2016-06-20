@@ -69,7 +69,7 @@ public class PersistirFornecedor implements Persistir{
         try {
             daoFornecedor.deletar(this.fornecedor);
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Não foi possível excluir o registro !!!");
         }
     }
 

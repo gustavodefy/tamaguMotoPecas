@@ -32,7 +32,7 @@
 
                     </div></td>
             </tr>
-            <tr>
+            <tr align="center">
                 <td width="161" height="211" class="motor"><a href="../ServletCatalogo?action=listar"</a><img class="imgCat" src="../img/cat1.png" width="154" height="200" /></td>
                 <td width="165"><a href="../ServletCatalogo?action=listar"</a><img class="imgCat" src="../img/cat2.png" width="154" height="200" /></td>
                 <td width="162" class="motor"><a href="../ServletCatalogo?action=listar"</a><img class="imgCat" src="../img/cat3.png" width="154" height="200" /></td>

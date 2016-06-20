@@ -26,9 +26,14 @@
                     <td>
                         <div class="topoLogar" align="left">
                             <c:if test="${cliente=='true'}">
-                                <li> <img src="./img/carrinho.png" width="25" height="23" alt="carrinho"/>
+                                <li><img src="./img/carrinho.png" class="carrinho" width="25" height="23" alt="carrinho"/>
                                     <a class="textoLogar" target="InlineFrame1">Carrinho: </a>
-                                    <a class="textoQtd" target="InlineFrame1" href="./ServletCarrinho?action=listar"> <c:out value="${qtdItCar}"/> </a>
+                                    <c:if test="${qtdItCar <= 0}">
+                                    <a class="textoQtd"  href="./ServletCarrinho?action=listar"> <c:out value="${qtdItCar}"/> </a>
+                                    </c:if>
+                                    <c:if test="${qtdItCar > 0}">
+                                    <a class="textoQtd"  href="./ServletCarrinho?action=listar" target="InlineFrame1"> <c:out value="${qtdItCar}"/> </a>
+                                    </c:if>
                                     <a class="textoLogar" target="InlineFrame1">Item</a>
                                 </li>
                             </c:if>
@@ -44,11 +49,12 @@
                             <li>
                                 <c:if test="${logado=='false'}">
                                     <a class="textoLogar">Usuário</a>
+
                                     <img id="img" src="./img/user.png" width="25" height="23" alt="user"/>
                                     <input class="campoEmail"  type="text" id="email" placeholder="contato@mail.com" name="email" style="width: 15em"/>
 
                                     <a class="textoLogar">Senha</a>
-                                    <img id="img" src="./img/senha.png" width="25" height="23" alt="senha"/>
+                                    <img class="carrinho" id="img" src="./img/senha.png" width="25" height="23" alt="senha"/>
                                     <input class="campoEmail" type="password" id="senha" name="senha" style="width: 10em"/>
 
                                     <input type="submit" class="logarEntrar" value="Ok" onclick="return validar_Login()"/>
