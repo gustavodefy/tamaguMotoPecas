@@ -49,8 +49,9 @@
                             <li>
                                 <c:if test="${logado=='false'}">
                                     <a class="textoLogar">Usuário</a>
-                                    <img class="carrinho" id="img" src="./img/user.png" width="25" height="23" alt="user"/>
-                                    <input class="campoEmail"  type="email" id="email" placeholder="contato@mail.com" name="email" style="width: 15em"/>
+
+                                    <img id="img" src="./img/user.png" width="25" height="23" alt="user"/>
+                                    <input class="campoEmail"  type="text" id="email" placeholder="contato@mail.com" name="email" style="width: 15em"/>
 
                                     <a class="textoLogar">Senha</a>
                                     <img class="carrinho" id="img" src="./img/senha.png" width="25" height="23" alt="senha"/>
@@ -96,10 +97,10 @@
                         <c:if test="${funcionario=='true'}">
                             <li><a href="subPaginas/home.jsp" target="InlineFrame1">Consultar</a>
                                 <ul>
-                                    <li><a href="./ServletTodosPedidos?action=listar" target="InlineFrame1">Pedido Venda</a></li>
                                     <li><a href="./ServletCliente?action=listar" target="InlineFrame1">Clientes</a></li>
+                                    <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedor</a></li>                                    
                                     <li><a href="./ServletProduto?action=listar" target="InlineFrame1">Produtos</a></li>
-                                    <li><a href="./ServletFornecedor?action=listar" target="InlineFrame1">Fornecedor</a></li>
+                                    <li><a href="./ServletTodosPedidos?action=listar" target="InlineFrame1">Pedido Venda</a></li>                                    
                                 </ul>
                             </li>
                             <li><a href="subPaginas/sobre.jsp" target="InlineFrame1">Relatorio</a>
