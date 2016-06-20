@@ -9,6 +9,7 @@ import br.com.tmgmotopeca.biblioteca.ConexaoES;
 import br.com.tmgmotopeca.biblioteca.Range;
 import br.com.tmgmotopeca.dao.Dao;
 import br.com.tmgmotopeca.modelo.PCHeader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,6 +24,7 @@ import org.elasticsearch.search.SearchHits;
  */
 public class DaoEsPCHeader implements Dao{
     
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");    
     private ConexaoES conexaoES;
     private GerarNewId gNewId;
     private PCHeader obj;
@@ -47,7 +49,7 @@ public class DaoEsPCHeader implements Dao{
 
             values.put("idPedido", newId);
             values.put("fornecedor",obj.getFornecedor().getIdFornecedor());
-            values.put("dtLcto", obj.getDtLcto());
+            values.put("dtLcto", formato.format(obj.getDtLcto()));
             values.put("totalPedido", obj.getTotalPedido());
             values.put("status", obj.getStatus());
 
