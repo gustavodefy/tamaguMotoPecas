@@ -48,11 +48,11 @@ public class SelecionaDao {
 
         if (entidadeDao == ListaDaos.CLIENTE) {
             try {
-//                if (baseDados.equals("MYSQL")) {
+                if (baseDados.equals("MYSQL")) {
                     return new DaoCliente();
-//                } else {
-//                    return new DaoEsCliente();
-//                }
+                } else {
+                    return new DaoEsCliente();
+                }
             } catch (Exception ex) {
                 Logger.getLogger(SelecionaDao.class.getName()).log(Level.SEVERE, null, ex);
             }
