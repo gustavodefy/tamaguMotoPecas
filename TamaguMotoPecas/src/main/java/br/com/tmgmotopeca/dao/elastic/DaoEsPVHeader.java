@@ -47,7 +47,7 @@ public class DaoEsPVHeader implements Dao{
             Map<String, Object> values = new HashMap<String, Object>();
             
             values.put("idPedido", newId);
-            values.put("cliente",obj.getCliente().getIdCliente());
+            values.put("idCliente",obj.getCliente().getIdCliente());
             values.put("dtLcto", obj.getDtLcto());
             values.put("totalPedido", obj.getTotalPedido());
             values.put("status", obj.getStatus());
@@ -73,7 +73,7 @@ public class DaoEsPVHeader implements Dao{
             Map<String, Object> values = new HashMap<String, Object>();
             
             values.put("idPedido", newId);
-            values.put("cliente",obj.getCliente().getIdCliente());
+            values.put("idCliente",obj.getCliente().getIdCliente());
             values.put("dtLcto", obj.getDtLcto());
             values.put("totalPedido", obj.getTotalPedido());
             values.put("status", obj.getStatus());
