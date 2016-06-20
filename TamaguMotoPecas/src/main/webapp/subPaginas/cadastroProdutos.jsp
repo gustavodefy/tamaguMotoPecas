@@ -63,10 +63,6 @@
                         <label for="estoque">Estoque</label>
                         <input type="text" id="estoque" name="estoque" style="width: 10em" value="<c:out value="${linProduto.estoque}" />" />
                     </div>
-                    <div class="campo">
-                        <label for="upload">Proucurar</label>
-                        <input type="file" name="upload" id="upload" />
-                    </div>
                 </fieldset>
 
                 <p align="center">

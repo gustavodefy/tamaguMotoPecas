@@ -164,7 +164,7 @@
                 <p align="center">                    
                     <input class="btoGravar"   type="submit" value="Gravar"   id="gravar" name="gravar" onclick="validarAcao('gravar');" />
                     <c:if test="${excluir=='true'}">
-                        <a target="_parent" href="index.jsp"><input class="btoCancelar" type="submit" value="Excluir" id="excluir" name="excluir"/></a>
+                        <a target="InlineFrame1" href="index.jsp"><input class="btoExcluir" type="submit" value="Excluir" id="excluir" name="excluir"/></a>
                             <%--<input class="btoExcluir"  type="submit" value="Excluir"  id="excluir"  name="excluir"  onclick="validarAcao('excluir');" /> --%>
                         </c:if>
                     <a target="InlineFrame1" href="ServletCliente?action=listar"><input class="btoCancelar" type="button" value="Cancelar" id="cancelar" name="cancelar"/></a>

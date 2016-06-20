@@ -49,7 +49,7 @@ public class ServletPedidos extends HttpServlet {
 
     private String tabelaFornecedor = "tabForn";
     private String tabelaProduto = "tabProd";
-    private String tabelaPCompra = "tabProd";
+    private String tabelaPCompra = "tabPCompra";
 
     private String linha = "linPedidos";
 

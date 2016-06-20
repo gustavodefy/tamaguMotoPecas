@@ -40,13 +40,15 @@
                     </tr>
                 </thead>
                 <tbody>  
-                    <c:forEach var="linHeader" items="${tabHeader}">
+                    <c:forEach var="headerCompra" items="${tabPCompra}">
                         <tr>
-                            <td> <a class="btoAlterar" href="./ServletTodosPedidos?action=itens&idPedido=<c:out value="${linHeader.header.idPedido}"/>"><c:out value="${linHeader.header.idPedido}"/></a></td>
-                            <td> <c:out value="${linHeader.header.dtLcto}"/>      </td>
-                            <td> <c:out value="${linHeader.header.totalPedido}"/> </td>
-                            <td> <c:out value="${linHeader.header.formaPgto}"/>   </td>
-                            <td><c:out value="${linHeader.header.status}"/></td>
+                            <td> <a class="btoAlterar" href="./ServletPedidos?action=itens&idPedido=<c:out value="${headerCompra.tabPCompra.idPedido}"/>"><c:out value="${linHeader.tabPCompra.idPedido}"/></a></td>
+                            <td> <c:out value="${headerCompra.data}"/>      </td>
+                            <td> <c:out value="${headerCompra.fornecedor}"/> </td>
+                            <td> <c:out value="${headerCompra.produto}"/>   </td>
+                            <td><c:out value="${headerCompra.header.quantidade}"/></td>
+                            <td> <c:out value="${headerCompra.header.vlorUnit}"/>   </td>
+                            <td><c:out value="${headerCompra.totalPedido}"/></td>
                         </tr>
                     </c:forEach>
                 </tbody>

@@ -155,7 +155,9 @@ public class ServletCliente extends HttpServlet {
                 persistirCliente.excluir();
 
                 //Lista os registros da entidade
-                setLista(request);
+                destino = PRINCIPAL;
+                
+                request.setAttribute("mensagem", "Cadastro excluido com Sucesso !!!");
 
             } catch (Exception e) {
                 request.setAttribute("mensagem", e.getMessage());
@@ -175,10 +177,14 @@ public class ServletCliente extends HttpServlet {
                 if (cliente.getPerfil().equals("F")) {
                     setLista(request);
 
-                    destino = LISTA;
+                   destino = PRINCIPAL;
+                   
+                   request.setAttribute("mensagem", "Registro Alterado com Sucesso !!!");
 
                 } else {
                     destino = PRINCIPAL;
+                   
+                    request.setAttribute("mensagem", "Cadastro Realizado com Sucesso !!!");
                 }
 
             } catch (Exception e) {
@@ -187,7 +193,7 @@ public class ServletCliente extends HttpServlet {
                 //Seta atributo na tela
                 request.setAttribute(linha, cliente);
 
-                destino = UNICO_Funcionario;
+                destino = UNICO_Cliente;
             }
 
         } else {
