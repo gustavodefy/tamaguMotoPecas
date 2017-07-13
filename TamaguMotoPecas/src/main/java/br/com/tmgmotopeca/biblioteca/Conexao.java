@@ -24,7 +24,7 @@ public class Conexao {
             try {
                 
                 String driver = "com.mysql.jdbc.Driver";
-                String url = "jdbc:mysql://localhost:3306/tamagu";
+                String url = "jdbc:mysql://localhost:3306/tamagu?&useSSL=false";
                 String user = "root";
                 String password = "";
                 
